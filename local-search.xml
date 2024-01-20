@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>博弈论:第3章——最佳对策（Best response）</title>
+    <link href="/2022/03/21/%E7%AC%AC3%E7%AB%A0/"/>
+    <url>/2022/03/21/%E7%AC%AC3%E7%AB%A0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="第3章——最佳对策（Best-response）"><a href="#第3章——最佳对策（Best-response）" class="headerlink" title="第3章——最佳对策（Best response）"></a>第3章——最佳对策（Best response）</h1><blockquote><p><strong>本章重点</strong>：</p><ul><li>信念（belief）</li><li>混合策略/纯策略</li><li>期望收益</li><li>最佳对策（Best response）</li><li>连续策略</li><li>绘制Best response图像</li></ul></blockquote><h2 id="Game1——点球大战"><a href="#Game1——点球大战" class="headerlink" title="Game1——点球大战"></a>Game1——点球大战</h2><h3 id="游戏规则介绍"><a href="#游戏规则介绍" class="headerlink" title="游戏规则介绍"></a>游戏规则介绍</h3><p>（自行百度，典型的<em>零和博弈</em>）</p><p>收益矩阵如下（玩家1为主罚队员，玩家2为守门员）：</p><table><thead><tr><th></th><th>l</th><th>r</th></tr></thead><tbody><tr><td>L</td><td>4, -4</td><td>9, -9</td></tr><tr><td>M</td><td>6, -6</td><td>6, -6</td></tr><tr><td>R</td><td>9, -9</td><td>4, -4</td></tr></tbody></table><h3 id="博弈三要素"><a href="#博弈三要素" class="headerlink" title="博弈三要素"></a>博弈三要素</h3><p><strong>玩家</strong>：主罚队员、守门员</p><p><strong>策略</strong>：主罚队员的策略：踢左边（L），踢中间（M），踢右边（R）；守门员的策略：扑左边（l），扑右边（r）。</p><p><strong>收益</strong>：主罚队员希望避开守门员的防守策略，这样进球的概率最大；守门员希望扑到主罚队员的进攻方向，这样防守成功的概率最大。</p><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>首先分析有无严格占优策略，发现无论从主罚队员的角度还是从守门员的角度，都不存在绝对占优策略。再分析有无劣势策略可供剔除，发现也不存在。这就意味着我们过去的分析方法不能解决这个博弈。</p><hr><p>那不妨带入一下，假设自己现在是守门员，现在必须做出一个策略，会做何策略，为什么这么做？我可能会防左边，因为<strong>我觉得</strong>对方会用左脚踢我的左侧。上述只是一种可能，其他人可能会因为不同的<strong>想法</strong>选择和我不同的策略。这种参与博弈的玩家内心的<strong>想法</strong>，就是所谓的<em>信念</em>（belief）。</p><blockquote><p>通过某些途径，参与人会形成对对方行为的信念。</p><p>从数学上看，玩家$i$的信念是关于其他玩家的策略的一个<strong>概率分布</strong>。（这个例子中，守门员可能觉得主罚队员有10%的概率踢右边，30%的概率踢中间，60%的概率踢左边）</p></blockquote><hr><p>提到概率分布，我们要考虑一个<em>混合策略</em>的概念。</p><blockquote><p>一个玩家的混合策略是指他根据一个概率分布来选择策略的行为。</p><p>为避免混淆，我们可以将之前的例子中的策略称为<em>纯策略</em>。<strong>混合策略集合包含纯策略集合</strong>。</p></blockquote><hr><p>在我们将策略从纯策略升级到混合策略后，我们相应的可以通过<em>期望收益</em>来扩展原有的收益，使策略和收益匹配。</p><blockquote><p>以点球大战为例，假设主罚队员10%的概率踢右边，30%的概率踢中间，60%的概率踢左边。</p><p>守门员扑左边的期望收益为-4*60%-6*30%-9*10%=-5.1，守门员扑右边的期望收益为-9*60%-6*30%-4*10%=-7.6。</p></blockquote><hr><p>引入期望收益的概念后，终于可以介绍本章的主角——<em>最佳对策</em>（Best response）。</p><blockquote><p>在对手做出某种混合策略的情况下，玩家做出的某个<strong>纯策略</strong>，可以<strong>最大化自身的期望收益</strong>，这个纯策略即最佳对策。</p><p>上述例子中，给定主罚队员的混合策略，我们得到了守门员两个策略的期望收益-5.1和-7.6，显然扑左边期望收益更高，即扑左边就是在主罚队员采取这种混合策略下，守门员的最佳对策。</p></blockquote><hr><p>上述我们对主罚队员的混合策略假设只是众多信念中的一种，主罚队员完全可以按照其他混测策略出手，为了更加系统的分析所有可能的情况，我们可以考虑绘制图像。这次我们站在主罚队员的角度看问题，假设守门员扑右的概率为$p(r)$，以此为横坐标，分别绘制在$p(r)$取不同值的情况下（即守门员采取不同的混合策略），主罚队员采取L、M、R的收益曲线。结果如下图:</p><p><img src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting/Notes/game_theory/202203211419511.png" alt="Fig.1. 主罚队员的收益曲线"></p><p>从上图可以看出，在p(r)小于0.5时，主罚队员的最佳对策为策略R，在p(r)大于0.5时，主罚队员的最佳对策为策略L。可以看出，策略M在任何情况下，都不是一个最佳对策。</p><blockquote><p>lesson1：不要选择一个在任何情况下都不是最佳对策的策略。</p></blockquote><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过这个例子，我们了解了<em>信念</em>，<em>混合策略/纯策略</em>，<em>期望收益</em>，<em>最佳对策</em>等概念，并且初步了解了怎样通过数学图像去分析博弈，这种方法在后续还会用到。</p><h2 id="Game2——合伙人博弈"><a href="#Game2——合伙人博弈" class="headerlink" title="Game2——合伙人博弈"></a>Game2——合伙人博弈</h2><h3 id="游戏规则介绍-1"><a href="#游戏规则介绍-1" class="headerlink" title="游戏规则介绍"></a>游戏规则介绍</h3><h3 id="博弈三要素-1"><a href="#博弈三要素-1" class="headerlink" title="博弈三要素"></a>博弈三要素</h3><h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><h2 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h2><h3 id="信念（belief）"><a href="#信念（belief）" class="headerlink" title="信念（belief）"></a>信念（belief）</h3><p>信念就是“我有xx把握，那个家伙可能选择策略xx”，通过某些途径，玩家会形成对对方行为的信念。回顾第2章的选数字博弈，对同一批人重复进行该博弈，结果会越来越小，在这个过程中，玩家的信念在不停的更新，“我认为这次的结果应该在21”，“我认为这次的结果应该在14”，…，“我认为绝大多数人都会选择1”。</p><h3 id="混合策略-纯策略"><a href="#混合策略-纯策略" class="headerlink" title="混合策略/纯策略"></a>混合策略/纯策略</h3><p>混合策略指玩家根据某个概率分布来选择策略的行为。</p><p>纯策略是以全概率选择某一个策略的混合策略。</p><p>混合策略的意义一方面在于考虑对手行为，即上面介绍的信念。当我们不能完全确定对手的行为时，可以根据自身对对手的了解建模对手可能采取策略的概率分布。混合策略的意义另一方面在于指导自身做出策略，当然，混合策略对于单次或几次博弈指导意义不大（概率，期望这些东西总要在基数达到一定程度才能发挥作用），更多是保证在大量博弈中，自身做出合理策略。针对第二点，我们可以举一个简单例子——石头剪刀布，如果对手严格按照1/3，1/3，1/3的概率选择策略，那实际上如果我们做非常多次的石头剪刀布，显然，自身也按照1/3，1/3，1/3的概率选择策略是最明智的。（当然全选某一个策略理论上收益一样，但现实中这种策略对手不可能不针对:-)）。</p><h3 id="期望收益"><a href="#期望收益" class="headerlink" title="期望收益"></a>期望收益</h3><p>给定对手选择策略的概率分布，自身选某个策略时的收益是多种可能情况的期望和，即期望收益。</p><h3 id="最佳对策（Best-response）"><a href="#最佳对策（Best-response）" class="headerlink" title="最佳对策（Best response）"></a>最佳对策（Best response）</h3><p>玩家$i$的策略$\hat{s_i}$是对其他玩家的策略持信念$p$时的最佳对策：</p><p>if $E_{u_i}(\hat{s_i}, p) \ge E_{u_i}(s_i^\prime, p)$ for all $s_i^\prime$ in $S_i$</p><p>注意最佳对策是一个<strong>纯策略</strong>。</p><h3 id="连续策略"><a href="#连续策略" class="headerlink" title="连续策略"></a>连续策略</h3><h3 id="绘制Best-response图像"><a href="#绘制Best-response图像" class="headerlink" title="绘制Best response图像"></a>绘制Best response图像</h3>]]></content>
+    
+    
+    <categories>
+      
+      <category>博弈论</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>博弈论</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>博弈论:第2章——迭代剔除劣势策略</title>
+    <link href="/2022/03/18/%E7%AC%AC2%E7%AB%A0/"/>
+    <url>/2022/03/18/%E7%AC%AC2%E7%AB%A0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="第2章——迭代剔除劣势策略"><a href="#第2章——迭代剔除劣势策略" class="headerlink" title="第2章——迭代剔除劣势策略"></a>第2章——迭代剔除劣势策略</h1><blockquote><p><strong>本章重点</strong>：</p><ul><li>迭代剔除劣势策略</li><li>common knowledge（共识）</li></ul></blockquote><h2 id="Game1——选数字博弈"><a href="#Game1——选数字博弈" class="headerlink" title="Game1——选数字博弈"></a>Game1——选数字博弈</h2><h3 id="游戏规则介绍"><a href="#游戏规则介绍" class="headerlink" title="游戏规则介绍"></a>游戏规则介绍</h3><p>每名玩家从1~100中挑选一个自然数，最接近平均数2/3的玩家获胜，且越接近收益越大。</p><blockquote><p>例如，3名玩家分别选择13，20，30。平均数为21，平均数的2/3为14，因此玩家1获胜。</p></blockquote><h3 id="博弈三要素"><a href="#博弈三要素" class="headerlink" title="博弈三要素"></a>博弈三要素</h3><p><strong>玩家</strong>：可以有很多，比如一个班的学生。</p><p><strong>策略</strong>：1，2，…，100，总共100个策略。</p><p><strong>收益</strong>：如果获胜，自己选择的数字和平均数的2/3越接近收益越大；否则，收益为0。</p><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>分析该博弈不妨从最极端的情况入手——所有玩家都选择100（这种情况下结果最大），平均数即为100，平均数的2/3约为67。由此可以得到一个初步结论，最后的结果在任何情况下都不会超过67，<strong>大于67的数字都是劣势策略</strong>。根据第1章的lesson1，玩家不会选择大于67的数字，由此该游戏变成了从1~67中挑选一个自然数。不妨接着考虑最极端的情况——所有玩家都选择66（方便计算），平均数即为66，平均数的2/3即为44，同理，<strong>大于44的数字是新的劣势策略</strong>，继续剔除。</p><p>不断重复上述步骤，分析，剔除，分析，剔除，…，最终我们仅剩下一个策略——1。我们将整个过程称为<em>迭代剔除劣势策略</em>。</p><p>分析过程可以整理成下面的表格：</p><table><thead><tr><th>策略</th><th>分析结果</th></tr></thead><tbody><tr><td>(67, 100]</td><td>劣势策略</td></tr><tr><td>(45, 67]</td><td>劣势策略（在剔除(67,100]后）</td></tr><tr><td>(30, 45]</td><td>劣势策略（在剔除(45, 67]后）</td></tr><tr><td>$\vdots$</td><td>$\vdots$（迭代剔除劣势策略）</td></tr><tr><td>1</td><td>“正确答案”</td></tr></tbody></table><h3 id="线下实验"><a href="#线下实验" class="headerlink" title="线下实验"></a>线下实验</h3><p>然而在线下课堂进行这种博弈，结果都不是1。耶鲁公开课的结果是9，我们课堂的结果是14，我自己当时的策略是21。那么为什么“正确答案”是1，现实却往往不是1？</p><p>一方面存在一些玩家没弄明白整个博弈，没考虑到整个迭代剔除的过程。另一方面，即使所有玩家都清楚上面的分析过程，结果也不见得就会是1。这里我们不妨列个表格分析一下不同策略段的玩家可能的内心想法。</p><table><thead><tr><th>策略</th><th>想法</th></tr></thead><tbody><tr><td>(67, 100]</td><td>我认为其他玩家全选100。（我很蠢，其他玩家更蠢）</td></tr><tr><td>(45, 67]</td><td>我认为其他玩家很蠢。</td></tr><tr><td>(30, 45]</td><td>我认为其他玩家认为我很蠢。</td></tr><tr><td>$\vdots$</td><td>$\vdots$</td></tr><tr><td>1</td><td>我和其他玩家达成<strong>common knowledge（共识）</strong></td></tr></tbody></table><blockquote><p><strong>common knowledge（共识）</strong>：指的是“所有玩家知道，并且所有玩家知道所有玩家知道，所有玩家知道所有玩家知道所有玩家知道…（以此递归到无穷）”的知识。</p><p>共识是博弈论中一个非常强的假设，在现实的许多博弈中，即使玩家共同享有某种知识，每名玩家也许并不知道其他玩家知道这些知识，或许并不知道其他玩家知道自己知道这些知识。</p></blockquote><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>从这个博弈模型中我们可以学到，“正确答案”并不会帮助我们赢得博弈，只有对参与博弈的玩家具有充分认识，清楚具有不同想法的玩家分布，准确预判他们的策略，做出<strong>合适的应对策略</strong>，才能使我们赢得博弈。</p><p>对现实生活也有一些指导意义，比如一些政府、企业的策略，一些发言，看似是不合理的，不是“最正确”的，但这种“不正确”的策略可能是针对他们的目的来讲最合适的，毕竟这种博弈和两人博弈不同，这种博弈面对的都是数万亿的玩家，根据玩家的认知水平分布做出最合适的策略反而比“最正确”的策略效果好（针对要达成的目标而言）。</p><p>此外，在线下实验中，如果对同一批人重复进行选数字博弈，结果会越来越小，趋近于1。这说明在重复博弈的过程中，玩家对身边玩家的认识越来越充分，重复博弈促进玩家间达成共识。</p><h2 id="Game2——定位博弈"><a href="#Game2——定位博弈" class="headerlink" title="Game2——定位博弈"></a>Game2——定位博弈</h2><h3 id="游戏规则介绍-1"><a href="#游戏规则介绍-1" class="headerlink" title="游戏规则介绍"></a>游戏规则介绍</h3><p>假设有1，2，…，10，10个位置供两家超市选择定址，这10个位置的居民优先去那个离自己最近的超市购物，如果一样近，两家超市平分客流量，考虑两家超市如何定址可以最大化自己的客流量。（假设每处居民占总客流量10%，均匀分布）</p><table><thead><tr><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr></thead></table><h3 id="博弈三要素-1"><a href="#博弈三要素-1" class="headerlink" title="博弈三要素"></a>博弈三要素</h3><p><strong>玩家</strong>：两家超市。</p><p><strong>策略</strong>：1，2，…，10，10个位置。</p><p><strong>收益</strong>：客流量。</p><h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p>通过上一个博弈模型的启发，我们可以先考虑是否存在劣势策略，可以发现1相对于2是劣势策略，10相对于9是劣势策略。</p><blockquote><p>当对手选择3~10的情况下，自身选择2总比选择1客流量大5%；当对手选择2的情况下，自身选择2比选择1客流量大40%；当对手选择1的情况下，自身选择2比选择1客流量大40%。因此1相对于2是劣势策略。同理10相对于9也是劣势策略。</p></blockquote><p>根据第1章的lesson1，玩家不会选择1和10，由此该游戏变成了从2,…,9，8个位置中选址。剔除完劣势策略，继续分析是否产生新的劣势策略，可以发现，2和9就是新的劣势策略，继续剔除。重复分析，剔除，分析，剔除，…，最后仅剩下5，6两个策略。</p><h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><h3 id="迭代剔除劣势策略"><a href="#迭代剔除劣势策略" class="headerlink" title="迭代剔除劣势策略"></a>迭代剔除劣势策略</h3><p>分析博弈，找到劣势策略，将其从候选策略集合中剔除，再次审视博弈，找出新产生的劣势策略，将其从候选策略集合中剔除，如此反复进行。</p><h3 id="common-knowledge（共识）"><a href="#common-knowledge（共识）" class="headerlink" title="common knowledge（共识）"></a>common knowledge（共识）</h3><p>指的是“所有玩家知道，并且所有玩家知道所有玩家知道，所有玩家知道所有玩家知道所有玩家知道…（以此递归到无穷）”的知识。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>博弈论</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>博弈论</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>博弈论:第1章——收益</title>
+    <link href="/2022/03/17/%E7%AC%AC1%E7%AB%A0/"/>
+    <url>/2022/03/17/%E7%AC%AC1%E7%AB%A0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="第1章——收益"><a href="#第1章——收益" class="headerlink" title="第1章——收益"></a>第1章——收益</h1><blockquote><p><strong>本章重点</strong>：</p><ul><li>收益矩阵</li><li>囚徒困境</li><li>严格占优策略</li><li>四个重要的lessons</li></ul></blockquote><h2 id="收益矩阵"><a href="#收益矩阵" class="headerlink" title="收益矩阵"></a>收益矩阵</h2><p>根据博弈中两个玩家的策略，我们可以列出一个表格，表格的每行表示玩家1的一个策略，每列表示玩家2的一个策略。每个单元格中记录两个数字，代表玩家1，2在某种策略选择下的收益。第一个表示玩家1的收益，第二个表示玩家2的收益。</p><blockquote><p>示例：</p><table><thead><tr><th></th><th>$\alpha$</th><th>$\beta$</th></tr></thead><tbody><tr><td>$\alpha$</td><td>0, 0</td><td>3, -1</td></tr><tr><td>$\beta$</td><td>-1, 3</td><td>1, 1</td></tr></tbody></table><p>玩家1和玩家2都有两个策略$\alpha$和$\beta$。当玩家1选$\alpha$，玩家2选$\beta$时，单元格中的记录为（3, -1），即在这种策略选择下，玩家1收益+3，玩家2收益-1。</p></blockquote><h2 id="Game1——绩点博弈"><a href="#Game1——绩点博弈" class="headerlink" title="Game1——绩点博弈"></a>Game1——绩点博弈</h2><p><strong>游戏规则介绍</strong>：<br>两名玩家进行博弈，每人均有两种策略，$\alpha$（内卷）或$\beta$（躺平），收益矩阵如下：</p><table><thead><tr><th></th><th>$\alpha$</th><th>$\beta$</th></tr></thead><tbody><tr><td>$\alpha$</td><td>B-, B-</td><td>A, C</td></tr><tr><td>$\beta$</td><td>C, A</td><td>B+, B+</td></tr></tbody></table><p>上述收益矩阵仅描述了最终的结果，即绩点高低，并不是严格的<em>收益</em>（payoff）（<strong>收益不仅和绩点相关，它受多方因素影响</strong>），我们考虑两种不同类型的玩家，然后用数字来量化他们的收益。假设有两种玩家。（1）一种是自私的，他们仅关心自己绩点的高低，我们称之为“Evil git”；（2）另一种是道德的，他们会对自己造成他人绩点变低感到难过，也会对他人造成自己绩点变低感到生气，我们称之为“Indignant angel”。</p><p>这样，该博弈根据玩家的差异，可以将博弈划分为以下三种情况。</p><h3 id="two-“Evil-git”——囚徒困境"><a href="#two-“Evil-git”——囚徒困境" class="headerlink" title="two “Evil git”——囚徒困境"></a>two “Evil git”——囚徒困境</h3><blockquote><p>Evil git仅关心自己绩点的高低，定义收益如下。</p><p>A为3，B+为1，B-为0，C为-1。</p></blockquote><p>这种情况下，收益矩阵如下：</p><table><thead><tr><th></th><th>$\alpha$</th><th>$\beta$</th></tr></thead><tbody><tr><td>$\alpha$</td><td>0, 0</td><td>3, -1</td></tr><tr><td>$\beta$</td><td>-1, 3</td><td>1, 1</td></tr></tbody></table><p>从对手的策略来看，我的可能处境有两种，对手选$\alpha$，或对手选$\beta$。（1）如果对手选$\alpha$，我选$\alpha$收益0，选$\beta$收益-1，0&gt;-1，这种情况下，我应该选$\alpha$；（2）如果对手选$\beta$，我选$\alpha$收益3，选$\beta$收益1，3&gt;1，这种情况下，我还应该选$\alpha$。所以针对两个“Evil git”博弈的情况，双方都应该选择策略$\alpha$。我们将$\alpha$称为<em>严格占优策略</em>。</p><blockquote><p><strong>严格占优策略</strong>：不论对方采取什么策略，采用该策略的收益总大于采用其他任何策略。</p></blockquote><blockquote><p><strong>lesson1</strong>:不要选择严格劣势策略。</p></blockquote><hr><p><strong>问题</strong>：看起来（$\beta$, $\beta$）的情况相较于（$\alpha$, $\alpha$）的情况明显对双方都更有利，但为什么博弈的结果不会是（$\beta$, $\beta$）？</p><p>这其中有两个方面的原因，（1）难以达成共识；（2）如果一方选择$\beta$，另一方没有理由不选择$\alpha$，因为这样收益更高。（其实根据纳什均衡，不难发现，这个博弈只有（$\alpha$, $\alpha$）一个纳什均衡点，（$\beta$, $\beta$）并不是纳什均衡点。）</p><blockquote><p><strong>lesson2</strong>:理性选择导致次优结果。</p></blockquote><hr><p>两个“Evil git”的情况就是典型的囚徒困境，跳出这个困境，无法靠参与博弈的玩家间彼此沟通实现，必须通过外部力量改变收益矩阵来跳出囚徒困境。</p><h3 id="two-“Indignant-angel”"><a href="#two-“Indignant-angel”" class="headerlink" title="two “Indignant angel”"></a>two “Indignant angel”</h3><blockquote><p>Indignant angel是道德的，定义收益如下。</p><p>两名玩家都选$\alpha$或都选$\beta$时收益同上。当一名玩家选$\alpha$另一名玩家选$\beta$时，选$\alpha$的玩家获得绩点A，本该收益3，但考虑到因为自己的选择让对方获得绩点C，内心的自我谴责令其收益-4，最终收益-1；而选$\beta$的玩家获得绩点C，本该收益-1，考虑到回家难以给家长解释，令其收益-2，最终收益-3。</p></blockquote><p>这种情况下，收益矩阵如下：</p><table><thead><tr><th></th><th>$\alpha$</th><th>$\beta$</th></tr></thead><tbody><tr><td>$\alpha$</td><td>0, 0</td><td>-1, -3</td></tr><tr><td>$\beta$</td><td>-3, -1</td><td>1, 1</td></tr></tbody></table><p>按照上一种情况的分析思路，不难发现这种情况下并不存在严格占优策略。这种情况下，做出何种策略取决于不同的个人目的。如果希望保底结果不太差，这种玩家更可能会选$\alpha$；如果希望收益上限高，这种玩家更可能选择$\beta$。</p><blockquote><p><strong>lesson3</strong>:汝欲得之，必先知之。</p></blockquote><hr><p>两个“Indignant angel”的情况策略是不定的，而且需要玩家去和博弈的对手进行<em>协调</em>（coordinate），双方都选$\alpha$或者都选$\beta$，这种情况后续还会遇到，我们称之为<em>协调博弈</em>。</p><h3 id="“Indignant-angel”-and-“Evil-git”"><a href="#“Indignant-angel”-and-“Evil-git”" class="headerlink" title="“Indignant angel” and “Evil git”"></a>“Indignant angel” and “Evil git”</h3><blockquote><p>延续上述收益定义方式。</p></blockquote><p>这种情况下，收益矩阵如下：</p><table><thead><tr><th></th><th>$\alpha$</th><th>$\beta$</th></tr></thead><tbody><tr><td>$\alpha$</td><td>0, 0</td><td>-1, -1</td></tr><tr><td>$\beta$</td><td>-3, 3</td><td>1, 1</td></tr></tbody></table><p>从“Indignant angel”的角度来看，并不存在严格占优策略。但从“Evil git”的角度来看，$\alpha$是他的严格占优策略，因此，“Indignant angel”也应该选择$\alpha$。</p><blockquote><p><strong>lesson4</strong>:换位思考。</p></blockquote><hr><p>一个“Indignant angel”和一个“Evil git”的情况下，“Indignant angel”单从自身角度考虑问题是不能确定策略的，但如果能够考虑到对手有一个严格占优策略$\alpha$，那么“Indignant angel”也就可以确定自己的策略应该选$\alpha$。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>收益矩阵在后续博弈中会频繁使用。</p><hr><p>囚徒困境在现实场景有很多对应，军备竞赛、关税战、广告战。不能指望通过玩家间的沟通来跳出困境，达成合作，因为合作并非纳什均衡点，在利益驱动下，每名玩家都有背叛的动机。囚徒困境和协调博弈有别，后者可以通过玩家间的协调达成合作。</p><hr><p>在有严格占优策略时，玩家肯定要选择严格占优策略。</p><hr><p><strong>lesson1</strong>:不要选择严格劣势策略。</p><p><strong>lesson2</strong>:理性选择导致次优结果。</p><p><strong>lesson3</strong>:汝欲得之，必先知之。</p><p><strong>lesson4</strong>:换位思考。</p><p>其中lesson4很重要，因为换位思考其实是在分析自己可能的处境（也就是对手的策略），然后选择自己的应对策略。这在后续的博弈示例分析中还会频繁出现。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>博弈论</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>博弈论</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>博弈论:第0章——lesson</title>
+    <link href="/2022/03/17/%E7%AC%AC0%E7%AB%A0/"/>
+    <url>/2022/03/17/%E7%AC%AC0%E7%AB%A0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="第0章——lesson"><a href="#第0章——lesson" class="headerlink" title="第0章——lesson"></a>第0章——lesson</h1><blockquote><p>本章记录lessons</p></blockquote><h2 id="不要选择严格劣势策略"><a href="#不要选择严格劣势策略" class="headerlink" title="不要选择严格劣势策略"></a>不要选择严格劣势策略</h2><p>策略1优于策略2——无论其他玩家做出何种策略，选策略1收益总大于（等于）策略2。</p><h2 id="迭代剔除严格劣势策略"><a href="#迭代剔除严格劣势策略" class="headerlink" title="迭代剔除严格劣势策略"></a>迭代剔除严格劣势策略</h2><p>每剔除一次严格劣势策略，需要重新审视局面，可能诞生新的劣势策略。</p><h2 id="理性选择导致次优结果"><a href="#理性选择导致次优结果" class="headerlink" title="理性选择导致次优结果"></a>理性选择导致次优结果</h2><p>经典案例囚徒困境。跳出囚徒困境不能仅依赖个体改变，要变动收益矩阵，即要从改变游戏规则入手。</p><h2 id="汝欲得之，必先知之"><a href="#汝欲得之，必先知之" class="headerlink" title="汝欲得之，必先知之"></a>汝欲得之，必先知之</h2><p>明确<strong>目标</strong>。不同策略，不同结果。结果有差异但无好坏，明确自己追求的目标，选择合适的策略，得到适合的结果。</p><h2 id="换位思考"><a href="#换位思考" class="headerlink" title="换位思考"></a>换位思考</h2><p>站在其他玩家的角度分析他们的可能策略，分析自己的可能处境，进而决定要做出的策略。</p><h2 id="common-knowledge"><a href="#common-knowledge" class="headerlink" title="common knowledge"></a>common knowledge</h2><p>经典模型：1-100中挑数字，最接近平均数的2/3者获胜。</p><p>选择了“正确”的结果，不意味着就能够在博弈中胜出，还需要考虑到其他玩家的<em>水平分布</em>，玩家们的<em>共识</em>达到何种程度。</p><p>重复博弈会促成<em>共识</em>在玩家中传播，上述game结果会越来越接近1。</p><p><em>没有正确的策略，只有合适的策略</em></p><p><em>听其言，观其行</em></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>博弈论</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>博弈论</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>博弈论:绪论</title>
+    <link href="/2022/03/17/%E7%BB%AA%E8%AE%BA/"/>
+    <url>/2022/03/17/%E7%BB%AA%E8%AE%BA/</url>
+    
+    <content type="html"><![CDATA[<h1 id="绪论"><a href="#绪论" class="headerlink" title="绪论"></a>绪论</h1><h2 id="理性人假设——博弈论的前提假设"><a href="#理性人假设——博弈论的前提假设" class="headerlink" title="理性人假设——博弈论的前提假设"></a>理性人假设——博弈论的前提假设</h2><p>理性人假设，又称经济人假设，或最大化原则，是西方经济学中最基本的前提假设。西方经济学者指出，所谓“经济人”假设，也称为“合乎理性人”假设，是对在经济社会中从事经济活动的所有人的基本特征的一个一般性抽象。这个被抽象出来的基本特征就是：每一个从事经济活动的人都是利己的。也可以说，每一个从事经济活动的人所采取的经济行为都是力图以自己最小经济代价去<strong>获得最大的经济利益</strong>。西方经济学家认为，在任何经济活动中，只有这样的人才是“合乎理性的人”；否则，就是非理性的。    ——摘自百度百科。</p><p>总而言之，我们假设参与博弈的玩家的目标都是<strong>最大化自己的收益</strong>（payoff）。无论玩家是自私的还是道德的，这些因素都可以在最终的收益矩阵中体现出来。</p><h2 id="博弈要素"><a href="#博弈要素" class="headerlink" title="博弈要素"></a>博弈要素</h2><p>一场博弈包含三个要素：玩家、策略、收益。</p><ul><li><p><strong>玩家</strong></p><blockquote><p>用符号$i$，$j$表示</p></blockquote></li><li><p><strong>策略</strong></p><blockquote><p>$s_i$表示玩家$i$选择的策略</p><p>$S_i$表示玩家$i$可选的策略集合</p><p>$s$表示一次博弈中所有玩家选择策略的集合</p><p>$s_{-i}$表示除玩家$i$以外，所有玩家的策略组合</p></blockquote></li><li><p><strong>收益</strong></p><blockquote><p>$u_i(s_1,\ldots,s_i,\ldots,s_N)$表示在玩家1选策略$s_1$，…，玩家$i$选策略$s_i$，…，玩家$N$选策略$S_N$的情况下，玩家$i$的收益。</p><p>$u_i(s)$意义同上，是上面符号的简写</p></blockquote></li></ul><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul><li>视频：耶鲁大学公开课</li><li>课本：《策略——博弈论导论》——乔尔·沃森</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>博弈论</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>博弈论</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="/2022/01/18/hello-world/"/>
+    <url>/2022/01/18/hello-world/</url>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></div></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ hexo server<br></code></pre></div></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ hexo generate<br></code></pre></div></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></div></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  
+</search>
