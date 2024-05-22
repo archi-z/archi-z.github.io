@@ -16,12 +16,12 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="第1章——收益 本章重点：  收益矩阵 囚徒困境 严格占优策略 四个重要的lessons   收益矩阵根据博弈中两个玩家的策略，我们可以列出一个表格，表格的每行表示玩家1的一个策略，每列表示玩家2的一个策略。每个单元格中记录两个数字，代表玩家1，2在某种策略选择下的收益。第一个表示玩家1的收益，第二个表示玩家2的收益。  示例：     $\alpha$ $\beta$    $\alpha$ 0">
+    <meta name="description" content="第1章——收益  本章重点：  收益矩阵 囚徒困境 严格占优策略 四个重要的lessons   收益矩阵 根据博弈中两个玩家的策略，我们可以列出一个表格，表格的每行表示玩家1的一个策略，每列表示玩家2的一个策略。每个单元格中记录两个数字，代表玩家1，2在某种策略选择下的收益。第一个表示玩家1的收益，第二个表示玩家2的收益。  示例：     \(\alpha\)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="博弈论:第1章——收益">
 <meta property="og:url" content="https://qi-z.top/2022/03/17/%E7%AC%AC1%E7%AB%A0/index.html">
 <meta property="og:site_name" content="Q&#39;s Blog">
-<meta property="og:description" content="第1章——收益 本章重点：  收益矩阵 囚徒困境 严格占优策略 四个重要的lessons   收益矩阵根据博弈中两个玩家的策略，我们可以列出一个表格，表格的每行表示玩家1的一个策略，每列表示玩家2的一个策略。每个单元格中记录两个数字，代表玩家1，2在某种策略选择下的收益。第一个表示玩家1的收益，第二个表示玩家2的收益。  示例：     $\alpha$ $\beta$    $\alpha$ 0">
+<meta property="og:description" content="第1章——收益  本章重点：  收益矩阵 囚徒困境 严格占优策略 四个重要的lessons   收益矩阵 根据博弈中两个玩家的策略，我们可以列出一个表格，表格的每行表示玩家1的一个策略，每列表示玩家2的一个策略。每个单元格中记录两个数字，代表玩家1，2在某种策略选择下的收益。第一个表示玩家1的收益，第二个表示玩家2的收益。  示例：     \(\alpha\)">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-17T12:55:03.312Z">
 <meta property="article:modified_time" content="2022-03-21T03:58:41.198Z">
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.5k 字
+      2.7k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      22 分钟
+      23 分钟
     </span>
   
 
@@ -249,8 +249,15 @@
             <!-- SEO header -->
             <h1 style="display: none">博弈论:第1章——收益</h1>
             
+              <p class="note note-info">
+                
+                  本文最后更新于：2022年3月21日 中午
+                
+              </p>
+            
             <div class="markdown-body">
-              <h1 id="第1章——收益"><a href="#第1章——收益" class="headerlink" title="第1章——收益"></a>第1章——收益</h1><blockquote>
+              <h1 id="第1章收益">第1章——收益</h1>
+<blockquote>
 <p><strong>本章重点</strong>：</p>
 <ul>
 <li>收益矩阵</li>
@@ -259,156 +266,226 @@
 <li>四个重要的lessons</li>
 </ul>
 </blockquote>
-<h2 id="收益矩阵"><a href="#收益矩阵" class="headerlink" title="收益矩阵"></a>收益矩阵</h2><p>根据博弈中两个玩家的策略，我们可以列出一个表格，表格的每行表示玩家1的一个策略，每列表示玩家2的一个策略。每个单元格中记录两个数字，代表玩家1，2在某种策略选择下的收益。第一个表示玩家1的收益，第二个表示玩家2的收益。</p>
+<h2 id="收益矩阵">收益矩阵</h2>
+<p>根据博弈中两个玩家的策略，我们可以列出一个表格，表格的每行表示玩家1的一个策略，每列表示玩家2的一个策略。每个单元格中记录两个数字，代表玩家1，2在某种策略选择下的收益。第一个表示玩家1的收益，第二个表示玩家2的收益。</p>
 <blockquote>
 <p>示例：</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th></th>
-<th>$\alpha$</th>
-<th>$\beta$</th>
+<th><span class="math inline">\(\alpha\)</span></th>
+<th><span class="math inline">\(\beta\)</span></th>
 </tr>
 </thead>
-<tbody><tr>
-<td>$\alpha$</td>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\alpha\)</span></td>
 <td>0, 0</td>
 <td>3, -1</td>
 </tr>
-<tr>
-<td>$\beta$</td>
+<tr class="even">
+<td><span class="math inline">\(\beta\)</span></td>
 <td>-1, 3</td>
 <td>1, 1</td>
 </tr>
-</tbody></table>
-<p>玩家1和玩家2都有两个策略$\alpha$和$\beta$。当玩家1选$\alpha$，玩家2选$\beta$时，单元格中的记录为（3, -1），即在这种策略选择下，玩家1收益+3，玩家2收益-1。</p>
+</tbody>
+</table>
+<p>玩家1和玩家2都有两个策略<span
+class="math inline">\(\alpha\)</span>和<span
+class="math inline">\(\beta\)</span>。当玩家1选<span
+class="math inline">\(\alpha\)</span>，玩家2选<span
+class="math inline">\(\beta\)</span>时，单元格中的记录为（3,
+-1），即在这种策略选择下，玩家1收益+3，玩家2收益-1。</p>
 </blockquote>
-<h2 id="Game1——绩点博弈"><a href="#Game1——绩点博弈" class="headerlink" title="Game1——绩点博弈"></a>Game1——绩点博弈</h2><p><strong>游戏规则介绍</strong>：<br>两名玩家进行博弈，每人均有两种策略，$\alpha$（内卷）或$\beta$（躺平），收益矩阵如下：</p>
+<h2 id="game1绩点博弈">Game1——绩点博弈</h2>
+<p><strong>游戏规则介绍</strong>：
+两名玩家进行博弈，每人均有两种策略，<span
+class="math inline">\(\alpha\)</span>（内卷）或<span
+class="math inline">\(\beta\)</span>（躺平），收益矩阵如下：</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th></th>
-<th>$\alpha$</th>
-<th>$\beta$</th>
+<th><span class="math inline">\(\alpha\)</span></th>
+<th><span class="math inline">\(\beta\)</span></th>
 </tr>
 </thead>
-<tbody><tr>
-<td>$\alpha$</td>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\alpha\)</span></td>
 <td>B-, B-</td>
 <td>A, C</td>
 </tr>
-<tr>
-<td>$\beta$</td>
+<tr class="even">
+<td><span class="math inline">\(\beta\)</span></td>
 <td>C, A</td>
 <td>B+, B+</td>
 </tr>
-</tbody></table>
-<p>上述收益矩阵仅描述了最终的结果，即绩点高低，并不是严格的<em>收益</em>（payoff）（<strong>收益不仅和绩点相关，它受多方因素影响</strong>），我们考虑两种不同类型的玩家，然后用数字来量化他们的收益。假设有两种玩家。（1）一种是自私的，他们仅关心自己绩点的高低，我们称之为“Evil git”；（2）另一种是道德的，他们会对自己造成他人绩点变低感到难过，也会对他人造成自己绩点变低感到生气，我们称之为“Indignant angel”。</p>
+</tbody>
+</table>
+<p>上述收益矩阵仅描述了最终的结果，即绩点高低，并不是严格的<em>收益</em>（payoff）（<strong>收益不仅和绩点相关，它受多方因素影响</strong>），我们考虑两种不同类型的玩家，然后用数字来量化他们的收益。假设有两种玩家。（1）一种是自私的，他们仅关心自己绩点的高低，我们称之为“Evil
+git”；（2）另一种是道德的，他们会对自己造成他人绩点变低感到难过，也会对他人造成自己绩点变低感到生气，我们称之为“Indignant
+angel”。</p>
 <p>这样，该博弈根据玩家的差异，可以将博弈划分为以下三种情况。</p>
-<h3 id="two-“Evil-git”——囚徒困境"><a href="#two-“Evil-git”——囚徒困境" class="headerlink" title="two “Evil git”——囚徒困境"></a>two “Evil git”——囚徒困境</h3><blockquote>
+<h3 id="two-evil-git囚徒困境">two “Evil git”——囚徒困境</h3>
+<blockquote>
 <p>Evil git仅关心自己绩点的高低，定义收益如下。</p>
 <p>A为3，B+为1，B-为0，C为-1。</p>
 </blockquote>
 <p>这种情况下，收益矩阵如下：</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th></th>
-<th>$\alpha$</th>
-<th>$\beta$</th>
+<th><span class="math inline">\(\alpha\)</span></th>
+<th><span class="math inline">\(\beta\)</span></th>
 </tr>
 </thead>
-<tbody><tr>
-<td>$\alpha$</td>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\alpha\)</span></td>
 <td>0, 0</td>
 <td>3, -1</td>
 </tr>
-<tr>
-<td>$\beta$</td>
+<tr class="even">
+<td><span class="math inline">\(\beta\)</span></td>
 <td>-1, 3</td>
 <td>1, 1</td>
 </tr>
-</tbody></table>
-<p>从对手的策略来看，我的可能处境有两种，对手选$\alpha$，或对手选$\beta$。（1）如果对手选$\alpha$，我选$\alpha$收益0，选$\beta$收益-1，0&gt;-1，这种情况下，我应该选$\alpha$；（2）如果对手选$\beta$，我选$\alpha$收益3，选$\beta$收益1，3&gt;1，这种情况下，我还应该选$\alpha$。所以针对两个“Evil git”博弈的情况，双方都应该选择策略$\alpha$。我们将$\alpha$称为<em>严格占优策略</em>。</p>
+</tbody>
+</table>
+<p>从对手的策略来看，我的可能处境有两种，对手选<span
+class="math inline">\(\alpha\)</span>，或对手选<span
+class="math inline">\(\beta\)</span>。（1）如果对手选<span
+class="math inline">\(\alpha\)</span>，我选<span
+class="math inline">\(\alpha\)</span>收益0，选<span
+class="math inline">\(\beta\)</span>收益-1，0&gt;-1，这种情况下，我应该选<span
+class="math inline">\(\alpha\)</span>；（2）如果对手选<span
+class="math inline">\(\beta\)</span>，我选<span
+class="math inline">\(\alpha\)</span>收益3，选<span
+class="math inline">\(\beta\)</span>收益1，3&gt;1，这种情况下，我还应该选<span
+class="math inline">\(\alpha\)</span>。所以针对两个“Evil
+git”博弈的情况，双方都应该选择策略<span
+class="math inline">\(\alpha\)</span>。我们将<span
+class="math inline">\(\alpha\)</span>称为<em>严格占优策略</em>。</p>
 <blockquote>
 <p><strong>严格占优策略</strong>：不论对方采取什么策略，采用该策略的收益总大于采用其他任何策略。</p>
 </blockquote>
 <blockquote>
 <p><strong>lesson1</strong>:不要选择严格劣势策略。</p>
 </blockquote>
-<hr>
-<p><strong>问题</strong>：看起来（$\beta$, $\beta$）的情况相较于（$\alpha$, $\alpha$）的情况明显对双方都更有利，但为什么博弈的结果不会是（$\beta$, $\beta$）？</p>
-<p>这其中有两个方面的原因，（1）难以达成共识；（2）如果一方选择$\beta$，另一方没有理由不选择$\alpha$，因为这样收益更高。（其实根据纳什均衡，不难发现，这个博弈只有（$\alpha$, $\alpha$）一个纳什均衡点，（$\beta$, $\beta$）并不是纳什均衡点。）</p>
+<hr />
+<p><strong>问题</strong>：看起来（<span
+class="math inline">\(\beta\)</span>, <span
+class="math inline">\(\beta\)</span>）的情况相较于（<span
+class="math inline">\(\alpha\)</span>, <span
+class="math inline">\(\alpha\)</span>）的情况明显对双方都更有利，但为什么博弈的结果不会是（<span
+class="math inline">\(\beta\)</span>, <span
+class="math inline">\(\beta\)</span>）？</p>
+<p>这其中有两个方面的原因，（1）难以达成共识；（2）如果一方选择<span
+class="math inline">\(\beta\)</span>，另一方没有理由不选择<span
+class="math inline">\(\alpha\)</span>，因为这样收益更高。（其实根据纳什均衡，不难发现，这个博弈只有（<span
+class="math inline">\(\alpha\)</span>, <span
+class="math inline">\(\alpha\)</span>）一个纳什均衡点，（<span
+class="math inline">\(\beta\)</span>, <span
+class="math inline">\(\beta\)</span>）并不是纳什均衡点。）</p>
 <blockquote>
 <p><strong>lesson2</strong>:理性选择导致次优结果。</p>
 </blockquote>
-<hr>
-<p>两个“Evil git”的情况就是典型的囚徒困境，跳出这个困境，无法靠参与博弈的玩家间彼此沟通实现，必须通过外部力量改变收益矩阵来跳出囚徒困境。</p>
-<h3 id="two-“Indignant-angel”"><a href="#two-“Indignant-angel”" class="headerlink" title="two “Indignant angel”"></a>two “Indignant angel”</h3><blockquote>
+<hr />
+<p>两个“Evil
+git”的情况就是典型的囚徒困境，跳出这个困境，无法靠参与博弈的玩家间彼此沟通实现，必须通过外部力量改变收益矩阵来跳出囚徒困境。</p>
+<h3 id="two-indignant-angel">two “Indignant angel”</h3>
+<blockquote>
 <p>Indignant angel是道德的，定义收益如下。</p>
-<p>两名玩家都选$\alpha$或都选$\beta$时收益同上。当一名玩家选$\alpha$另一名玩家选$\beta$时，选$\alpha$的玩家获得绩点A，本该收益3，但考虑到因为自己的选择让对方获得绩点C，内心的自我谴责令其收益-4，最终收益-1；而选$\beta$的玩家获得绩点C，本该收益-1，考虑到回家难以给家长解释，令其收益-2，最终收益-3。</p>
+<p>两名玩家都选<span class="math inline">\(\alpha\)</span>或都选<span
+class="math inline">\(\beta\)</span>时收益同上。当一名玩家选<span
+class="math inline">\(\alpha\)</span>另一名玩家选<span
+class="math inline">\(\beta\)</span>时，选<span
+class="math inline">\(\alpha\)</span>的玩家获得绩点A，本该收益3，但考虑到因为自己的选择让对方获得绩点C，内心的自我谴责令其收益-4，最终收益-1；而选<span
+class="math inline">\(\beta\)</span>的玩家获得绩点C，本该收益-1，考虑到回家难以给家长解释，令其收益-2，最终收益-3。</p>
 </blockquote>
 <p>这种情况下，收益矩阵如下：</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th></th>
-<th>$\alpha$</th>
-<th>$\beta$</th>
+<th><span class="math inline">\(\alpha\)</span></th>
+<th><span class="math inline">\(\beta\)</span></th>
 </tr>
 </thead>
-<tbody><tr>
-<td>$\alpha$</td>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\alpha\)</span></td>
 <td>0, 0</td>
 <td>-1, -3</td>
 </tr>
-<tr>
-<td>$\beta$</td>
+<tr class="even">
+<td><span class="math inline">\(\beta\)</span></td>
 <td>-3, -1</td>
 <td>1, 1</td>
 </tr>
-</tbody></table>
-<p>按照上一种情况的分析思路，不难发现这种情况下并不存在严格占优策略。这种情况下，做出何种策略取决于不同的个人目的。如果希望保底结果不太差，这种玩家更可能会选$\alpha$；如果希望收益上限高，这种玩家更可能选择$\beta$。</p>
+</tbody>
+</table>
+<p>按照上一种情况的分析思路，不难发现这种情况下并不存在严格占优策略。这种情况下，做出何种策略取决于不同的个人目的。如果希望保底结果不太差，这种玩家更可能会选<span
+class="math inline">\(\alpha\)</span>；如果希望收益上限高，这种玩家更可能选择<span
+class="math inline">\(\beta\)</span>。</p>
 <blockquote>
 <p><strong>lesson3</strong>:汝欲得之，必先知之。</p>
 </blockquote>
-<hr>
-<p>两个“Indignant angel”的情况策略是不定的，而且需要玩家去和博弈的对手进行<em>协调</em>（coordinate），双方都选$\alpha$或者都选$\beta$，这种情况后续还会遇到，我们称之为<em>协调博弈</em>。</p>
-<h3 id="“Indignant-angel”-and-“Evil-git”"><a href="#“Indignant-angel”-and-“Evil-git”" class="headerlink" title="“Indignant angel” and “Evil git”"></a>“Indignant angel” and “Evil git”</h3><blockquote>
+<hr />
+<p>两个“Indignant
+angel”的情况策略是不定的，而且需要玩家去和博弈的对手进行<em>协调</em>（coordinate），双方都选<span
+class="math inline">\(\alpha\)</span>或者都选<span
+class="math inline">\(\beta\)</span>，这种情况后续还会遇到，我们称之为<em>协调博弈</em>。</p>
+<h3 id="indignant-angel-and-evil-git">“Indignant angel” and “Evil
+git”</h3>
+<blockquote>
 <p>延续上述收益定义方式。</p>
 </blockquote>
 <p>这种情况下，收益矩阵如下：</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th></th>
-<th>$\alpha$</th>
-<th>$\beta$</th>
+<th><span class="math inline">\(\alpha\)</span></th>
+<th><span class="math inline">\(\beta\)</span></th>
 </tr>
 </thead>
-<tbody><tr>
-<td>$\alpha$</td>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\alpha\)</span></td>
 <td>0, 0</td>
 <td>-1, -1</td>
 </tr>
-<tr>
-<td>$\beta$</td>
+<tr class="even">
+<td><span class="math inline">\(\beta\)</span></td>
 <td>-3, 3</td>
 <td>1, 1</td>
 </tr>
-</tbody></table>
-<p>从“Indignant angel”的角度来看，并不存在严格占优策略。但从“Evil git”的角度来看，$\alpha$是他的严格占优策略，因此，“Indignant angel”也应该选择$\alpha$。</p>
+</tbody>
+</table>
+<p>从“Indignant angel”的角度来看，并不存在严格占优策略。但从“Evil
+git”的角度来看，<span
+class="math inline">\(\alpha\)</span>是他的严格占优策略，因此，“Indignant
+angel”也应该选择<span class="math inline">\(\alpha\)</span>。</p>
 <blockquote>
 <p><strong>lesson4</strong>:换位思考。</p>
 </blockquote>
-<hr>
-<p>一个“Indignant angel”和一个“Evil git”的情况下，“Indignant angel”单从自身角度考虑问题是不能确定策略的，但如果能够考虑到对手有一个严格占优策略$\alpha$，那么“Indignant angel”也就可以确定自己的策略应该选$\alpha$。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>收益矩阵在后续博弈中会频繁使用。</p>
-<hr>
+<hr />
+<p>一个“Indignant angel”和一个“Evil git”的情况下，“Indignant
+angel”单从自身角度考虑问题是不能确定策略的，但如果能够考虑到对手有一个严格占优策略<span
+class="math inline">\(\alpha\)</span>，那么“Indignant
+angel”也就可以确定自己的策略应该选<span
+class="math inline">\(\alpha\)</span>。</p>
+<h2 id="总结">总结</h2>
+<p>收益矩阵在后续博弈中会频繁使用。</p>
+<hr />
 <p>囚徒困境在现实场景有很多对应，军备竞赛、关税战、广告战。不能指望通过玩家间的沟通来跳出困境，达成合作，因为合作并非纳什均衡点，在利益驱动下，每名玩家都有背叛的动机。囚徒困境和协调博弈有别，后者可以通过玩家间的协调达成合作。</p>
-<hr>
+<hr />
 <p>在有严格占优策略时，玩家肯定要选择严格占优策略。</p>
-<hr>
+<hr />
 <p><strong>lesson1</strong>:不要选择严格劣势策略。</p>
 <p><strong>lesson2</strong>:理性选择导致次优结果。</p>
 <p><strong>lesson3</strong>:汝欲得之，必先知之。</p>
