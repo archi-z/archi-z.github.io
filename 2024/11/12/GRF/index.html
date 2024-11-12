@@ -13,19 +13,19 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="archi">
   <meta name="keywords" content="">
   
     <meta name="description" content="GRF环境配置 源代码仓  https:&#x2F;&#x2F;github.com&#x2F;google-research&#x2F;football  安装依赖 12345sudo apt-get install git cmake build-essential libgl1-mesa-dev libsdl2-dev \libsdl2-image-dev libsdl2-ttf-dev libsdl2-gfx-dev">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GRF环境配置">
-<meta property="og:url" content="https://qi-z.top/2024/11/12/GRF/index.html">
+<meta property="og:url" content="https://qi-z.cn/2024/11/12/GRF/index.html">
 <meta property="og:site_name" content="Q&#39;s Blog">
 <meta property="og:description" content="GRF环境配置 源代码仓  https:&#x2F;&#x2F;github.com&#x2F;google-research&#x2F;football  安装依赖 12345sudo apt-get install git cmake build-essential libgl1-mesa-dev libsdl2-dev \libsdl2-image-dev libsdl2-ttf-dev libsdl2-gfx-dev">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-11-12T05:46:47.129Z">
-<meta property="article:modified_time" content="2024-11-12T05:50:57.240Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:modified_time" content="2024-11-12T06:37:48.547Z">
+<meta property="article:author" content="archi">
 <meta property="article:tag" content="MARL">
 <meta property="article:tag" content="env">
 <meta name="twitter:card" content="summary_large_image">
@@ -68,7 +68,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"qi-z.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":100,"cursorChar":"","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":"G-HB7P267418","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"qi-z.cn","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":100,"cursorChar":"","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":"G-HB7P267418","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -198,7 +198,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.4k 字
+      2.3k 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      21 分钟
+      20 分钟
     </span>
   
 
@@ -269,22 +269,14 @@
 <blockquote>
 <p>报错1 ERROR: ERROR: Failed to build installable wheels for some
 pyproject.toml based projects (gfootball)</p>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104191115218.png" srcset="/img/loading.gif" lazyload
-alt="image-20241104191115218" />
-<figcaption aria-hidden="true">image-20241104191115218</figcaption>
-</figure>
+<p><img
+src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104191115218.png" srcset="/img/loading.gif" lazyload /></p>
 <p>尝试解决方案1：更新wheel版本,0.44降到0.38.4，无效</p>
 <p>尝试解决方案2：先将GRF的代码仓clone下来，无效</p>
 <p>尝试解决方案3：无效</p>
 <p>查看cmake版本：<code>cmake --version</code>，报错如下图</p>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104194836124.png" srcset="/img/loading.gif" lazyload
-alt="image-20241104194836124" />
-<figcaption aria-hidden="true">image-20241104194836124</figcaption>
-</figure>
+<p><img
+src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104194836124.png" srcset="/img/loading.gif" lazyload /></p>
 <p>但使用dpkg能够查到cmake，<code>dpkg -l | grep -E "cmake"</code>，如下图</p>
 <figure>
 <img
@@ -299,22 +291,14 @@ alt="image-20241104195030398" />
 </blockquote>
 <blockquote>
 <p>报错2 ModuleNotFoundError: No module named 'skbuild'</p>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104203225207.png" srcset="/img/loading.gif" lazyload
-alt="image-20241104203225207" />
-<figcaption aria-hidden="true">image-20241104203225207</figcaption>
-</figure>
+<p><img
+src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104203225207.png" srcset="/img/loading.gif" lazyload /></p>
 <p>尝试解决方案1：安装<code>skbuild</code>，<code>pip install scikit-build</code>，似乎有效。。。（反正用新终端再执行命令时，出现新错误了）</p>
 </blockquote>
 <blockquote>
 <p>报错3 Cannot find boost python</p>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104204540414.png" srcset="/img/loading.gif" lazyload
-alt="image-20241104204540414" />
-<figcaption aria-hidden="true">image-20241104204540414</figcaption>
-</figure>
+<p><img
+src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104204540414.png" srcset="/img/loading.gif" lazyload /></p>
 <p>参考issue：https://github.com/google-research/football/issues/310、https://github.com/google-research/football/issues/194</p>
 <p>尝试解决方案1：ubuntu18.04，创建一个python=3.6的虚拟环境。无效</p>
 <p>尝试解决方案2：clone代码仓，使用<code>python3 -m pip install .</code>安装。无效</p>
@@ -330,12 +314,8 @@ alt="image-20241104204540414" />
 <p><code>python3 -m gfootball.play_game --action_set=full</code></p>
 <blockquote>
 <p>报错4 signal 11</p>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241106145842569.png" srcset="/img/loading.gif" lazyload
-alt="image-20241106145842569" />
-<figcaption aria-hidden="true">image-20241106145842569</figcaption>
-</figure>
+<p><img
+src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241106145842569.png" srcset="/img/loading.gif" lazyload /></p>
 <p>尝试解决方案1：参考issue：https://github.com/google-research/football/issues/154，无效</p>
 <p>尝试解决方案2：参考issue：https://github.com/google-research/football/issues/205，有效</p>
 <p>添加参数<code>--render=False</code></p>
