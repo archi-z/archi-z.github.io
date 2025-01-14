@@ -199,7 +199,7 @@
       <p class="index-excerpt">
         <a href="/2025/01/12/torch%E8%8A%82%E7%9C%81%E6%98%BE%E5%AD%98%E6%96%B9%E6%B3%95/" target="_self">
           
-          torch节省显存方法 手动删除变量 12del vartorch.cuda.empty_cache() 禁止自动梯度计算  自动梯度计算似乎还挺占显存的，不需要的情况下最好关掉  12with torch.no_grad():    tensor1 &#x3D; tensor2 @ tensor3 降低数据精度 12tensor1 &#x3D; torch.zeros((2,2), dtype&#x3D;t
+          torch节省显存方法 手动删除变量 12del vartorch.cuda.empty_cache() 禁止自动梯度计算  自动梯度计算似乎还挺占显存的，不需要的情况下最好关掉  12with torch.no_grad():    tensor1 &#x3D; tensor2 @ tensor3 降低数据精度  修改精度时不要用tensor.float()，tensor.int()这
         </a>
       </p>
 
