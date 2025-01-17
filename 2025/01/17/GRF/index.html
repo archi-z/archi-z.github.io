@@ -13,24 +13,25 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="archi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="绪论 理性人假设——博弈论的前提假设 理性人假设，又称经济人假设，或最大化原则，是西方经济学中最基本的前提假设。西方经济学者指出，所谓“经济人”假设，也称为“合乎理性人”假设，是对在经济社会中从事经济活动的所有人的基本特征的一个一般性抽象。这个被抽象出来的基本特征就是：每一个从事经济活动的人都是利己的。也可以说，每一个从事经济活动的人所采取的经济行为都是力图以自己最小经济代价去获得最大的经济利">
+    <meta name="description" content="GRF环境配置 源代码仓  https:&#x2F;&#x2F;github.com&#x2F;google-research&#x2F;football  安装依赖 12345sudo apt-get install git cmake build-essential libgl1-mesa-dev libsdl2-dev \libsdl2-image-dev libsdl2-ttf-dev libsdl2-gfx-dev">
 <meta property="og:type" content="article">
-<meta property="og:title" content="博弈论:绪论">
-<meta property="og:url" content="https://qi-z.top/2022/03/17/%E7%BB%AA%E8%AE%BA/index.html">
+<meta property="og:title" content="GRF环境配置">
+<meta property="og:url" content="https://qi-z.cn/2025/01/17/GRF/index.html">
 <meta property="og:site_name" content="Q&#39;s Blog">
-<meta property="og:description" content="绪论 理性人假设——博弈论的前提假设 理性人假设，又称经济人假设，或最大化原则，是西方经济学中最基本的前提假设。西方经济学者指出，所谓“经济人”假设，也称为“合乎理性人”假设，是对在经济社会中从事经济活动的所有人的基本特征的一个一般性抽象。这个被抽象出来的基本特征就是：每一个从事经济活动的人都是利己的。也可以说，每一个从事经济活动的人所采取的经济行为都是力图以自己最小经济代价去获得最大的经济利">
+<meta property="og:description" content="GRF环境配置 源代码仓  https:&#x2F;&#x2F;github.com&#x2F;google-research&#x2F;football  安装依赖 12345sudo apt-get install git cmake build-essential libgl1-mesa-dev libsdl2-dev \libsdl2-image-dev libsdl2-ttf-dev libsdl2-gfx-dev">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-03-17T12:55:03.297Z">
-<meta property="article:modified_time" content="2022-03-18T06:20:20.944Z">
-<meta property="article:author" content="John Doe">
-<meta property="article:tag" content="博弈论">
+<meta property="article:published_time" content="2025-01-17T09:51:46.742Z">
+<meta property="article:modified_time" content="2024-11-12T07:00:50.000Z">
+<meta property="article:author" content="archi">
+<meta property="article:tag" content="MARL">
+<meta property="article:tag" content="env">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>博弈论:绪论 - Q&#39;s Blog</title>
+  <title>GRF环境配置 - Q&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -67,7 +68,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"qi-z.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":100,"cursorChar":"","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":"G-HB7P267418","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"qi-z.cn","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":100,"cursorChar":"","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":"G-HB7P267418","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -171,12 +172,12 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('https://cdn.jsdelivr.net/gh/VON-z/image_hosting/Blog/Backgrounds/202201182008993.png') no-repeat center center;
+         style="background: url('https://cdn.jsdelivr.net/gh/archi-z/image_hosting/Blog/Backgrounds/202201182008993.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="博弈论:绪论">
+            <span class="h2" id="subtitle" title="GRF环境配置">
               
             </span>
 
@@ -186,8 +187,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-03-17 20:55" pubdate>
-        2022年3月17日 晚上
+      <time datetime="2025-01-17 17:51" pubdate>
+        2025年1月17日 下午
       </time>
     </span>
   
@@ -197,7 +198,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      643 字
+      2.3k 字
     </span>
   
 
@@ -206,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6 分钟
+      20 分钟
     </span>
   
 
@@ -247,58 +248,81 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">博弈论:绪论</h1>
+            <h1 style="display: none">GRF环境配置</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年3月18日 下午
+                  本文最后更新于：2024年11月12日 下午
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="绪论">绪论</h1>
-<h2 id="理性人假设博弈论的前提假设">理性人假设——博弈论的前提假设</h2>
-<p>理性人假设，又称经济人假设，或最大化原则，是西方经济学中最基本的前提假设。西方经济学者指出，所谓“经济人”假设，也称为“合乎理性人”假设，是对在经济社会中从事经济活动的所有人的基本特征的一个一般性抽象。这个被抽象出来的基本特征就是：每一个从事经济活动的人都是利己的。也可以说，每一个从事经济活动的人所采取的经济行为都是力图以自己最小经济代价去<strong>获得最大的经济利益</strong>。西方经济学家认为，在任何经济活动中，只有这样的人才是“合乎理性的人”；否则，就是非理性的。
-——摘自百度百科。</p>
-<p>总而言之，我们假设参与博弈的玩家的目标都是<strong>最大化自己的收益</strong>（payoff）。无论玩家是自私的还是道德的，这些因素都可以在最终的收益矩阵中体现出来。</p>
-<h2 id="博弈要素">博弈要素</h2>
-<p>一场博弈包含三个要素：玩家、策略、收益。</p>
-<ul>
-<li><p><strong>玩家</strong></p>
+              <h1 id="grf环境配置">GRF环境配置</h1>
+<h2 id="源代码仓">源代码仓</h2>
 <blockquote>
-<p>用符号<span class="math inline">\(i\)</span>，<span
-class="math inline">\(j\)</span>表示</p>
-</blockquote></li>
-<li><p><strong>策略</strong></p>
+<p>https://github.com/google-research/football</p>
+</blockquote>
+<h2 id="安装依赖">安装依赖</h2>
+<figure class="highlight q"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs q">sudo apt-<span class="hljs-built_in">get</span> install git cmake build-essential libgl1-mesa-<span class="hljs-built_in">dev</span> libsdl2-<span class="hljs-built_in">dev</span> \<br>libsdl2-image-<span class="hljs-built_in">dev</span> libsdl2-ttf-<span class="hljs-built_in">dev</span> libsdl2-gfx-<span class="hljs-built_in">dev</span> libboost-<span class="hljs-built_in">all</span>-<span class="hljs-built_in">dev</span> \<br>libdirectfb-<span class="hljs-built_in">dev</span> libst-<span class="hljs-built_in">dev</span> mesa-utils xvfb x11vnc python3-pip<br><br>python3 -m pip install --upgrade pip setuptools psutil wheel<br></code></pre></div></td></tr></table></figure>
+<h2 id="安装gfootball">安装GFootball</h2>
+<figure class="highlight cmake"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cmake">python3 -m pip <span class="hljs-keyword">install</span> gfootball<br></code></pre></div></td></tr></table></figure>
 <blockquote>
-<p><span class="math inline">\(s_i\)</span>表示玩家<span
-class="math inline">\(i\)</span>选择的策略</p>
-<p><span class="math inline">\(S_i\)</span>表示玩家<span
-class="math inline">\(i\)</span>可选的策略集合</p>
-<p><span
-class="math inline">\(s\)</span>表示一次博弈中所有玩家选择策略的集合</p>
-<p><span class="math inline">\(s_{-i}\)</span>表示除玩家<span
-class="math inline">\(i\)</span>以外，所有玩家的策略组合</p>
-</blockquote></li>
-<li><p><strong>收益</strong></p>
+<p>报错1 ERROR: ERROR: Failed to build installable wheels for some
+pyproject.toml based projects (gfootball)</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104191115218.png" srcset="/img/loading.gif" lazyload /></p>
+<p>尝试解决方案1：更新wheel版本,0.44降到0.38.4，无效</p>
+<p>尝试解决方案2：先将GRF的代码仓clone下来，无效</p>
+<p>尝试解决方案3：无效</p>
+<p>查看cmake版本：<code>cmake --version</code>，报错如下图</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104194836124.png" srcset="/img/loading.gif" lazyload /></p>
+<p>但使用dpkg能够查到cmake，<code>dpkg -l | grep -E "cmake"</code>，如下图</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104195030398.png" srcset="/img/loading.gif" lazyload /></p>
+<p>使用<code>echo $PATH</code>发现cmake没有配置环境变量，修改.bashrc也无效（<code>export PATH="/usr/bin:$PATH"</code>）</p>
+<p>尝试解决方案4：删除cmake，重新安装——有效</p>
+<p>删除cmake，<code>sudo apt remove cmake</code></p>
+<p>重新安装cmake，<code>sudo apt-get install cmake</code></p>
+</blockquote>
 <blockquote>
-<p><span
-class="math inline">\(u_i(s_1,\ldots,s_i,\ldots,s_N)\)</span>表示在玩家1选策略<span
-class="math inline">\(s_1\)</span>，...，玩家<span
-class="math inline">\(i\)</span>选策略<span
-class="math inline">\(s_i\)</span>，...，玩家<span
-class="math inline">\(N\)</span>选策略<span
-class="math inline">\(S_N\)</span>的情况下，玩家<span
-class="math inline">\(i\)</span>的收益。</p>
-<p><span
-class="math inline">\(u_i(s)\)</span>意义同上，是上面符号的简写</p>
-</blockquote></li>
-</ul>
-<h2 id="reference">reference</h2>
-<ul>
-<li>视频：耶鲁大学公开课</li>
-<li>课本：《策略——博弈论导论》——乔尔·沃森</li>
-</ul>
+<p>报错2 ModuleNotFoundError: No module named 'skbuild'</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104203225207.png" srcset="/img/loading.gif" lazyload /></p>
+<p>尝试解决方案1：安装<code>skbuild</code>，<code>pip install scikit-build</code>，似乎有效。。。（反正用新终端再执行命令时，出现新错误了）</p>
+</blockquote>
+<blockquote>
+<p>报错3 Cannot find boost python</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104204540414.png" srcset="/img/loading.gif" lazyload /></p>
+<p>参考issue：https://github.com/google-research/football/issues/310、https://github.com/google-research/football/issues/194</p>
+<p>尝试解决方案1：ubuntu18.04，创建一个python=3.6的虚拟环境。无效</p>
+<p>尝试解决方案2：clone代码仓，使用<code>python3 -m pip install .</code>安装。无效</p>
+<p>尝试解决方案3：修改cmakelist，使用<code>find . -name CMakeLists.txt</code>找到cmakelist，使用<code>find_package(PythonLibs 3.6 REQUIRED)</code>替换<code>find_package(PythonLibs 3 REQUIRED)</code>。无效</p>
+<p>尝试解决方案4：安装3.12版本cmake。参考https://blog.csdn.net/weixin_42035347/article/details/125763949</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">下载CMake3.12（不需要解压到特定路径）<br>wget https://github.com/Kitware/CMake/releases/download/v3.12.0/cmake-3.12.0.tar.gz<br>或者 wget https://cmake.org/files/v3.12/cmake-3.12.0-Linux-x86_64.tar.gz<br>tar -zxvf cmake-3.12.0.tar.gz<br><span class="hljs-built_in">cd</span> cmake-3.12.0<br><br>编译和安装CMake<br>./bootstrap<br>make -j$(<span class="hljs-built_in">nproc</span>)<br>sudo make install<br></code></pre></div></td></tr></table></figure>
+<p>尝试解决方案5：参考https://blog.csdn.net/qq_26565435/article/details/129040032</p>
+<p>在<code>find_package</code>语句前添加<code>set(Boost_DEBUG ON)</code>，发现代码找Boost时，找到了anaconda/lib/cmake路径下（原因不明），修改文件名，让编译时找不到anaconda下的cmake</p>
+<p>尝试解决方案6：参考issuehttps://github.com/google-research/football/issues/317，完美解决（python=3.6，跟ubuntu18.04匹配）</p>
+<p><code>conda install py-boost</code></p>
+</blockquote>
+<h2 id="运行示例程序">运行示例程序</h2>
+<p><code>python3 -m gfootball.play_game --action_set=full</code></p>
+<blockquote>
+<p>报错4 signal 11</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241106145842569.png" srcset="/img/loading.gif" lazyload /></p>
+<p>尝试解决方案1：参考issue：https://github.com/google-research/football/issues/154，无效</p>
+<p>尝试解决方案2：参考issue：https://github.com/google-research/football/issues/205，有效</p>
+<p>添加参数<code>--render=False</code></p>
+<p>尝试解决方案3：参考https://blog.csdn.net/FRIGIDWINTER/article/details/129301640，终端无反应，看起来无效</p>
+</blockquote>
+<h2 id="总结">总结</h2>
+<ol type="1">
+<li>conda环境python版本和ubuntu默认python版本一致，例如ubuntu=18.04，使用python=3.6</li>
+<li>conda环境中手动<code>conda install py-boost</code></li>
+<li>在服务器端运行环境时关闭渲染<code>--render=False</code></li>
+</ol>
 
             </div>
             <hr>
@@ -308,7 +332,7 @@ class="math inline">\(u_i(s)\)</span>意义同上，是上面符号的简写</p>
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%8D%9A%E5%BC%88%E8%AE%BA/">博弈论</a>
+                      <a class="hover-with-bg" href="/categories/MARL/">MARL</a>
                     
                   </div>
                 
@@ -316,7 +340,9 @@ class="math inline">\(u_i(s)\)</span>意义同上，是上面符号的简写</p>
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/">博弈论</a>
+                      <a class="hover-with-bg" href="/tags/MARL/">MARL</a>
+                    
+                      <a class="hover-with-bg" href="/tags/env/">env</a>
                     
                   </div>
                 
@@ -333,21 +359,15 @@ class="math inline">\(u_i(s)\)</span>意义同上，是上面符号的简写</p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/03/17/%E7%AC%AC0%E7%AB%A0/">
+                      <a href="/2025/01/17/pymarl/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">博弈论:第0章——lesson</span>
+                        <span class="hidden-mobile">pymarl源码解读</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
-                    
-                      <a href="/2022/01/18/hello-world/">
-                        <span class="hidden-mobile">Hello World</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
                     
                   </article>
                 </div>

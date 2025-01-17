@@ -13,24 +13,25 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="archi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="第3章——最佳对策（Best response）  本章重点：  信念（belief） 混合策略&#x2F;纯策略 期望收益 最佳对策（Best response） 连续策略 绘制Best response图像   Game1——点球大战 游戏规则介绍 （自行百度，典型的零和博弈） 收益矩阵如下（玩家1为主罚队员，玩家2为守门员）：     l r">
+    <meta name="description" content="torch节省显存方法 手动删除变量 12del vartorch.cuda.empty_cache() 禁止自动梯度计算  自动梯度计算似乎还挺占显存的，不需要的情况下最好关掉  12with torch.no_grad():    tensor1 &#x3D; tensor2 @ tensor3 降低数据精度  修改精度时不要用tensor.float()，tensor.int()这">
 <meta property="og:type" content="article">
-<meta property="og:title" content="博弈论:第3章——最佳对策（Best response）">
-<meta property="og:url" content="https://qi-z.top/2022/03/21/%E7%AC%AC3%E7%AB%A0/index.html">
+<meta property="og:title" content="torch节省显存方法">
+<meta property="og:url" content="https://qi-z.cn/2025/01/17/torch%E8%8A%82%E7%9C%81%E6%98%BE%E5%AD%98%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="Q&#39;s Blog">
-<meta property="og:description" content="第3章——最佳对策（Best response）  本章重点：  信念（belief） 混合策略&#x2F;纯策略 期望收益 最佳对策（Best response） 连续策略 绘制Best response图像   Game1——点球大战 游戏规则介绍 （自行百度，典型的零和博弈） 收益矩阵如下（玩家1为主罚队员，玩家2为守门员）：     l r">
+<meta property="og:description" content="torch节省显存方法 手动删除变量 12del vartorch.cuda.empty_cache() 禁止自动梯度计算  自动梯度计算似乎还挺占显存的，不需要的情况下最好关掉  12with torch.no_grad():    tensor1 &#x3D; tensor2 @ tensor3 降低数据精度  修改精度时不要用tensor.float()，tensor.int()这">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-03-21T07:00:45.766Z">
-<meta property="article:modified_time" content="2022-03-21T12:30:10.409Z">
-<meta property="article:author" content="John Doe">
-<meta property="article:tag" content="博弈论">
+<meta property="article:published_time" content="2025-01-17T09:51:46.753Z">
+<meta property="article:modified_time" content="2025-01-17T10:22:47.896Z">
+<meta property="article:author" content="archi">
+<meta property="article:tag" content="DL">
+<meta property="article:tag" content="torch">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>博弈论:第3章——最佳对策（Best response） - Q&#39;s Blog</title>
+  <title>torch节省显存方法 - Q&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -67,7 +68,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"qi-z.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":100,"cursorChar":"","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":"G-HB7P267418","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"qi-z.cn","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":100,"cursorChar":"","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":"G-HB7P267418","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -171,12 +172,12 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('https://cdn.jsdelivr.net/gh/VON-z/image_hosting/Blog/Backgrounds/202201182008993.png') no-repeat center center;
+         style="background: url('https://cdn.jsdelivr.net/gh/archi-z/image_hosting/Blog/Backgrounds/202201182008993.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="博弈论:第3章——最佳对策（Best response）">
+            <span class="h2" id="subtitle" title="torch节省显存方法">
               
             </span>
 
@@ -186,8 +187,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-03-21 15:00" pubdate>
-        2022年3月21日 下午
+      <time datetime="2025-01-17 17:51" pubdate>
+        2025年1月17日 下午
       </time>
     </span>
   
@@ -197,7 +198,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.2k 字
+      470 字
     </span>
   
 
@@ -206,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      19 分钟
+      4 分钟
     </span>
   
 
@@ -247,131 +248,29 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">博弈论:第3章——最佳对策（Best response）</h1>
+            <h1 style="display: none">torch节省显存方法</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年3月21日 晚上
+                  本文最后更新于：2025年1月17日 晚上
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="第3章最佳对策best-response">第3章——最佳对策（Best
-response）</h1>
+              <h1 id="torch节省显存方法">torch节省显存方法</h1>
+<h2 id="手动删除变量">手动删除变量</h2>
+<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">del</span> var<br>torch.cuda.empty_cache()<br></code></pre></div></td></tr></table></figure>
+<h2 id="禁止自动梯度计算">禁止自动梯度计算</h2>
 <blockquote>
-<p><strong>本章重点</strong>：</p>
-<ul>
-<li>信念（belief）</li>
-<li>混合策略/纯策略</li>
-<li>期望收益</li>
-<li>最佳对策（Best response）</li>
-<li>连续策略</li>
-<li>绘制Best response图像</li>
-</ul>
+<p>自动梯度计算似乎还挺占显存的，不需要的情况下最好关掉</p>
 </blockquote>
-<h2 id="game1点球大战">Game1——点球大战</h2>
-<h3 id="游戏规则介绍">游戏规则介绍</h3>
-<p>（自行百度，典型的<em>零和博弈</em>）</p>
-<p>收益矩阵如下（玩家1为主罚队员，玩家2为守门员）：</p>
-<table>
-<thead>
-<tr class="header">
-<th></th>
-<th>l</th>
-<th>r</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>L</td>
-<td>4, -4</td>
-<td>9, -9</td>
-</tr>
-<tr class="even">
-<td>M</td>
-<td>6, -6</td>
-<td>6, -6</td>
-</tr>
-<tr class="odd">
-<td>R</td>
-<td>9, -9</td>
-<td>4, -4</td>
-</tr>
-</tbody>
-</table>
-<h3 id="博弈三要素">博弈三要素</h3>
-<p><strong>玩家</strong>：主罚队员、守门员</p>
-<p><strong>策略</strong>：主罚队员的策略：踢左边（L），踢中间（M），踢右边（R）；守门员的策略：扑左边（l），扑右边（r）。</p>
-<p><strong>收益</strong>：主罚队员希望避开守门员的防守策略，这样进球的概率最大；守门员希望扑到主罚队员的进攻方向，这样防守成功的概率最大。</p>
-<h3 id="分析">分析</h3>
-<p>首先分析有无严格占优策略，发现无论从主罚队员的角度还是从守门员的角度，都不存在绝对占优策略。再分析有无劣势策略可供剔除，发现也不存在。这就意味着我们过去的分析方法不能解决这个博弈。</p>
-<hr />
-<p>那不妨带入一下，假设自己现在是守门员，现在必须做出一个策略，会做何策略，为什么这么做？我可能会防左边，因为<strong>我觉得</strong>对方会用左脚踢我的左侧。上述只是一种可能，其他人可能会因为不同的<strong>想法</strong>选择和我不同的策略。这种参与博弈的玩家内心的<strong>想法</strong>，就是所谓的<em>信念</em>（belief）。</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">with</span> torch.no_grad():<br>    tensor1 = tensor2 @ tensor3<br></code></pre></div></td></tr></table></figure>
+<h2 id="降低数据精度">降低数据精度</h2>
 <blockquote>
-<p>通过某些途径，参与人会形成对对方行为的信念。</p>
-<p>从数学上看，玩家<span
-class="math inline">\(i\)</span>的信念是关于其他玩家的策略的一个<strong>概率分布</strong>。（这个例子中，守门员可能觉得主罚队员有10%的概率踢右边，30%的概率踢中间，60%的概率踢左边）</p>
+<p>修改精度时不要用tensor.float()，tensor.int()这种语法，因为不清楚具体的数据类型，例如tensor.int()可能会将数据转成torch.int32，这跟torch.float32占用的存储空间是一样大的，起不到任何效果。</p>
+<p>相反，应该使用tensor.to()具体指定数据格式，例如tensor.to(torch.int8)，tensor.to(torch.float16)</p>
 </blockquote>
-<hr />
-<p>提到概率分布，我们要考虑一个<em>混合策略</em>的概念。</p>
-<blockquote>
-<p>一个玩家的混合策略是指他根据一个概率分布来选择策略的行为。</p>
-<p>为避免混淆，我们可以将之前的例子中的策略称为<em>纯策略</em>。<strong>混合策略集合包含纯策略集合</strong>。</p>
-</blockquote>
-<hr />
-<p>在我们将策略从纯策略升级到混合策略后，我们相应的可以通过<em>期望收益</em>来扩展原有的收益，使策略和收益匹配。</p>
-<blockquote>
-<p>以点球大战为例，假设主罚队员10%的概率踢右边，30%的概率踢中间，60%的概率踢左边。</p>
-<p>守门员扑左边的期望收益为-4*60%-6*30%-9*10%=-5.1，守门员扑右边的期望收益为-9*60%-6*30%-4*10%=-7.6。</p>
-</blockquote>
-<hr />
-<p>引入期望收益的概念后，终于可以介绍本章的主角——<em>最佳对策</em>（Best
-response）。</p>
-<blockquote>
-<p>在对手做出某种混合策略的情况下，玩家做出的某个<strong>纯策略</strong>，可以<strong>最大化自身的期望收益</strong>，这个纯策略即最佳对策。</p>
-<p>上述例子中，给定主罚队员的混合策略，我们得到了守门员两个策略的期望收益-5.1和-7.6，显然扑左边期望收益更高，即扑左边就是在主罚队员采取这种混合策略下，守门员的最佳对策。</p>
-</blockquote>
-<hr />
-<p>上述我们对主罚队员的混合策略假设只是众多信念中的一种，主罚队员完全可以按照其他混测策略出手，为了更加系统的分析所有可能的情况，我们可以考虑绘制图像。这次我们站在主罚队员的角度看问题，假设守门员扑右的概率为<span
-class="math inline">\(p(r)\)</span>，以此为横坐标，分别绘制在<span
-class="math inline">\(p(r)\)</span>取不同值的情况下（即守门员采取不同的混合策略），主罚队员采取L、M、R的收益曲线。结果如下图:</p>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting/Notes/game_theory/202203211419511.png" srcset="/img/loading.gif" lazyload
-alt="Fig.1. 主罚队员的收益曲线" />
-<figcaption aria-hidden="true">Fig.1. 主罚队员的收益曲线</figcaption>
-</figure>
-<p>从上图可以看出，在p(r)小于0.5时，主罚队员的最佳对策为策略R，在p(r)大于0.5时，主罚队员的最佳对策为策略L。可以看出，策略M在任何情况下，都不是一个最佳对策。</p>
-<blockquote>
-<p>lesson1：不要选择一个在任何情况下都不是最佳对策的策略。</p>
-</blockquote>
-<h3 id="总结">总结</h3>
-<p>通过这个例子，我们了解了<em>信念</em>，<em>混合策略/纯策略</em>，<em>期望收益</em>，<em>最佳对策</em>等概念，并且初步了解了怎样通过数学图像去分析博弈，这种方法在后续还会用到。</p>
-<h2 id="game2合伙人博弈">Game2——合伙人博弈</h2>
-<h3 id="游戏规则介绍-1">游戏规则介绍</h3>
-<h3 id="博弈三要素-1">博弈三要素</h3>
-<h3 id="分析-1">分析</h3>
-<h3 id="总结-1">总结</h3>
-<h2 id="总结-2">总结</h2>
-<h3 id="信念belief">信念（belief）</h3>
-<p>信念就是“我有xx把握，那个家伙可能选择策略xx”，通过某些途径，玩家会形成对对方行为的信念。回顾第2章的选数字博弈，对同一批人重复进行该博弈，结果会越来越小，在这个过程中，玩家的信念在不停的更新，“我认为这次的结果应该在21”，“我认为这次的结果应该在14”，...，“我认为绝大多数人都会选择1”。</p>
-<h3 id="混合策略纯策略">混合策略/纯策略</h3>
-<p>混合策略指玩家根据某个概率分布来选择策略的行为。</p>
-<p>纯策略是以全概率选择某一个策略的混合策略。</p>
-<p>混合策略的意义一方面在于考虑对手行为，即上面介绍的信念。当我们不能完全确定对手的行为时，可以根据自身对对手的了解建模对手可能采取策略的概率分布。混合策略的意义另一方面在于指导自身做出策略，当然，混合策略对于单次或几次博弈指导意义不大（概率，期望这些东西总要在基数达到一定程度才能发挥作用），更多是保证在大量博弈中，自身做出合理策略。针对第二点，我们可以举一个简单例子——石头剪刀布，如果对手严格按照1/3，1/3，1/3的概率选择策略，那实际上如果我们做非常多次的石头剪刀布，显然，自身也按照1/3，1/3，1/3的概率选择策略是最明智的。（当然全选某一个策略理论上收益一样，但现实中这种策略对手不可能不针对:-)）。</p>
-<h3 id="期望收益">期望收益</h3>
-<p>给定对手选择策略的概率分布，自身选某个策略时的收益是多种可能情况的期望和，即期望收益。</p>
-<h3 id="最佳对策best-response">最佳对策（Best response）</h3>
-<p>玩家<span class="math inline">\(i\)</span>的策略<span
-class="math inline">\(\hat{s_i}\)</span>是对其他玩家的策略持信念<span
-class="math inline">\(p\)</span>时的最佳对策：</p>
-<p>if <span class="math inline">\(E_{u_i}(\hat{s_i}, p) \ge
-E_{u_i}(s_i^\prime, p)\)</span> for all <span
-class="math inline">\(s_i^\prime\)</span> in <span
-class="math inline">\(S_i\)</span></p>
-<p>注意最佳对策是一个<strong>纯策略</strong>。</p>
-<h3 id="连续策略">连续策略</h3>
-<h3 id="绘制best-response图像">绘制Best response图像</h3>
+<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python">tensor1 = torch.zeros((<span class="hljs-number">2</span>,<span class="hljs-number">2</span>), dtype=torch.float32)	<span class="hljs-comment"># 新建数据时，使用torch.float16,torch.int8降低精度</span><br>tensor1 = tensor1.half() <span class="hljs-comment"># 使用torch.float16替代torch.float32</span><br></code></pre></div></td></tr></table></figure>
 
             </div>
             <hr>
@@ -381,7 +280,7 @@ class="math inline">\(S_i\)</span></p>
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%8D%9A%E5%BC%88%E8%AE%BA/">博弈论</a>
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E7%A8%8B%E6%8A%80%E6%9C%AF/">工程技术</a>
                     
                   </div>
                 
@@ -389,7 +288,9 @@ class="math inline">\(S_i\)</span></p>
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/">博弈论</a>
+                      <a class="hover-with-bg" href="/tags/DL/">DL</a>
+                    
+                      <a class="hover-with-bg" href="/tags/torch/">torch</a>
                     
                   </div>
                 
@@ -406,12 +307,18 @@ class="math inline">\(S_i\)</span></p>
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2025/01/17/TRPO/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">TRPO</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/03/18/%E7%AC%AC2%E7%AB%A0/">
-                        <span class="hidden-mobile">博弈论:第2章——迭代剔除劣势策略</span>
+                      <a href="/2025/01/17/pymarl/">
+                        <span class="hidden-mobile">pymarl源码解读</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
