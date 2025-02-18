@@ -16,22 +16,21 @@
   <meta name="author" content="archi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="torch节省显存方法 手动删除变量 12del vartorch.cuda.empty_cache() 禁止自动梯度计算  自动梯度计算似乎还挺占显存的，不需要的情况下最好关掉  12with torch.no_grad():    tensor1 &#x3D; tensor2 @ tensor3 降低数据精度  修改精度时不要用tensor.float()，tensor.int()这">
+    <meta name="description" content="The Dormant Neuron Phenomenon in Deep Reinforcement Learning 原文：The Dormant Neuron Phenomenon in Deep Reinforcement Learning  当前的训练技术，并不能够充分发挥网络的能力。 这篇工作介绍了DRL领域的一种现象——模型随着训练丧失拟合能力。 这同休眠神经元现象(d">
 <meta property="og:type" content="article">
-<meta property="og:title" content="torch节省显存方法">
-<meta property="og:url" content="https://qi-z.cn/2025/01/12/torch%E8%8A%82%E7%9C%81%E6%98%BE%E5%AD%98%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:title" content="The Dormant Neuron Phenomenon in Deep Reinforcement Learning">
+<meta property="og:url" content="https://qi-z.cn/2025/02/18/The_Dormant_Neuron_Phenomenon_in_Deep_Reinforcement_Learning/index.html">
 <meta property="og:site_name" content="Q&#39;s Blog">
-<meta property="og:description" content="torch节省显存方法 手动删除变量 12del vartorch.cuda.empty_cache() 禁止自动梯度计算  自动梯度计算似乎还挺占显存的，不需要的情况下最好关掉  12with torch.no_grad():    tensor1 &#x3D; tensor2 @ tensor3 降低数据精度  修改精度时不要用tensor.float()，tensor.int()这">
+<meta property="og:description" content="The Dormant Neuron Phenomenon in Deep Reinforcement Learning 原文：The Dormant Neuron Phenomenon in Deep Reinforcement Learning  当前的训练技术，并不能够充分发挥网络的能力。 这篇工作介绍了DRL领域的一种现象——模型随着训练丧失拟合能力。 这同休眠神经元现象(d">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-01-12T05:51:25.461Z">
-<meta property="article:modified_time" content="2025-01-14T08:49:02.878Z">
+<meta property="article:published_time" content="2025-02-18T14:07:35.761Z">
+<meta property="article:modified_time" content="2025-02-18T14:07:31.990Z">
 <meta property="article:author" content="archi">
-<meta property="article:tag" content="深度学习">
-<meta property="article:tag" content="torch">
+<meta property="article:tag" content="DRL">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>torch节省显存方法 - Q&#39;s Blog</title>
+  <title>The Dormant Neuron Phenomenon in Deep Reinforcement Learning - Q&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -177,7 +176,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="torch节省显存方法">
+            <span class="h2" id="subtitle" title="The Dormant Neuron Phenomenon in Deep Reinforcement Learning">
               
             </span>
 
@@ -187,8 +186,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2025-01-12 13:51" pubdate>
-        2025年1月12日 下午
+      <time datetime="2025-02-18 22:07" pubdate>
+        2025年2月18日 晚上
       </time>
     </span>
   
@@ -198,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      470 字
+      2.8k 字
     </span>
   
 
@@ -207,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4 分钟
+      24 分钟
     </span>
   
 
@@ -248,29 +247,141 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">torch节省显存方法</h1>
+            <h1 style="display: none">The Dormant Neuron Phenomenon in Deep Reinforcement Learning</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2025年1月14日 下午
+                  本文最后更新于：2025年2月18日 晚上
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="torch节省显存方法">torch节省显存方法</h1>
-<h2 id="手动删除变量">手动删除变量</h2>
-<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">del</span> var<br>torch.cuda.empty_cache()<br></code></pre></div></td></tr></table></figure>
-<h2 id="禁止自动梯度计算">禁止自动梯度计算</h2>
+              <h1
+id="the-dormant-neuron-phenomenon-in-deep-reinforcement-learning">The
+Dormant Neuron Phenomenon in Deep Reinforcement Learning</h1>
+<p>原文：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.12902">The Dormant Neuron
+Phenomenon in Deep Reinforcement Learning</a></p>
 <blockquote>
-<p>自动梯度计算似乎还挺占显存的，不需要的情况下最好关掉</p>
+<p>当前的训练技术，并不能够充分发挥网络的能力。</p>
+<p>这篇工作介绍了DRL领域的一种现象——<strong>模型随着训练丧失拟合能力</strong>。</p>
+<p>这同<strong>休眠神经元现象(dormant neuron
+phenomenon)</strong>存在相关性。</p>
+<p>这篇工作揭示了这种现象在DRL领域普遍存在；分析了产生这种现象的可能原因；以及其造成的负面影响。</p>
+<p>提出了ReDo算法缓解问题。</p>
+<p>验证了ReDo算法的有效性；可以在提高回放率时，缓解产生的负面影响；可以在提高模型复杂度时，帮助模型更好的发挥潜力</p>
+<p><em>这篇文章关注的是价值网络的问题（实验基于value-base算法）</em></p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">with</span> torch.no_grad():<br>    tensor1 = tensor2 @ tensor3<br></code></pre></div></td></tr></table></figure>
-<h2 id="降低数据精度">降低数据精度</h2>
+<h2 id="前置知识">前置知识</h2>
+<p>RL中引入DL，一方面提升了算法性能，但引入了新的训练问题。针对这些问题，一方面，改进RL算法（经验回放池，目标网络），另一方面，分析网络模型在RL场景下的特性。</p>
+<p>监督学习中的“scaling
+law”表明模型表现和参数数量具有正相关性。在RL中，有证据表明，<strong>即使参数量足够的情况下，随着训练的进行，模型失去拟合能力，不能适应新的目标</strong>。</p>
+<p>和监督学习相比，RL很重要的一点不同在于，<strong>网络训练过程的非平稳</strong>：1)<strong>输入数据非平稳</strong>。随着策略的演化，数据分布在变动；2)<strong>拟合目标非平稳</strong>。目标网络周期性更新。</p>
 <blockquote>
-<p>修改精度时不要用tensor.float()，tensor.int()这种语法，因为不清楚具体的数据类型，例如tensor.int()可能会将数据转成torch.int32，这跟torch.float32占用的存储空间是一样大的，起不到任何效果。</p>
-<p>相反，应该使用tensor.to()具体指定数据格式，例如tensor.to(torch.int8)，tensor.to(torch.float16)</p>
+<p>这种非平稳叠加上自举，是否还能收敛到最优价值函数？本身TD算法就是有偏估计。</p>
+<p>此外，基于函数估计的RL还要考虑一个问题，就是函数参数更新的耦合性，不同于基于表格的RL，函数参数更新会对其他状态的价值产生影响。</p>
+<p>将DRL的价值函数估计同DL的回归任务做比较，DRL的价值函数是否更锐利。例如房价预测，特征的变化对回归值影响相对平滑，DRL的价值函数是否有这种特性，或者说，这是否就是不同游戏环境+reward设计的一般性区别？</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python">tensor1 = torch.zeros((<span class="hljs-number">2</span>,<span class="hljs-number">2</span>), dtype=torch.float32)	<span class="hljs-comment"># 新建数据时，使用torch.float16,torch.int8降低精度</span><br>tensor1 = tensor1.half() <span class="hljs-comment"># 使用torch.float16替代torch.float32</span><br></code></pre></div></td></tr></table></figure>
+<p><strong>定义1（休眠神经元）：</strong>给定输入分布下，计算每个神经元的激活值的期望。然后，计算每层神经元期望激活值的平均数，每个神经元除以自己所在层的平均数得到<strong>休眠度</strong></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218190840740.png" srcset="/img/loading.gif" lazyload /></p>
+<blockquote>
+<p>休眠神经元的定义是依赖于输入的分布的，在某个分布下休眠的神经元，在另一个分布下，未必还是休眠的，反之亦然。而输入分布随价值网络变动。</p>
+<p>虽然给出了休眠神经元的定义，但在后续实验中，具体是如何计算的，输入的分布是如何取的，论文并没有提及。</p>
+</blockquote>
+<p><strong>定义2（休眠神经元现象）：</strong>在训练过程中，休眠神经元的数量稳定上升。</p>
+<h2 id="实验分析休眠神经元现象">实验分析休眠神经元现象</h2>
+<h3 id="休眠神经元现象广泛存在">休眠神经元现象广泛存在</h3>
+<p><strong>实验设置：</strong>DQN + Arcade Learning Environment</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218193237390.png" srcset="/img/loading.gif" lazyload /></p>
+<h3 id="拟合目标非平稳加剧现象">拟合目标非平稳加剧现象</h3>
+<p><strong>实验设置：</strong>CIFAR-10任务，1)固定标签，训练一个卷积神经网络；2)每20个epoch打乱标签，训练一个卷积神经网络。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218194219614.png" srcset="/img/loading.gif" lazyload /></p>
+<blockquote>
+<p>CIFAR-10是分类任务，RL中价值估计更接近回归任务，换一个回归任务分析更合理</p>
+</blockquote>
+<h3 id="输入数据非平稳不是主要原因">输入数据非平稳不是主要原因</h3>
+<p><strong>实验设置：</strong>离线RL（数据集固定） + DQN + Arcade
+Learning Environment</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218194836137.png" srcset="/img/loading.gif" lazyload /></p>
+<blockquote>
+<p>原文提到，为了分析这种设定下休眠神经元的来源，进行了fixed random
+targets实验（即将输入数据和拟合目标都固定，图中蓝色曲线），因为蓝色曲线休眠神经元更少，所以支撑了结论——拟合目标非平稳是休眠神经元现象的主要来源。但奇怪的是，蓝色曲线依然随训练过程上升，跟监督学习的下降趋势并不一致，也就是说，固定拟合目标后，还有其他原因，导致了神经元的休眠。</p>
+</blockquote>
+<h3 id="休眠神经元保持休眠">休眠神经元保持休眠</h3>
+<p><strong>实验设置：</strong>DQN + Arcade Learning Environment</p>
+<p><strong>定义3（重叠系数）：</strong>集合<span
+class="math inline">\(X\)</span>和集合<span
+class="math inline">\(Y\)</span>的重叠系数为<span
+class="math inline">\(overlap(X,Y)=\frac{|X \cap
+Y|}{\min(|X|,|Y|)}\)</span></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218201344268.png" srcset="/img/loading.gif" lazyload /></p>
+<blockquote>
+<p>Figure 5 plots the overlap coefficient between the set of dormant
+neurons in the penultimate layer at the current iteration, and the
+historical set of dormant neurons.</p>
+<p>作者认为图中的增长强力的支撑了结论——休眠神经元在训练的剩余时间内保持休眠。但图5中最高重叠率是80%，意味着还是有20%的休眠神经元能够通过训练，或输入数据分布的改变等原因重新激活。</p>
+</blockquote>
+<h3 id="频繁的梯度更新加剧现象">频繁的梯度更新加剧现象</h3>
+<p><strong>实验设置：</strong>DQN + Arcade Learning Environment</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218202613383.png" srcset="/img/loading.gif" lazyload /></p>
+<h3 id="休眠神经元阻碍学习新任务">休眠神经元阻碍学习新任务</h3>
+<p><strong>实验设置：</strong>在DemonAttack环境下，训练一个DQN智能体，设定RR=1，如图7所示，网络中存在很多休眠神经元，后续用“预训练网络”指代这个网络。然后找一个表现良好的DQN网络作为teacher网络，预训练网络作为student网络，进行知识蒸馏，同时用一个随机初始化的网络作为student网络也进行知识蒸馏。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218203923741.png" srcset="/img/loading.gif" lazyload /></p>
+<blockquote>
+<p>知识蒸馏的过程，输入数据的分布是什么？图8中预训练模型loss甚至在上升，难道不是应当先保证loss下降或保持不变，再进行现象分析？</p>
+<p>知识蒸馏的过程，对于student网络来说本身就是一个监督学习，会什么还会出现休眠神经元比例的上升？</p>
+</blockquote>
+<h2 id="redo算法">ReDo算法</h2>
+<h3 id="算法介绍">算法介绍</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218204622549.png" srcset="/img/loading.gif" lazyload /></p>
+<h3 id="算法的有效性">算法的有效性</h3>
+<h4
+id="减少休眠神经元提升智能体表现">减少休眠神经元，提升智能体表现</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218205017914.png" srcset="/img/loading.gif" lazyload /></p>
+<blockquote>
+<p>这个任务是否具有代表性？换一个游戏，实验结果还会是这样吗？</p>
+</blockquote>
+<h4 id="效果优于其他正则化方法">效果优于其他正则化方法</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218205417289.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218205448015.png" srcset="/img/loading.gif" lazyload /></p>
+<blockquote>
+<p>为什么在这种MuJoCo+SAC场景下，这些改进策略不再能够提升算法性能，难道休眠神经元在这类游戏场景中比较少？</p>
+</blockquote>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218205503904.png" srcset="/img/loading.gif" lazyload /></p>
+<h3 id="缓解提高回放率产生的负面影响">缓解提高回放率产生的负面影响</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218210236161.png" srcset="/img/loading.gif" lazyload /></p>
+<blockquote>
+<p>在多种场景（不同multi-step，不同网络结构，不同RL算法）下ReDo都能起到缓解，提高回放率产生的负面影响。</p>
+</blockquote>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218211736207.png" srcset="/img/loading.gif" lazyload /></p>
+<h3 id="帮助模型更好的发挥潜力">帮助模型更好的发挥潜力</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218212141513.png" srcset="/img/loading.gif" lazyload /></p>
+<blockquote>
+<p>简单增加模型参数量，依靠传统训练，复杂模型的拟合能力发挥不出来；通过ReDo，休眠神经元的数量能够保持在一种较低的水平，增加模型参数量，算法表现还能得到一定程度提升。</p>
+<p>不同模型宽度，休眠神经元的比例变化趋势非常接近，如何解释这个现象？</p>
+</blockquote>
+<h2 id="评论">评论</h2>
+<ul>
+<li><p>有关神经元休眠的原因似乎还没调查清楚，文章针对问题打了个补丁，提升了算法性能。有进一步定位的空间。</p></li>
+<li><p>问题不在于休眠神经元数量上升，而在于完美拟合该游戏的真实价值函数需要70%的神经元，却有50%的神经元陷入休眠，导致模型拟合能力发挥不出来。如果仅有30%神经元休眠，且模型表现优异，理论上应该是正常的，预示着过拟合。如果仅有20%神经元休眠，可能也意味着欠拟合。可以以高阶多项式拟合为例。</p></li>
+<li><p>理论上在RL领域不存在监督学习的那种过拟合问题，因为给定了环境的模型（游戏本身），RL的数据可以无限生成，但是生成数据本身依赖于策略，RL因此有特有的问题——探索&amp;利用。</p></li>
+<li><p>可以做一个小测试。调整epsilon衰减的速率，观察休眠神经元变化的趋势是否会受影响？</p></li>
+<li><p>相较于论文中经常出现的休眠神经元的比例，可以尝试去统计神经元激活值的分布，可能更有助于我们发现问题。</p></li>
+</ul>
 
             </div>
             <hr>
@@ -280,7 +391,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E7%A8%8B%E6%8A%80%E6%9C%AF/">工程技术</a>
+                      <a class="hover-with-bg" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a>
                     
                   </div>
                 
@@ -288,9 +399,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
-                    
-                      <a class="hover-with-bg" href="/tags/torch/">torch</a>
+                      <a class="hover-with-bg" href="/tags/DRL/">DRL</a>
                     
                   </div>
                 
@@ -307,18 +416,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/02/18/The_Dormant_Neuron_Phenomenon_in_Deep_Reinforcement_Learning/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">The Dormant Neuron Phenomenon in Deep Reinforcement Learning</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/01/09/TRPO/">
-                        <span class="hidden-mobile">TRPO论文笔记</span>
+                      <a href="/2025/01/12/torch%E8%8A%82%E7%9C%81%E6%98%BE%E5%AD%98%E6%96%B9%E6%B3%95/">
+                        <span class="hidden-mobile">torch节省显存方法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
