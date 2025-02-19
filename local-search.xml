@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>SimBa - Simplicity Bias for Scaling Up Parameters in Deep Reinforcement Learning</title>
+    <link href="/2025/02/19/SimBa_Simplicity_Bias_for_Scaling_Up_Parameters_in_Deep_Reinforcement_Learning/"/>
+    <url>/2025/02/19/SimBa_Simplicity_Bias_for_Scaling_Up_Parameters_in_Deep_Reinforcement_Learning/</url>
+    
+    <content type="html"><![CDATA[<h1id="simba-simplicity-bias-for-scaling-up-parameters-in-deep-reinforcement-learning">SimBa:Simplicity Bias for Scaling Up Parameters in Deep ReinforcementLearning</h1><p>原文：<a href="https://arxiv.org/abs/2410.09754">SimBa: SimplicityBias for Scaling Up Parameters in Deep Reinforcement Learning</a></p><blockquote><p>在DRL领域，如何设计网络使其能够从扩展参数量获益。</p><p>这篇文章提供了一个切入视角——simplicity bias（简单性偏见）。</p><p>基于这个视角，设计了SimBa网络结构。</p><p>实验验证了SimBa网络结构可以对多种RL算法，多种游戏场景提升算法表现。</p></blockquote><h2 id="前置知识">前置知识</h2><p>扩展神经网络规模是当今CV和NLP领域发展的一个关键驱动力。扩展模型参数一方面提升了模型的拟合能力，另一方面也增加了对训练数据的过拟合风险。</p><p>但事实上，这种神经网络倾向于朝简单的，泛化性好的函数收敛。这种现象被归因于<strong>神经网络本身具有的简单性偏见（simplicitybias）</strong>——<strong>优化算法</strong>和<strong>网络模块</strong>引导高表达能力模型朝向简单，泛化性好的函数收敛。例如随机梯度下降、ReLU、层归一化、残差模块。这些要素影响了神经网络在初始时刻表征函数的类型，而<strong>初始时刻表征函数越简单，网络越可能收敛到简单函数</strong>。</p><blockquote><p>这篇文章通过放大简单性偏见，引导模型朝向更简单，泛化性更好的函数收敛。更准确的说法，应该是避免模型过早拟合到局部最优的价值函数。</p></blockquote><p><strong>定义1（函数复杂度）：</strong>对函数进行离散傅里叶变换，利用傅里叶系数对频率进行加权求和——<spanclass="math inline">\(c(f)=\sum_{k=0}^{K}(\tilde{f}(k)\cdot k) /\sum_{k=0}^{K}\tilde{f}(k)\)</span>。</p><blockquote><p><span class="math inline">\(k\)</span>越大意味着频率越大。<spanclass="math inline">\(c(f)\)</span>越大，函数高频成分越多，越复杂。反之亦然。</p></blockquote><p><strong>定义2（简单性偏见得分）：</strong><spanclass="math inline">\(s(f)\approx\mathbb{E}_{\theta\sim\Theta_{0}}[\frac{1}{c(f_{\theta})}]\)</span>。其中<spanclass="math inline">\(\Theta_{0}\)</span>是初始化网络参数的分布</p><blockquote><p>由于不容易控制变量，论文比较的是不同网络结构<strong>初始化时刻</strong>的简单性偏见。有研究表明，<strong>网络训练期间收敛到的函数的复杂程度和网络初始化时刻的复杂程度强相关</strong>。</p></blockquote><h2 id="simba网络">SimBa网络</h2><p><imgsrc="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250219160125160.png" /></p><p><strong>SimBa网络存在一条直接从输入到输出的线性路径，仅通过残差连接实现非线性</strong></p><h3 id="输入归一化模块">输入归一化模块</h3><p><strong>设计理念：</strong>避免不成比例的大值特征主导学习过程。</p><h3 id="残差模块">残差模块</h3><p><strong>设计理念：</strong>模型保持一种简单状态，除非需要非线性转化。</p><h3 id="层归一化模块">层归一化模块</h3><p><strong>设计理念：</strong>确保激活值尺度一致。</p><h2 id="性能验证">性能验证</h2><p>简单性偏见分三步计算。1)从一个均匀分布中采样输入（<spanclass="math inline">\(\mathcal{X}=[-100,100]^2\subset\mathbb{R}^2\)</span>，划分为90000个点采样）；2)计算网络输出；3)用这些输出计算傅里叶系数。</p><blockquote><p>真实应用（测试）的任务，输入空间也在其中吗？或者高度覆盖？否则函数在这片区域计算出的simplicitybias跟最终性能又何必然关联呢？</p></blockquote><h3 id="子模块分析">子模块分析</h3><p><imgsrc="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250219174143834.png" /></p><h3 id="同其他网络结构对比">同其他网络结构对比</h3><p>主要聚焦在扩展critic网络的隐层维度，因为扩展actor网络的隐层维度收益有限。</p><p><imgsrc="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250219174440524.png" /></p><h2 id="适用性验证">适用性验证</h2><h3 id="off-policy-rl">off-policy RL</h3><p><imgsrc="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250219193956362.png" /></p><p><imgsrc="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250219194051553.png" /></p><h3 id="on-policy-rl">on-policy RL</h3><p><imgsrc="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250219194249377.png" /></p><h3 id="unsupervised-rl">unsupervised RL</h3><h2 id="消融实验">消融实验</h2><h3 id="替换输入归一化模块">替换输入归一化模块</h3><h3 id="网络参数量扩展">网络参数量扩展</h3><h3 id="回放率扩展">回放率扩展</h3><h2 id="评论">评论</h2><ul><li><p>这篇文章跟<em>The Dormant Neuron Phenomenon in Deep ReinforcementLearning</em>，思路似乎是相反的。本文通过放大简单性偏见，希望网络模型收敛到简单，泛化性好的函数，这是否代表会有更多休眠神经元？而休眠神经元这篇文章目标是让模型拟合更复杂的函数，通过激活休眠神经元。</p></li><li><p>在RL中引入scalinglaw——增加模型参数量&amp;增加梯度更新次数</p></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>论文笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>DRL</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Streaming-DRL</title>
     <link href="/2025/02/19/Streaming-DRL/"/>
     <url>/2025/02/19/Streaming-DRL/</url>

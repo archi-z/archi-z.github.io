@@ -1,0 +1,626 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/Q.png">
+  <link rel="icon" href="/img/Q.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="archi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="SimBa: Simplicity Bias for Scaling Up Parameters in Deep Reinforcement Learning 原文：SimBa: Simplicity Bias for Scaling Up Parameters in Deep Reinforcement Learning  在DRL领域，如何设计网络使其能够从扩展参数量获益。 这篇">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SimBa - Simplicity Bias for Scaling Up Parameters in Deep Reinforcement Learning">
+<meta property="og:url" content="https://qi-z.cn/2025/02/19/SimBa_Simplicity_Bias_for_Scaling_Up_Parameters_in_Deep_Reinforcement_Learning/index.html">
+<meta property="og:site_name" content="Q&#39;s Blog">
+<meta property="og:description" content="SimBa: Simplicity Bias for Scaling Up Parameters in Deep Reinforcement Learning 原文：SimBa: Simplicity Bias for Scaling Up Parameters in Deep Reinforcement Learning  在DRL领域，如何设计网络使其能够从扩展参数量获益。 这篇">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-02-19T11:44:15.794Z">
+<meta property="article:modified_time" content="2025-02-19T11:51:36.907Z">
+<meta property="article:author" content="archi">
+<meta property="article:tag" content="DRL">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>SimBa - Simplicity Bias for Scaling Up Parameters in Deep Reinforcement Learning - Q&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"qi-z.cn","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":100,"cursorChar":"","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":"G-HB7P267418","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  <header style="height: 90vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Q&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://cdn.jsdelivr.net/gh/archi-z/image_hosting/Blog/Backgrounds/202201182008993.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="SimBa - Simplicity Bias for Scaling Up Parameters in Deep Reinforcement Learning">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2025-02-19 19:44" pubdate>
+        2025年2月19日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      13 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SimBa - Simplicity Bias for Scaling Up Parameters in Deep Reinforcement Learning</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2025年2月19日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1
+id="simba-simplicity-bias-for-scaling-up-parameters-in-deep-reinforcement-learning">SimBa:
+Simplicity Bias for Scaling Up Parameters in Deep Reinforcement
+Learning</h1>
+<p>原文：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2410.09754">SimBa: Simplicity
+Bias for Scaling Up Parameters in Deep Reinforcement Learning</a></p>
+<blockquote>
+<p>在DRL领域，如何设计网络使其能够从扩展参数量获益。</p>
+<p>这篇文章提供了一个切入视角——simplicity bias（简单性偏见）。</p>
+<p>基于这个视角，设计了SimBa网络结构。</p>
+<p>实验验证了SimBa网络结构可以对多种RL算法，多种游戏场景提升算法表现。</p>
+</blockquote>
+<h2 id="前置知识">前置知识</h2>
+<p>扩展神经网络规模是当今CV和NLP领域发展的一个关键驱动力。扩展模型参数一方面提升了模型的拟合能力，另一方面也增加了对训练数据的过拟合风险。</p>
+<p>但事实上，这种神经网络倾向于朝简单的，泛化性好的函数收敛。这种现象被归因于<strong>神经网络本身具有的简单性偏见（simplicity
+bias）</strong>——<strong>优化算法</strong>和<strong>网络模块</strong>引导高表达能力模型朝向简单，泛化性好的函数收敛。例如随机梯度下降、ReLU、层归一化、残差模块。这些要素影响了神经网络在初始时刻表征函数的类型，而<strong>初始时刻表征函数越简单，网络越可能收敛到简单函数</strong>。</p>
+<blockquote>
+<p>这篇文章通过放大简单性偏见，引导模型朝向更简单，泛化性更好的函数收敛。更准确的说法，应该是避免模型过早拟合到局部最优的价值函数。</p>
+</blockquote>
+<p><strong>定义1（函数复杂度）：</strong>对函数进行离散傅里叶变换，利用傅里叶系数对频率进行加权求和——<span
+class="math inline">\(c(f)=\sum_{k=0}^{K}(\tilde{f}(k)\cdot k) /
+\sum_{k=0}^{K}\tilde{f}(k)\)</span>。</p>
+<blockquote>
+<p><span class="math inline">\(k\)</span>越大意味着频率越大。<span
+class="math inline">\(c(f)\)</span>越大，函数高频成分越多，越复杂。反之亦然。</p>
+</blockquote>
+<p><strong>定义2（简单性偏见得分）：</strong><span
+class="math inline">\(s(f)\approx\mathbb{E}_{\theta\sim\Theta_{0}}[\frac{1}{c(f_{\theta})}]\)</span>。其中<span
+class="math inline">\(\Theta_{0}\)</span>是初始化网络参数的分布</p>
+<blockquote>
+<p>由于不容易控制变量，论文比较的是不同网络结构<strong>初始化时刻</strong>的简单性偏见。有研究表明，<strong>网络训练期间收敛到的函数的复杂程度和网络初始化时刻的复杂程度强相关</strong>。</p>
+</blockquote>
+<h2 id="simba网络">SimBa网络</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250219160125160.png" srcset="/img/loading.gif" lazyload /></p>
+<p><strong>SimBa网络存在一条直接从输入到输出的线性路径，仅通过残差连接实现非线性</strong></p>
+<h3 id="输入归一化模块">输入归一化模块</h3>
+<p><strong>设计理念：</strong>避免不成比例的大值特征主导学习过程。</p>
+<h3 id="残差模块">残差模块</h3>
+<p><strong>设计理念：</strong>模型保持一种简单状态，除非需要非线性转化。</p>
+<h3 id="层归一化模块">层归一化模块</h3>
+<p><strong>设计理念：</strong>确保激活值尺度一致。</p>
+<h2 id="性能验证">性能验证</h2>
+<p>简单性偏见分三步计算。1)从一个均匀分布中采样输入（<span
+class="math inline">\(\mathcal{X}=[-100,100]^2\subset\mathbb{R}^2\)</span>，划分为90000个点采样）；2)计算网络输出；3)用这些输出计算傅里叶系数。</p>
+<blockquote>
+<p>真实应用（测试）的任务，输入空间也在其中吗？或者高度覆盖？否则函数在这片区域计算出的simplicity
+bias跟最终性能又何必然关联呢？</p>
+</blockquote>
+<h3 id="子模块分析">子模块分析</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250219174143834.png" srcset="/img/loading.gif" lazyload /></p>
+<h3 id="同其他网络结构对比">同其他网络结构对比</h3>
+<p>主要聚焦在扩展critic网络的隐层维度，因为扩展actor网络的隐层维度收益有限。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250219174440524.png" srcset="/img/loading.gif" lazyload /></p>
+<h2 id="适用性验证">适用性验证</h2>
+<h3 id="off-policy-rl">off-policy RL</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250219193956362.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250219194051553.png" srcset="/img/loading.gif" lazyload /></p>
+<h3 id="on-policy-rl">on-policy RL</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250219194249377.png" srcset="/img/loading.gif" lazyload /></p>
+<h3 id="unsupervised-rl">unsupervised RL</h3>
+<h2 id="消融实验">消融实验</h2>
+<h3 id="替换输入归一化模块">替换输入归一化模块</h3>
+<h3 id="网络参数量扩展">网络参数量扩展</h3>
+<h3 id="回放率扩展">回放率扩展</h3>
+<h2 id="评论">评论</h2>
+<ul>
+<li><p>这篇文章跟<em>The Dormant Neuron Phenomenon in Deep Reinforcement
+Learning</em>，思路似乎是相反的。本文通过放大简单性偏见，希望网络模型收敛到简单，泛化性好的函数，这是否代表会有更多休眠神经元？而休眠神经元这篇文章目标是让模型拟合更复杂的函数，通过激活休眠神经元。</p></li>
+<li><p>在RL中引入scaling
+law——增加模型参数量&amp;增加梯度更新次数</p></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/DRL/">DRL</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/02/19/Streaming-DRL/">
+                        <span class="hidden-mobile">Streaming-DRL</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+    <!-- Google gtag.js -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HB7P267418"></script>
+    <script defer>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-HB7P267418');
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
