@@ -24,7 +24,7 @@
 <meta property="og:description" content="The Dormant Neuron Phenomenon in Deep Reinforcement Learning 原文：The Dormant Neuron Phenomenon in Deep Reinforcement Learning  当前的训练技术，并不能够充分发挥网络的能力。 这篇工作介绍了DRL领域的一种现象——模型随着训练丧失拟合能力。 这同休眠神经元现象(d">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-02-18T14:07:35.761Z">
-<meta property="article:modified_time" content="2025-02-18T14:07:31.990Z">
+<meta property="article:modified_time" content="2025-02-19T04:15:10.015Z">
 <meta property="article:author" content="archi">
 <meta property="article:tag" content="DRL">
 <meta name="twitter:card" content="summary_large_image">
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.8k 字
+      2.9k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      24 分钟
+      25 分钟
     </span>
   
 
@@ -251,7 +251,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2025年2月18日 晚上
+                  本文最后更新于：2025年2月19日 中午
                 
               </p>
             
@@ -278,6 +278,7 @@ law”表明模型表现和参数数量具有正相关性。在RL中，有证据
 <p>和监督学习相比，RL很重要的一点不同在于，<strong>网络训练过程的非平稳</strong>：1)<strong>输入数据非平稳</strong>。随着策略的演化，数据分布在变动；2)<strong>拟合目标非平稳</strong>。目标网络周期性更新。</p>
 <blockquote>
 <p>这种非平稳叠加上自举，是否还能收敛到最优价值函数？本身TD算法就是有偏估计。</p>
+<p>RL中价值函数的学习目标是分两部分的，一个是即时的reward，一个是自举的价值。</p>
 <p>此外，基于函数估计的RL还要考虑一个问题，就是函数参数更新的耦合性，不同于基于表格的RL，函数参数更新会对其他状态的价值产生影响。</p>
 <p>将DRL的价值函数估计同DL的回归任务做比较，DRL的价值函数是否更锐利。例如房价预测，特征的变化对回归值影响相对平滑，DRL的价值函数是否有这种特性，或者说，这是否就是不同游戏环境+reward设计的一般性区别？</p>
 </blockquote>
@@ -380,6 +381,7 @@ src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-2025021821214
 <li><p>问题不在于休眠神经元数量上升，而在于完美拟合该游戏的真实价值函数需要70%的神经元，却有50%的神经元陷入休眠，导致模型拟合能力发挥不出来。如果仅有30%神经元休眠，且模型表现优异，理论上应该是正常的，预示着过拟合。如果仅有20%神经元休眠，可能也意味着欠拟合。可以以高阶多项式拟合为例。</p></li>
 <li><p>理论上在RL领域不存在监督学习的那种过拟合问题，因为给定了环境的模型（游戏本身），RL的数据可以无限生成，但是生成数据本身依赖于策略，RL因此有特有的问题——探索&amp;利用。</p></li>
 <li><p>可以做一个小测试。调整epsilon衰减的速率，观察休眠神经元变化的趋势是否会受影响？</p></li>
+<li><p>可以测试一下蒙特卡洛方法是否还有休眠神经元现象，自举是否是一个重要因素。</p></li>
 <li><p>相较于论文中经常出现的休眠神经元的比例，可以尝试去统计神经元激活值的分布，可能更有助于我们发现问题。</p></li>
 </ul>
 
