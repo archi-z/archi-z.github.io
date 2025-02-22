@@ -16,21 +16,21 @@
   <meta name="author" content="archi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="SimBa: Simplicity Bias for Scaling Up Parameters in Deep Reinforcement Learning 原文：SimBa: Simplicity Bias for Scaling Up Parameters in Deep Reinforcement Learning  在DRL领域，如何设计网络使其能够从扩展参数量获益，出发点依">
+    <meta name="description" content="The Primacy Bias in Deep Reinforcement Learning 原文：The Primacy Bias in Deep Reinforcement Learning  深度强化学习存在一种普遍缺陷——倾向于依赖早期的交互，而忽略后来遇到的有用证据（现象背后就是模型可塑性的丧失） 文章将这种现象用描述为primacy bias（首因效应。来自认知科学。感">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SimBa - Simplicity Bias for Scaling Up Parameters in Deep Reinforcement Learning">
-<meta property="og:url" content="https://qi-z.cn/2025/02/19/SimBa_Simplicity_Bias_for_Scaling_Up_Parameters_in_Deep_Reinforcement_Learning/index.html">
+<meta property="og:title" content="The Primacy Bias in Deep Reinforcement Learning">
+<meta property="og:url" content="https://qi-z.cn/2025/02/22/The_Primacy_Bias_in_Deep_Reinforcement_Learning/index.html">
 <meta property="og:site_name" content="Q&#39;s Blog">
-<meta property="og:description" content="SimBa: Simplicity Bias for Scaling Up Parameters in Deep Reinforcement Learning 原文：SimBa: Simplicity Bias for Scaling Up Parameters in Deep Reinforcement Learning  在DRL领域，如何设计网络使其能够从扩展参数量获益，出发点依">
+<meta property="og:description" content="The Primacy Bias in Deep Reinforcement Learning 原文：The Primacy Bias in Deep Reinforcement Learning  深度强化学习存在一种普遍缺陷——倾向于依赖早期的交互，而忽略后来遇到的有用证据（现象背后就是模型可塑性的丧失） 文章将这种现象用描述为primacy bias（首因效应。来自认知科学。感">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-02-19T11:44:15.794Z">
-<meta property="article:modified_time" content="2025-02-21T09:03:29.515Z">
+<meta property="article:published_time" content="2025-02-22T08:59:52.946Z">
+<meta property="article:modified_time" content="2025-02-22T09:02:58.688Z">
 <meta property="article:author" content="archi">
 <meta property="article:tag" content="DRL">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>SimBa - Simplicity Bias for Scaling Up Parameters in Deep Reinforcement Learning - Q&#39;s Blog</title>
+  <title>The Primacy Bias in Deep Reinforcement Learning - Q&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -176,7 +176,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="SimBa - Simplicity Bias for Scaling Up Parameters in Deep Reinforcement Learning">
+            <span class="h2" id="subtitle" title="The Primacy Bias in Deep Reinforcement Learning">
               
             </span>
 
@@ -186,8 +186,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2025-02-19 19:44" pubdate>
-        2025年2月19日 晚上
+      <time datetime="2025-02-22 16:59" pubdate>
+        2025年2月22日 下午
       </time>
     </span>
   
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.9k 字
+      1.4k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17 分钟
+      12 分钟
     </span>
   
 
@@ -247,106 +247,79 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">SimBa - Simplicity Bias for Scaling Up Parameters in Deep Reinforcement Learning</h1>
+            <h1 style="display: none">The Primacy Bias in Deep Reinforcement Learning</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2025年2月21日 下午
+                  本文最后更新于：2025年2月22日 下午
                 
               </p>
             
             <div class="markdown-body">
-              <h1
-id="simba-simplicity-bias-for-scaling-up-parameters-in-deep-reinforcement-learning">SimBa:
-Simplicity Bias for Scaling Up Parameters in Deep Reinforcement
-Learning</h1>
-<p>原文：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2410.09754">SimBa: Simplicity
-Bias for Scaling Up Parameters in Deep Reinforcement Learning</a></p>
+              <h1 id="the-primacy-bias-in-deep-reinforcement-learning">The Primacy
+Bias in Deep Reinforcement Learning</h1>
+<p>原文：<a
+target="_blank" rel="noopener" href="https://proceedings.mlr.press/v162/nikishin22a/nikishin22a.pdf">The
+Primacy Bias in Deep Reinforcement Learning</a></p>
 <blockquote>
-<p>在DRL领域，如何设计网络使其能够从扩展参数量获益，出发点依然是“如何将scaling
-law引入DRL”。</p>
-<p>这篇文章提供了一个切入视角——simplicity bias（简单性偏好）。</p>
-<p>基于这个视角，设计了SimBa网络结构。</p>
-<p>实验验证了SimBa网络结构可以对多种RL算法，多种游戏场景提升算法表现。</p>
+<p>深度强化学习存在一种普遍缺陷——<strong>倾向于依赖早期的交互，而忽略后来遇到的有用证据</strong>（现象背后就是模型可塑性的丧失）</p>
+<p>文章将这种现象用描述为<strong>primacy
+bias</strong>（<strong>首因效应</strong>。来自认知科学。感觉翻译成<strong>先入为主效应</strong>更通俗易懂，后面都这么翻译）</p>
+<p>文章通过实验展示了DRL中存在primacy bias；揭示了可能原因——heavy
+priming（过度启动）；验证DRL算法设计加剧了这种偏见。</p>
+<p>提出了resetting机制缓解问题。</p>
+<p>实验验证resetting机制的有效性；分析resetting机制对学习动态特性的影响。</p>
 </blockquote>
-<h2 id="前置知识">前置知识</h2>
-<p>扩展神经网络规模是当今CV和NLP领域发展的一个关键驱动力。扩展模型参数一方面提升了模型的拟合能力，另一方面也增加了对训练数据的过拟合风险。</p>
-<p>但事实上，这种神经网络倾向于朝简单的，泛化性好的函数收敛。这种现象被归因于<strong>神经网络本身具有的简单性偏好（simplicity
-bias）</strong>——<strong>优化算法</strong>和<strong>网络模块</strong>（例如随机梯度下降、ReLU、层归一化、残差模块等）引导高表达能力模型朝向简单，泛化性好的函数收敛。这些要素影响了神经网络在初始时刻表征函数的类型，而<strong>初始时刻表征函数越简单，网络越可能收敛到简单函数</strong>。</p>
-<p>受这一现象的启发，文章思考<strong>如果放大这种简单性偏好，是否能够帮助在DRL领域实现模型参数的扩展？</strong></p>
+<h2 id="先入为主效应">先入为主效应</h2>
 <blockquote>
-<p>这种简单性偏好，引导模型朝向更简单，泛化性更好的函数收敛。实际上放慢了网络的学习速度，慢慢拟合某种形状，不过早的形成一种复杂形状，有一种稳扎稳打的偏好。</p>
+<p><strong>The Primacy Bias in Deep RL</strong>: a tendency to overfit
+early experiences that damages the rest of the learning process.</p>
+<p>对于早期数据的过度学习。</p>
 </blockquote>
-<p><strong>定义1（函数复杂度）：</strong>对函数进行离散傅里叶变换，利用傅里叶系数对频率进行加权求和——<span
-class="math inline">\(c(f)=\sum_{k=0}^{K}(\tilde{f}(k)\cdot k) /
-\sum_{k=0}^{K}\tilde{f}(k)\)</span>。</p>
+<h3 id="过度启动造成难以恢复的过拟合">过度启动造成难以恢复的过拟合</h3>
+<p><strong>实验设置：</strong>SAC +
+DMC。一个正常训练，回放率为1；另一个没看懂，见下面评论，总之加大了模型在已有数据上的训练强度。</p>
 <p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/1153851-20201009164703404-1204122227.png" srcset="/img/loading.gif" lazyload /></p>
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250222134058008.png" srcset="/img/loading.gif" lazyload /></p>
 <blockquote>
-<p><span class="math inline">\(k\)</span>越大意味着频率越大。<span
-class="math inline">\(c(f)\)</span>越大，函数高频成分越多，越复杂。反之亦然。</p>
+<p>是每收集到100个数据，在这上面更新100000次梯度，然后重新收集100个数据，如此进行吗？</p>
+<p>还是说收集100个数据，在这上面更新100000次梯度，然后正常训练？</p>
 </blockquote>
-<p><strong>定义2（简单性偏好得分）：</strong><span
-class="math inline">\(s(f)\approx\mathbb{E}_{\theta\sim\Theta_{0}}[\frac{1}{c(f_{\theta})}]\)</span>。其中<span
-class="math inline">\(\Theta_{0}\)</span>是初始化网络参数的分布</p>
-<blockquote>
-<p>由于不容易控制变量，论文比较的是不同网络结构<strong>初始化时刻</strong>的简单性偏好。有研究表明，<strong>网络训练期间收敛到的函数的复杂程度和网络初始化时刻的复杂程度强相关</strong>。</p>
-</blockquote>
-<h2 id="simba网络">SimBa网络</h2>
+<h3
+id="过度启动的智能体事实上拥有足够的数据摆脱问题">过度启动的智能体事实上拥有足够的数据摆脱问题</h3>
+<p><strong>实验设置：</strong>SAC +
+DMC。一个回放率设为9进行训练；另一个应该是回放率设为1进行训练（文中没提到），并使用前一个SAC智能体收集的数据作为其初始经验回放池。</p>
 <p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250219160125160.png" srcset="/img/loading.gif" lazyload /></p>
-<p><strong>SimBa网络存在一条直接从输入到输出的线性的信息流通路径</strong></p>
-<h3 id="输入归一化模块">输入归一化模块</h3>
-<p><strong>设计理念：</strong>避免不成比例的大值特征主导学习过程。</p>
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250222140200579.png" srcset="/img/loading.gif" lazyload /></p>
 <blockquote>
-<p>这个模块更像是把监督学习的特征工程，数据清洗的任务，放到模型当中，本身没起到正则化的效果，后面实验也发现了这个模块相较于其他模块，没有为模型引入简单性偏好。</p>
+<p>SAC with failing agent
+buffer这个实验设置还是没理解清楚，只在初始化时使用前一个agent的数据吗？还是说是离线强化学习？似乎只有后者才能说明过度启动的智能体拥有足够的数据。</p>
+<p>实验结果表明：陷入primacy
+bias的智能体，与环境交互的场景的多样性是足够的。问题不在于数据的分布受限，而更像标签的可信度低（尤其是前期）以及标签的波动（图中蓝色曲线的方差）。</p>
 </blockquote>
-<p><strong>具体实现：</strong>1)计算特征的每个维度的running
-mean&amp;variance；2)对特征的每个维度进行归一化。</p>
+<h2 id="resetting机制">resetting机制</h2>
 <p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250221152151956.png" srcset="/img/loading.gif" lazyload /></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250221152423220.png" srcset="/img/loading.gif" lazyload /></p>
-<h3 id="残差模块">残差模块</h3>
-<p><strong>设计理念：</strong>模型保持一种简单状态，除非必须要引入非线性。</p>
-<p><strong>具体实现：</strong>如图3所示。</p>
-<h3 id="层归一化模块">层归一化模块</h3>
-<p><strong>设计理念：</strong>确保激活值尺度一致。</p>
+src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250220162154739.png" srcset="/img/loading.gif" lazyload /></p>
 <blockquote>
-<p>是否在一定程度上缓解了另一篇文章提到的休眠神经元现象？</p>
+<p>周期性初始化最后几层的参数，保持replay
+buffer的具体实现方案根据任务定制。</p>
 </blockquote>
-<p><strong>具体实现：</strong>如图3所示。</p>
-<h2 id="性能验证">性能验证</h2>
-<p>实验检验两件事：1)SimBa是否增加了模型的简单性偏好；2)SimBa是否有助于模型扩展参数量。</p>
-<p>简单性偏好分三步计算。1)从一个均匀分布中采样输入（<span
-class="math inline">\(\mathcal{X}=[-100,100]^2\subset\mathbb{R}^2\)</span>，划分为90000个点采样）；2)计算网络输出；3)用这些输出计算傅里叶系数。</p>
-<blockquote>
-<p>真实应用（测试）的任务，输入空间也在<span
-class="math inline">\(\mathcal{X}\)</span>中吗？或者高度覆盖？否则函数在这片区域计算出的simplicity
-bias跟最终性能有何必然关联呢？</p>
-</blockquote>
-<h3 id="子模块分析">子模块分析</h3>
-<p>分析每个模块对增加模型简单性偏好的贡献，以及SimBa整体引入的简单性偏好。</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250219174143834.png" srcset="/img/loading.gif" lazyload /></p>
-<h3 id="同其他网络结构对比">同其他网络结构对比</h3>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250219174440524.png" srcset="/img/loading.gif" lazyload /></p>
-<blockquote>
-<p>主要聚焦在扩展critic网络的隐层维度，因为扩展actor网络的隐层维度收益有限。</p>
-<p>critic网络要同环境的多样性对应，观测越复杂，critic应当越复杂；</p>
-<p>actor网络要同行为的多样性对应，行为越多样，actor应当越复杂</p>
-</blockquote>
-<h2 id="适用性验证">适用性验证</h2>
-<p>验证了SimBa网络在off-policy、on-policy和unsupervised场景下的适用性</p>
-<h2 id="消融实验">消融实验</h2>
-<p>验证输入归一化模块的作用；</p>
-<p>分析SAC算法，使用SimBa网络场景下，1)扩展actor网络和critic网络；2)扩展网络宽度的深度；对应的现象；</p>
-<p>评估SimBa引入的简单性偏好，对回放率（训练时间）增加产生的消极影响的缓解作用。</p>
+<h2 id="实验">实验</h2>
+<ul>
+<li>验证resetting机制的有效性；</li>
+<li>分析resetting机制对学习动态特性的影响；</li>
+<li>replay ratio和n-step target对resetting机制的影响；</li>
+<li>分析重置频率和重置网络模块如何设计？</li>
+</ul>
 <h2 id="评论">评论</h2>
 <ul>
-<li>在RL中引入scaling
-law——增加模型参数量、增加梯度更新次数、增加训练时间</li>
+<li>考虑两个弱相关的分布函数（考虑用某种指标度量，例如互信息？），用其中一个函数作为目标，去训练另一个函数，拟合效果会很差吗？再用一个均匀分布去拟合呢？这似乎也是SimBa那篇工作的思想，模型保持拟合简单函数，那向其他函数迁移难度会更小。一种慢学习的原则。</li>
+<li>如何衡量模型相对于任务，处于什么阶段，是初学者，专家，还是已经陷入恶性循环。</li>
+<li>这些“过拟合”后重置网络参数的算法思路，很像决策树的剪枝操作，如果能够在一开始就识别到问题，避免反复重置参数，训练效率会更高。</li>
+<li>资格迹能否缓解自举带来的问题。</li>
+<li>tradeoff——efficiency &amp;
+effectiveness。回放率体现的就是这种权衡。</li>
+<li>相较于重置参数，成比例衰减参数是什么结果？这可以起到缩小Q值尺度的效果，重新学习，并且缩小的是标签中自举要素的成分。</li>
 </ul>
 
             </div>
@@ -382,18 +355,12 @@ law——增加模型参数量、增加梯度更新次数、增加训练时间</
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/02/22/The_Primacy_Bias_in_Deep_Reinforcement_Learning/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">The Primacy Bias in Deep Reinforcement Learning</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/02/19/Streaming-DRL/">
-                        <span class="hidden-mobile">Streaming-DRL</span>
+                      <a href="/2025/02/19/SimBa_Simplicity_Bias_for_Scaling_Up_Parameters_in_Deep_Reinforcement_Learning/">
+                        <span class="hidden-mobile">SimBa - Simplicity Bias for Scaling Up Parameters in Deep Reinforcement Learning</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
