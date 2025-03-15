@@ -16,18 +16,23 @@
   <meta name="author" content="archi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Streaming-DRL 原文：Streaming Deep Reinforcement Learning Finally Works  摘要：流式学习(streaming learning)，使用最新样本，不做存储。适用于资源有限，通信受限，隐私敏感的场景。深度学习采用批量学习和经验回放，样本利用率高。相比之下，流式学习有一个更致命的问题——流式障碍(stream barrier)">
+    <meta name="description" content="Streaming-DRL 原文：Streaming Deep Reinforcement Learning Finally Works  摘要：流式学习(streaming learning)，使用最新样本，不做存储。适用于资源有限，通信受限，隐私敏感的场景。深度学习采用批量学习和经验回放，样本利用率高。相比之下，流式学习有一个更致命的问题——流式障碍(stream barrier)，即学习不稳">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Streaming-DRL">
 <meta property="og:url" content="https://qi-z.cn/2025/02/19/Streaming-DRL/index.html">
 <meta property="og:site_name" content="Q&#39;s Blog">
-<meta property="og:description" content="Streaming-DRL 原文：Streaming Deep Reinforcement Learning Finally Works  摘要：流式学习(streaming learning)，使用最新样本，不做存储。适用于资源有限，通信受限，隐私敏感的场景。深度学习采用批量学习和经验回放，样本利用率高。相比之下，流式学习有一个更致命的问题——流式障碍(stream barrier)">
+<meta property="og:description" content="Streaming-DRL 原文：Streaming Deep Reinforcement Learning Finally Works  摘要：流式学习(streaming learning)，使用最新样本，不做存储。适用于资源有限，通信受限，隐私敏感的场景。深度学习采用批量学习和经验回放，样本利用率高。相比之下，流式学习有一个更致命的问题——流式障碍(stream barrier)，即学习不稳">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250113144621511.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250115183915224.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250116134923838.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250117133023811.png">
 <meta property="article:published_time" content="2025-02-19T11:33:14.963Z">
 <meta property="article:modified_time" content="2025-01-20T08:41:05.499Z">
 <meta property="article:author" content="archi">
 <meta property="article:tag" content="Streaming-DRL">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250113144621511.png">
   
   
   <title>Streaming-DRL - Q&#39;s Blog</title>
@@ -71,7 +76,9 @@
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 6.1.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 <body>
@@ -267,38 +274,26 @@ barrier)，即学习不稳定，甚至难以有效学习。这篇文章提出str
 <h2 id="引言">引言</h2>
 <p>从连续不断地经验流中学习是一项重要的挑战，这是一种对自然学习过程的镜像，并且和许多涉及设备上学习的应用相关。例如，从最新的经验中学习可以帮助系统快速适应变化（例如磨损）。在流式强化学习中（例如Q-learning，TD），在每个时间步，智能体接收一个观测和奖励，采取行动并进行策略更新，过程不涉及存储样本。这种场景是切合现实的，因为有些时候保存原始样本是不可行的，例如计算资源有限，缺乏沟通渠道，或者担心数据隐私问题。</p>
 <p>尽管经典的RL算法（例如Q-learning，SARSA，AC，TD）都是流式学习，最近的进展主要转向了批量学习。事实上，DRL的最新进展很大程度上依赖于计算代价高昂的批量学习。批量强化学习将样本存储在经验回放池中，并从中批量抽取样本进行学习。</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250113144621511.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250113144621511.png" srcset="/img/loading.gif" lazyload></p>
 <p>批量强化学习的成功通常归因于它的样本效率和现代硬件。对一批样本进行平均可能产生更可靠的更新，并且多次重用样本可能能够从样本中提取更多信息。此外，批量学习可以有效利用并行环境以及使用GPU等现代硬件加速计算。反过来，昂贵的计算资源也使得批量学习方法不适合资源受限的系统（边缘设备，火星探测器）。流式学习在DRL中仍然未被广泛采用，目前，实践中明显缺乏流式强化学习应用，使得资源受限下的DRL无法实现。</p>
 <h3 id="流式drl发展困境">流式DRL发展困境</h3>
-<p>流式DRL被认为是<strong>样本效率低下</strong>的，因为样本不能重复使用。另一个原因是，基于单步方法（如Q-learning），每次更新仅考虑当前奖励和下一步的预测，<a
-href="###信用分配问题">信用分配</a>通常传播缓慢，而多步方法（如n-step
+<p>流式DRL被认为是<strong>样本效率低下</strong>的，因为样本不能重复使用。另一个原因是，基于单步方法（如Q-learning），每次更新仅考虑当前奖励和下一步的预测，<a href="###信用分配问题">信用分配</a>通常传播缓慢，而多步方法（如n-step
 TD）则利用了多个时间步的奖励，将未来多个奖励的信息融入到当前的更新中，可以更快的传播奖励信号，提高信用分配的传播速度。但代价就是，多步方法无法做到实时更新，并且需要存储多步信息。<strong>资格迹试图平衡使用多步回报和一步更新的优势</strong>，然而，DRL中很少使用资格迹。</p>
 <p>尽管流式DRL的缺失是由于其样本效率低下，更关键的原因是，现有的深度学习方法在流式学习环境中会遇到<strong>学习不稳定甚至失败</strong>的情况，称为流式障碍(stream
 barrier)。DRL方法在在线更新方面已经遇到了许多困难，例如可塑性丧失(loss
 of plasticity)、学习动态不佳(poor learning
 dynamics)、无法实现进一步改进(failure to achieve further
 improvement)、性能逐渐退化(gradual performance
-degradation)。此外，流式DRL有其独特的挑战，由于用于更新的观测和奖励分布会随着时间的推移而迅速变化，从而加剧了问题。<a
-href="###神经网络与资格迹结合有什么问题">DRL中很少使用资格迹的原因</a>也可以归于不稳定问题。结果，流式DRL面临流式障碍并且很大程度上被忽视了。然而，有一小部分研究已经用流式学习展现出初步成果，表明这一领域具有进一步探索和发展的潜力。</p>
+degradation)。此外，流式DRL有其独特的挑战，由于用于更新的观测和奖励分布会随着时间的推移而迅速变化，从而加剧了问题。<a href="###神经网络与资格迹结合有什么问题">DRL中很少使用资格迹的原因</a>也可以归于不稳定问题。结果，流式DRL面临流式障碍并且很大程度上被忽视了。然而，有一小部分研究已经用流式学习展现出初步成果，表明这一领域具有进一步探索和发展的潜力。</p>
 <h3 id="本文贡献">本文贡献</h3>
-<p>这篇文章通过引入流式DRL方法——stream TD(<span
-class="math inline">\(\lambda\)</span>)，stream Q(<span
-class="math inline">\(\lambda\)</span>)，stream AC(<span
-class="math inline">\(\lambda\)</span>)来解决流式障碍，这些算法统称为stream-x算法，并且利用了资格迹技术。这篇文章的方法，可以从最近的经验中学习，而不需要经验回放池，批量更新，目标网络。展现了流式DRL方法可以稳定学习，可以和批量DRL具有一样的样本效率。这篇文章方法的有效性取决于一组关键技术，这些技术在所有stream-x算法中一致，包括(1)新的优化器；(2)适当的数据缩放；(3)新的初始化方案；(4)a
+<p>这篇文章通过引入流式DRL方法——stream TD(<span class="math inline">\(\lambda\)</span>)，stream Q(<span class="math inline">\(\lambda\)</span>)，stream AC(<span class="math inline">\(\lambda\)</span>)来解决流式障碍，这些算法统称为stream-x算法，并且利用了资格迹技术。这篇文章的方法，可以从最近的经验中学习，而不需要经验回放池，批量更新，目标网络。展现了流式DRL方法可以稳定学习，可以和批量DRL具有一样的样本效率。这篇文章方法的有效性取决于一组关键技术，这些技术在所有stream-x算法中一致，包括(1)新的优化器；(2)适当的数据缩放；(3)新的初始化方案；(4)a
 standard normal distribution of pre-activations。</p>
 <h2 id="预备知识">预备知识</h2>
 <h3 id="符号定义">符号定义</h3>
 <h3 id="mc-td">MC &amp; TD</h3>
-<p>对于价值函数的估计方法，有蒙特卡洛(MC)和时序差分(TD)两种方案。前者使用完整的回报<span
-class="math inline">\(G_{t}\)</span>，后者采用自举(bootstrapping)的思想，使用<span
-class="math inline">\(R_{t+1}+\gamma v(S_{t+1})\)</span>替代<span
-class="math inline">\(G_{t}\)</span>。因此MC方法需要一幕结束才能进行参数更新，而TD方法可以在看到下一步状态<span
-class="math inline">\(S_{t+1}\)</span>和回报后<span
-class="math inline">\(R_{t+1}\)</span>就进行更新。</p>
+<p>对于价值函数的估计方法，有蒙特卡洛(MC)和时序差分(TD)两种方案。前者使用完整的回报<span class="math inline">\(G_{t}\)</span>，后者采用自举(bootstrapping)的思想，使用<span class="math inline">\(R_{t+1}+\gamma v(S_{t+1})\)</span>替代<span class="math inline">\(G_{t}\)</span>。因此MC方法需要一幕结束才能进行参数更新，而TD方法可以在看到下一步状态<span class="math inline">\(S_{t+1}\)</span>和回报后<span class="math inline">\(R_{t+1}\)</span>就进行更新。</p>
 <h3 id="策略梯度定理">策略梯度定理</h3>
-<p>对于参数化策略的方法，如何调整策略参数保证性能改善是一件很有挑战的事情，策略梯度定理提供了很好的理论解答——<span
-class="math inline">\(\nabla J(\theta) \propto \sum_{s} u(s) \sum_{a}
+<p>对于参数化策略的方法，如何调整策略参数保证性能改善是一件很有挑战的事情，策略梯度定理提供了很好的理论解答——<span class="math inline">\(\nabla J(\theta) \propto \sum_{s} u(s) \sum_{a}
 \nabla \pi_{\theta}(a|s) q(s,a)\)</span></p>
 <h3 id="资格迹">资格迹</h3>
 <p>定义式：<span class="math inline">\(z_{t} \doteq \gamma\lambda
@@ -314,40 +309,25 @@ z_{-1} = \boldsymbol
 </ol>
 <h3 id="改进样本效率">改进样本效率</h3>
 <p>这篇文章提出两种技术改进流式学习的样本效率：<strong>稀疏初始化</strong>和<strong>资格迹</strong>。</p>
-<p>稀疏表示通过在更新网络时将影响局部化，减少了不同输入之间的权重更新干扰。这篇文章使用一种简单的技术在初始化时引入稀疏性——将大多数权重随机初始化为0。具体而言，在每一个网络层施加一个稀疏度<span
-class="math inline">\(s\)</span>，表示零初始化权重的比例。这个稀疏初始化方案可以用于全连接层和卷积层，伪代码如下图：</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250115183915224.png" srcset="/img/loading.gif" lazyload /></p>
+<p>稀疏表示通过在更新网络时将影响局部化，减少了不同输入之间的权重更新干扰。这篇文章使用一种简单的技术在初始化时引入稀疏性——将大多数权重随机初始化为0。具体而言，在每一个网络层施加一个稀疏度<span class="math inline">\(s\)</span>，表示零初始化权重的比例。这个稀疏初始化方案可以用于全连接层和卷积层，伪代码如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250115183915224.png" srcset="/img/loading.gif" lazyload></p>
 <p>这篇文章针对价值函数和策略函数都使用资格迹。引入资格迹后，必须使用谨慎的更新规则，以防止训练过程不稳定。</p>
 <h3 id="保持更新稳定">保持更新稳定</h3>
 <p>这篇文章开发了一个更适合流式DRL的稳定的优化器。</p>
-<p>在优化领域，一个避免大更新和选择适当步长的著名策略是——<a
-href="###回溯线搜索">回溯线搜索</a>(backtracking line
-search)。该方法通常为每轮迭代选择最大化期望或基于批次的目标的步长。回溯线搜索已经被证明能够有效地稳定同轨的批量强化学习。在流式学习场景下，还不清楚选择一个减少当前样本误差的步长是否是最佳策略。一个更切题的目标是，淡化那些过大的更新。更具体讲，给定一个标量误差<span
-class="math inline">\(\delta(S)\)</span>，更新后的误差记为<span
-class="math inline">\(\delta_{+}(S)\)</span>，如果<span
-class="math inline">\(\delta(S) \delta_{+}(S) &lt;
+<p>在优化领域，一个避免大更新和选择适当步长的著名策略是——<a href="###回溯线搜索">回溯线搜索</a>(backtracking line
+search)。该方法通常为每轮迭代选择最大化期望或基于批次的目标的步长。回溯线搜索已经被证明能够有效地稳定同轨的批量强化学习。在流式学习场景下，还不清楚选择一个减少当前样本误差的步长是否是最佳策略。一个更切题的目标是，淡化那些过大的更新。更具体讲，给定一个标量误差<span class="math inline">\(\delta(S)\)</span>，更新后的误差记为<span class="math inline">\(\delta_{+}(S)\)</span>，如果<span class="math inline">\(\delta(S) \delta_{+}(S) &lt;
 0\)</span>，表明更新过度。Kearney在2023年定义了一个相关的量——有效步长(effective
-step size)，它量化了更新所取得的进步，定义如下: <span
-class="math display">\[
+step size)，它量化了更新所取得的进步，定义如下: <span class="math display">\[
 \xi \doteq \frac{\delta(S) - \delta_{+}(S)}{\delta(S)} \tag{1}
-\]</span> 当<span
-class="math inline">\(\xi&gt;1\)</span>时，意味着更新过度；当<span
-class="math inline">\(\xi&lt;1\)</span>时，意味着部分纠正；当<span
-class="math inline">\(\xi=0\)</span>时，意味着没有纠正。我们可以使用一个初始步长<span
-class="math inline">\(\alpha = \alpha_{Init}
-\in(0,1]\)</span>，通过反事实更新来计算有效步长。如果计算的有效步长大于最大有效步长，即<span
-class="math inline">\(\xi &gt; \xi_{max}, \xi_{max} \in
+\]</span> 当<span class="math inline">\(\xi&gt;1\)</span>时，意味着更新过度；当<span class="math inline">\(\xi&lt;1\)</span>时，意味着部分纠正；当<span class="math inline">\(\xi=0\)</span>时，意味着没有纠正。我们可以使用一个初始步长<span class="math inline">\(\alpha = \alpha_{Init}
+\in(0,1]\)</span>，通过反事实更新来计算有效步长。如果计算的有效步长大于最大有效步长，即<span class="math inline">\(\xi &gt; \xi_{max}, \xi_{max} \in
 (0,1])\)</span>，那么我们使用系数<span class="math inline">\(\beta,
 \beta \in (0,1)\)</span>来减少步长<span class="math inline">\(\alpha =
-\beta \alpha\)</span>。这个回溯线搜索持续到<span
-class="math inline">\(\xi \le
+\beta \alpha\)</span>。这个回溯线搜索持续到<span class="math inline">\(\xi \le
 \xi_{max}\)</span>条件被满足。这篇文章将这个过程命名为——回溯限制有效步长(bounding
 effective step size with backtracking)，伪代码如下图：</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250116134923838.png" srcset="/img/loading.gif" lazyload /></p>
-<p>这种回溯方法的缺点也很明显，每个时间步可能需要多轮迭代去找出合适的步长，每轮迭代需要额外前向传播计算误差<span
-class="math inline">\(\delta\)</span>，这可能代价很大。一种不需要额外前向传播，成本更低的替代方案将更可取。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250116134923838.png" srcset="/img/loading.gif" lazyload></p>
+<p>这种回溯方法的缺点也很明显，每个时间步可能需要多轮迭代去找出合适的步长，每轮迭代需要额外前向传播计算误差<span class="math inline">\(\delta\)</span>，这可能代价很大。一种不需要额外前向传播，成本更低的替代方案将更可取。</p>
 <p>这篇文章对上述思路做出一些近似。首先，使用一阶泰勒近似并假设局部线性（<strong>权重更新幅度足够小</strong>），函数更新参数后预测可以写为：
 <span class="math display">\[
 \begin{align*}
@@ -358,9 +338,7 @@ w}f(\boldsymbol x;\boldsymbol w)^{T} \boldsymbol u(\boldsymbol
 x;\boldsymbol w);
 \tag{2}
 \end{align*}
-\]</span> 基于上述近似，可以推导TD(<span
-class="math inline">\(\lambda\)</span>)算法对应的有效步长如下： <span
-class="math display">\[
+\]</span> 基于上述近似，可以推导TD(<span class="math inline">\(\lambda\)</span>)算法对应的有效步长如下： <span class="math display">\[
 \begin{align*}
     \xi &amp;= \frac{\delta - \delta_{+}}{\delta} \\
         &amp;= \frac{(r + \gamma v(\boldsymbol s^{\prime};\boldsymbol w)
@@ -380,9 +358,7 @@ w}v(\boldsymbol s;\boldsymbol w)}{\delta} \\
 w}v(\boldsymbol s^{\prime};\boldsymbol w) - \nabla_{\boldsymbol
 w}v(\boldsymbol s;\boldsymbol w))
 \end{align*}
-\]</span> 从结果上看，每次计算<span
-class="math inline">\(\xi\)</span>需要额外计算一个状态<span
-class="math inline">\(s^{\prime}\)</span>对应的价值函数的梯度值，这就产生了一个额外的反向传播的计算量。为了移除这个计算，作者又做出了一步近似：
+\]</span> 从结果上看，每次计算<span class="math inline">\(\xi\)</span>需要额外计算一个状态<span class="math inline">\(s^{\prime}\)</span>对应的价值函数的梯度值，这就产生了一个额外的反向传播的计算量。为了移除这个计算，作者又做出了一步近似：
 <span class="math display">\[
 \begin{align*}
     \xi &amp;= \alpha \boldsymbol z^{T} (\gamma \nabla_{\boldsymbol
@@ -399,42 +375,29 @@ w}v(\boldsymbol s^{\prime};\boldsymbol w) -
 \Vert_{1}, \ where \ \bar{\delta}=\max(|\delta|,1)
     \tag{3}
 \end{align*}
-\]</span> 对上述符号做出一些解释。<span
-class="math inline">\(|\cdot|\)</span>是对向量所有分量取模构成的新向量，文章假设<span
-class="math inline">\(|\gamma \nabla_{\boldsymbol w}v(\boldsymbol
+\]</span> 对上述符号做出一些解释。<span class="math inline">\(|\cdot|\)</span>是对向量所有分量取模构成的新向量，文章假设<span class="math inline">\(|\gamma \nabla_{\boldsymbol w}v(\boldsymbol
 s^{\prime};\boldsymbol w) -\nabla_{\boldsymbol w}v(\boldsymbol
 s;\boldsymbol w)|\)</span>所有分量小于等于1。</p>
 <blockquote>
 <p>关于<span class="math inline">\(|\gamma \nabla_{\boldsymbol
 w}v(\boldsymbol s^{\prime};\boldsymbol w) -\nabla_{\boldsymbol
 w}v(\boldsymbol s;\boldsymbol
-w)|\)</span>所有分量小于等于1假设，文章使用<a
-href="###Lipschitz连续性">Lipschitz连续性</a>的论证来支持这一假设。如果价值函数的梯度<span
-class="math inline">\(\nabla_{\boldsymbol w} v(\boldsymbol s;\boldsymbol
-w)\)</span>满足k-Lipschitz连续，那么可以得到<span
-class="math inline">\(\Vert \nabla_{\boldsymbol w}v(\boldsymbol
+w)|\)</span>所有分量小于等于1假设，文章使用<a href="###Lipschitz连续性">Lipschitz连续性</a>的论证来支持这一假设。如果价值函数的梯度<span class="math inline">\(\nabla_{\boldsymbol w} v(\boldsymbol s;\boldsymbol
+w)\)</span>满足k-Lipschitz连续，那么可以得到<span class="math inline">\(\Vert \nabla_{\boldsymbol w}v(\boldsymbol
 s^{\prime};\boldsymbol w) -\nabla_{\boldsymbol w}v(\boldsymbol
 s;\boldsymbol w) \Vert_{1} \le k \Vert \boldsymbol s^{\prime} -
-\boldsymbol s \Vert_{1}\)</span>。因此在<span
-class="math inline">\(\gamma \approx 1\)</span>（例如0.99），<span
-class="math inline">\(k \Vert \boldsymbol s^{\prime} - \boldsymbol s
-\Vert_{1} \le 1\)</span>（即<span
-class="math inline">\(s^{\prime}\)</span>和<span
-class="math inline">\(s\)</span>足够接近）的条件下，<span
-class="math inline">\(\Vert \gamma \nabla_{\boldsymbol w}v(\boldsymbol
+\boldsymbol s \Vert_{1}\)</span>。因此在<span class="math inline">\(\gamma \approx 1\)</span>（例如0.99），<span class="math inline">\(k \Vert \boldsymbol s^{\prime} - \boldsymbol s
+\Vert_{1} \le 1\)</span>（即<span class="math inline">\(s^{\prime}\)</span>和<span class="math inline">\(s\)</span>足够接近）的条件下，<span class="math inline">\(\Vert \gamma \nabla_{\boldsymbol w}v(\boldsymbol
 s^{\prime};\boldsymbol w) -\nabla_{\boldsymbol w}v(\boldsymbol
-s;\boldsymbol w) \Vert_{i} \le 1\)</span>对于任意<span
-class="math inline">\(i\)</span>都成立。</p>
+s;\boldsymbol w) \Vert_{i} \le 1\)</span>对于任意<span class="math inline">\(i\)</span>都成立。</p>
 </blockquote>
 <p>文章提出了一个新的优化器，使用上述结论，控制更新步长。伪代码如下：</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250117133023811.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250117133023811.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="section"></h3>
 <h2 id="附录">附录</h2>
 <h3 id="信用分配问题">信用分配问题</h3>
 <p>在强化学习中，智能体会根据动作获得奖励，但奖励可能不会立即显现，而是延迟的，信用分配问题就是如何正确地将这些奖励归因于之前的动作，从而帮助智能体改进策略。</p>
-<h3
-id="神经网络与资格迹结合有什么问题">神经网络与资格迹结合有什么问题</h3>
+<h3 id="神经网络与资格迹结合有什么问题">神经网络与资格迹结合有什么问题</h3>
 <p>资格迹是一种结合了TD和MC的技巧，可以加速学习，改进信用分配。当神经网络和资格迹结合时，会产生<strong>不稳定性</strong>。</p>
 <p>(1)梯度传播问题：资格迹累积了多个时间步的信息，相当于把多个时间步的更新叠加在一起，这可能导致梯度的剧烈波动或方法，使网络的训练过程变得不稳定，甚至导致参数更新过大；</p>
 <p>(2)相关性问题：神经网络的输出是参数的复杂非线性组合，而资格迹试图将多个时间步的奖励信息整合，这使得神经网络输入的相关性增强，可能引入相关性问题，使得资格迹的累积更新效果被放大或削弱，从而加剧了网络的不稳定性；</p>
@@ -442,19 +405,13 @@ id="神经网络与资格迹结合有什么问题">神经网络与资格迹结�
 <h3 id="回溯线搜索">回溯线搜索</h3>
 <h3 id="lipschitz连续性">Lipschitz连续性</h3>
 <p><strong>定义：</strong></p>
-<p>一个函数<span
-class="math inline">\(f(x)\)</span>是Lipschitz连续的，如果存在一个常数<span
-class="math inline">\(L\ge0\)</span>，使得对于所有的<span
-class="math inline">\(x_{1},x_{2} \in \mathbb{R}^n\)</span>，都有：
+<p>一个函数<span class="math inline">\(f(x)\)</span>是Lipschitz连续的，如果存在一个常数<span class="math inline">\(L\ge0\)</span>，使得对于所有的<span class="math inline">\(x_{1},x_{2} \in \mathbb{R}^n\)</span>，都有：
 <span class="math display">\[
 \Vert f(x_{1}) - f(x_{2}) \Vert \le L \Vert x_{1} - x_{2} \Vert
 \]</span> 其中：</p>
 <ul>
-<li><p><span
-class="math inline">\(L\)</span>是Lipschitz常数，表示函数<span
-class="math inline">\(f(x)\)</span>的最大变化速率</p></li>
-<li><p><span
-class="math inline">\(\Vert\cdot\Vert\)</span>通常是欧几里得范数（也可以是其他范数）</p></li>
+<li><p><span class="math inline">\(L\)</span>是Lipschitz常数，表示函数<span class="math inline">\(f(x)\)</span>的最大变化速率</p></li>
+<li><p><span class="math inline">\(\Vert\cdot\Vert\)</span>通常是欧几里得范数（也可以是其他范数）</p></li>
 </ul>
 <p><strong>几何意义：</strong></p>
 <ul>

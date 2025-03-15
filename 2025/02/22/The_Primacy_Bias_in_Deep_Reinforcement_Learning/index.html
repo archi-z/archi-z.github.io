@@ -16,18 +16,22 @@
   <meta name="author" content="archi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="The Primacy Bias in Deep Reinforcement Learning 原文：The Primacy Bias in Deep Reinforcement Learning  深度强化学习存在一种普遍缺陷——倾向于依赖早期的交互，而忽略后来遇到的有用证据（现象背后就是模型可塑性的丧失） 文章将这种现象用描述为primacy bias（首因效应。来自认知科学。感">
+    <meta name="description" content="The Primacy Bias in Deep Reinforcement Learning 原文：The Primacy Bias in Deep Reinforcement Learning  深度强化学习存在一种普遍缺陷——倾向于依赖早期的交互，而忽略后来遇到的有用证据（现象背后就是模型可塑性的丧失） 文章将这种现象用描述为primacy bias（首因效应。来自认知科学。感觉翻译成先入为">
 <meta property="og:type" content="article">
 <meta property="og:title" content="The Primacy Bias in Deep Reinforcement Learning">
 <meta property="og:url" content="https://qi-z.cn/2025/02/22/The_Primacy_Bias_in_Deep_Reinforcement_Learning/index.html">
 <meta property="og:site_name" content="Q&#39;s Blog">
-<meta property="og:description" content="The Primacy Bias in Deep Reinforcement Learning 原文：The Primacy Bias in Deep Reinforcement Learning  深度强化学习存在一种普遍缺陷——倾向于依赖早期的交互，而忽略后来遇到的有用证据（现象背后就是模型可塑性的丧失） 文章将这种现象用描述为primacy bias（首因效应。来自认知科学。感">
+<meta property="og:description" content="The Primacy Bias in Deep Reinforcement Learning 原文：The Primacy Bias in Deep Reinforcement Learning  深度强化学习存在一种普遍缺陷——倾向于依赖早期的交互，而忽略后来遇到的有用证据（现象背后就是模型可塑性的丧失） 文章将这种现象用描述为primacy bias（首因效应。来自认知科学。感觉翻译成先入为">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250222134058008.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250222140200579.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250220162154739.png">
 <meta property="article:published_time" content="2025-02-22T08:59:52.946Z">
 <meta property="article:modified_time" content="2025-02-22T09:02:58.688Z">
 <meta property="article:author" content="archi">
 <meta property="article:tag" content="DRL">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250222134058008.png">
   
   
   <title>The Primacy Bias in Deep Reinforcement Learning - Q&#39;s Blog</title>
@@ -71,7 +75,9 @@
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 6.1.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 <body>
@@ -258,8 +264,7 @@
             <div class="markdown-body">
               <h1 id="the-primacy-bias-in-deep-reinforcement-learning">The Primacy
 Bias in Deep Reinforcement Learning</h1>
-<p>原文：<a
-target="_blank" rel="noopener" href="https://proceedings.mlr.press/v162/nikishin22a/nikishin22a.pdf">The
+<p>原文：<a target="_blank" rel="noopener" href="https://proceedings.mlr.press/v162/nikishin22a/nikishin22a.pdf">The
 Primacy Bias in Deep Reinforcement Learning</a></p>
 <blockquote>
 <p>深度强化学习存在一种普遍缺陷——<strong>倾向于依赖早期的交互，而忽略后来遇到的有用证据</strong>（现象背后就是模型可塑性的丧失）</p>
@@ -279,18 +284,15 @@ early experiences that damages the rest of the learning process.</p>
 <h3 id="过度启动造成难以恢复的过拟合">过度启动造成难以恢复的过拟合</h3>
 <p><strong>实验设置：</strong>SAC +
 DMC。一个正常训练，回放率为1；另一个没看懂，见下面评论，总之加大了模型在已有数据上的训练强度。</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250222134058008.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250222134058008.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <p>是每收集到100个数据，在这上面更新100000次梯度，然后重新收集100个数据，如此进行吗？</p>
 <p>还是说收集100个数据，在这上面更新100000次梯度，然后正常训练？</p>
 </blockquote>
-<h3
-id="过度启动的智能体事实上拥有足够的数据摆脱问题">过度启动的智能体事实上拥有足够的数据摆脱问题</h3>
+<h3 id="过度启动的智能体事实上拥有足够的数据摆脱问题">过度启动的智能体事实上拥有足够的数据摆脱问题</h3>
 <p><strong>实验设置：</strong>SAC +
 DMC。一个回放率设为9进行训练；另一个应该是回放率设为1进行训练（文中没提到），并使用前一个SAC智能体收集的数据作为其初始经验回放池。</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250222140200579.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250222140200579.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <p>SAC with failing agent
 buffer这个实验设置还是没理解清楚，只在初始化时使用前一个agent的数据吗？还是说是离线强化学习？似乎只有后者才能说明过度启动的智能体拥有足够的数据。</p>
@@ -298,8 +300,7 @@ buffer这个实验设置还是没理解清楚，只在初始化时使用前一�
 bias的智能体，与环境交互的场景的多样性是足够的。问题不在于数据的分布受限，而更像标签的可信度低（尤其是前期）以及标签的波动（图中蓝色曲线的方差）。</p>
 </blockquote>
 <h2 id="resetting机制">resetting机制</h2>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250220162154739.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250220162154739.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <p>周期性初始化最后几层的参数，保持replay
 buffer的具体实现方案根据任务定制。</p>
@@ -354,6 +355,12 @@ effectiveness。回放率体现的就是这种权衡。</li>
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2025/03/15/ubuntu18.04%E5%AE%89%E8%A3%85mujoco/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ubuntu18.04配置mujoco</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

@@ -16,18 +16,34 @@
   <meta name="author" content="archi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="The Dormant Neuron Phenomenon in Deep Reinforcement Learning 原文：The Dormant Neuron Phenomenon in Deep Reinforcement Learning  当前的训练技术，并不能够充分发挥网络的能力。 这篇工作介绍了DRL领域的一种现象——模型随着训练丧失拟合能力。 这同休眠神经元现象(d">
+    <meta name="description" content="The Dormant Neuron Phenomenon in Deep Reinforcement Learning 原文：The Dormant Neuron Phenomenon in Deep Reinforcement Learning  当前的训练技术，并不能够充分发挥网络的能力。 这篇工作介绍了DRL领域的一种现象——模型随着训练丧失拟合能力。 这同休眠神经元现象(dormant">
 <meta property="og:type" content="article">
 <meta property="og:title" content="The Dormant Neuron Phenomenon in Deep Reinforcement Learning">
 <meta property="og:url" content="https://qi-z.cn/2025/02/18/The_Dormant_Neuron_Phenomenon_in_Deep_Reinforcement_Learning/index.html">
 <meta property="og:site_name" content="Q&#39;s Blog">
-<meta property="og:description" content="The Dormant Neuron Phenomenon in Deep Reinforcement Learning 原文：The Dormant Neuron Phenomenon in Deep Reinforcement Learning  当前的训练技术，并不能够充分发挥网络的能力。 这篇工作介绍了DRL领域的一种现象——模型随着训练丧失拟合能力。 这同休眠神经元现象(d">
+<meta property="og:description" content="The Dormant Neuron Phenomenon in Deep Reinforcement Learning 原文：The Dormant Neuron Phenomenon in Deep Reinforcement Learning  当前的训练技术，并不能够充分发挥网络的能力。 这篇工作介绍了DRL领域的一种现象——模型随着训练丧失拟合能力。 这同休眠神经元现象(dormant">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218190840740.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218193237390.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218194219614.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218194836137.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218201344268.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218202613383.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218203923741.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218204622549.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218205017914.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218205417289.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218205448015.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218205503904.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218210236161.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218211736207.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218212141513.png">
 <meta property="article:published_time" content="2025-02-18T14:07:35.761Z">
 <meta property="article:modified_time" content="2025-02-19T04:15:10.015Z">
 <meta property="article:author" content="archi">
 <meta property="article:tag" content="DRL">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218190840740.png">
   
   
   <title>The Dormant Neuron Phenomenon in Deep Reinforcement Learning - Q&#39;s Blog</title>
@@ -71,7 +87,9 @@
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 6.1.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 <body>
@@ -256,8 +274,7 @@
               </p>
             
             <div class="markdown-body">
-              <h1
-id="the-dormant-neuron-phenomenon-in-deep-reinforcement-learning">The
+              <h1 id="the-dormant-neuron-phenomenon-in-deep-reinforcement-learning">The
 Dormant Neuron Phenomenon in Deep Reinforcement Learning</h1>
 <p>原文：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.12902">The Dormant Neuron
 Phenomenon in Deep Reinforcement Learning</a></p>
@@ -283,8 +300,7 @@ law”表明模型表现和参数数量具有正相关性。在RL中，有证据
 <p>将DRL的价值函数估计同DL的回归任务做比较，DRL的价值函数是否更锐利。例如房价预测，特征的变化对回归值影响相对平滑，DRL的价值函数是否有这种特性，或者说，这是否就是不同游戏环境+reward设计的一般性区别？</p>
 </blockquote>
 <p><strong>定义1（休眠神经元）：</strong>给定输入分布下，计算每个神经元的激活值的期望。然后，计算每层神经元期望激活值的平均数，每个神经元除以自己所在层的平均数得到<strong>休眠度</strong></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218190840740.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218190840740.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <p>休眠神经元的定义是依赖于输入的分布的，在某个分布下休眠的神经元，在另一个分布下，未必还是休眠的，反之亦然。而输入分布随价值网络变动。</p>
 <p>虽然给出了休眠神经元的定义，但在后续实验中，具体是如何计算的，输入的分布是如何取的，论文并没有提及。</p>
@@ -293,33 +309,26 @@ src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-2025021819084
 <h2 id="实验分析休眠神经元现象">实验分析休眠神经元现象</h2>
 <h3 id="休眠神经元现象广泛存在">休眠神经元现象广泛存在</h3>
 <p><strong>实验设置：</strong>DQN + Arcade Learning Environment</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218193237390.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218193237390.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="拟合目标非平稳加剧现象">拟合目标非平稳加剧现象</h3>
 <p><strong>实验设置：</strong>CIFAR-10任务，1)固定标签，训练一个卷积神经网络；2)每20个epoch打乱标签，训练一个卷积神经网络。</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218194219614.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218194219614.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <p>CIFAR-10是分类任务，RL中价值估计更接近回归任务，换一个回归任务分析更合理</p>
 </blockquote>
 <h3 id="输入数据非平稳不是主要原因">输入数据非平稳不是主要原因</h3>
 <p><strong>实验设置：</strong>离线RL（数据集固定） + DQN + Arcade
 Learning Environment</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218194836137.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218194836137.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <p>原文提到，为了分析这种设定下休眠神经元的来源，进行了fixed random
 targets实验（即将输入数据和拟合目标都固定，图中蓝色曲线），因为蓝色曲线休眠神经元更少，所以支撑了结论——拟合目标非平稳是休眠神经元现象的主要来源。但奇怪的是，蓝色曲线依然随训练过程上升，跟监督学习的下降趋势并不一致，也就是说，固定拟合目标后，还有其他原因，导致了神经元的休眠。</p>
 </blockquote>
 <h3 id="休眠神经元保持休眠">休眠神经元保持休眠</h3>
 <p><strong>实验设置：</strong>DQN + Arcade Learning Environment</p>
-<p><strong>定义3（重叠系数）：</strong>集合<span
-class="math inline">\(X\)</span>和集合<span
-class="math inline">\(Y\)</span>的重叠系数为<span
-class="math inline">\(overlap(X,Y)=\frac{|X \cap
+<p><strong>定义3（重叠系数）：</strong>集合<span class="math inline">\(X\)</span>和集合<span class="math inline">\(Y\)</span>的重叠系数为<span class="math inline">\(overlap(X,Y)=\frac{|X \cap
 Y|}{\min(|X|,|Y|)}\)</span></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218201344268.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218201344268.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <p>Figure 5 plots the overlap coefficient between the set of dormant
 neurons in the penultimate layer at the current iteration, and the
@@ -328,49 +337,38 @@ historical set of dormant neurons.</p>
 </blockquote>
 <h3 id="频繁的梯度更新加剧现象">频繁的梯度更新加剧现象</h3>
 <p><strong>实验设置：</strong>DQN + Arcade Learning Environment</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218202613383.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218202613383.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="休眠神经元阻碍学习新任务">休眠神经元阻碍学习新任务</h3>
 <p><strong>实验设置：</strong>在DemonAttack环境下，训练一个DQN智能体，设定RR=1，如图7所示，网络中存在很多休眠神经元，后续用“预训练网络”指代这个网络。然后找一个表现良好的DQN网络作为teacher网络，预训练网络作为student网络，进行知识蒸馏，同时用一个随机初始化的网络作为student网络也进行知识蒸馏。</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218203923741.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218203923741.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <p>知识蒸馏的过程，输入数据的分布是什么？图8中预训练模型loss甚至在上升，难道不是应当先保证loss下降或保持不变，再进行现象分析？</p>
 <p>知识蒸馏的过程，对于student网络来说本身就是一个监督学习，会什么还会出现休眠神经元比例的上升？</p>
 </blockquote>
 <h2 id="redo算法">ReDo算法</h2>
 <h3 id="算法介绍">算法介绍</h3>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218204622549.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218204622549.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="算法的有效性">算法的有效性</h3>
-<h4
-id="减少休眠神经元提升智能体表现">减少休眠神经元，提升智能体表现</h4>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218205017914.png" srcset="/img/loading.gif" lazyload /></p>
+<h4 id="减少休眠神经元提升智能体表现">减少休眠神经元，提升智能体表现</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218205017914.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <p>这个任务是否具有代表性？换一个游戏，实验结果还会是这样吗？</p>
 </blockquote>
 <h4 id="效果优于其他正则化方法">效果优于其他正则化方法</h4>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218205417289.png" srcset="/img/loading.gif" lazyload /></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218205448015.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218205417289.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218205448015.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <p>为什么在这种MuJoCo+SAC场景下，这些改进策略不再能够提升算法性能，难道休眠神经元在这类游戏场景中比较少？</p>
 </blockquote>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218205503904.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218205503904.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="缓解提高回放率产生的负面影响">缓解提高回放率产生的负面影响</h3>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218210236161.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218210236161.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <p>在多种场景（不同multi-step，不同网络结构，不同RL算法）下ReDo都能起到缓解，提高回放率产生的负面影响。</p>
 </blockquote>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218211736207.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218211736207.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="帮助模型更好的发挥潜力">帮助模型更好的发挥潜力</h3>
-<p><img
-src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218212141513.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250218212141513.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <p>简单增加模型参数量，依靠传统训练，复杂模型的拟合能力发挥不出来；通过ReDo，休眠神经元的数量能够保持在一种较低的水平，增加模型参数量，算法表现还能得到一定程度提升。</p>
 <p>不同模型宽度，休眠神经元的比例变化趋势非常接近，如何解释这个现象？</p>

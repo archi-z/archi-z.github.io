@@ -16,29 +16,34 @@
   <meta name="author" content="archi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="GRF环境配置 源代码仓  https:&#x2F;&#x2F;github.com&#x2F;google-research&#x2F;football  安装依赖 12345sudo apt-get install git cmake build-essential libgl1-mesa-dev libsdl2-dev \libsdl2-image-dev libsdl2-ttf-dev libsdl2-gfx-dev libbo">
+    <meta name="description" content="ubuntu18.04配置mujoco 流程 安装mujoco  下载mujoco，解压到~&#x2F;.mujoco路径下 下载mjkey.txt，分别存放到~&#x2F;.mujoco&#x2F;mjkey.txt和~&#x2F;.mujoco&#x2F;mujoco200&#x2F;bin&#x2F;mjkey.txt 修改.bashrc文件，添加环境变量 1234567# MUJOCO200 STARTexport MUJOCO_PATH&#x3D;$HOME&#x2F;.mu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GRF环境配置">
-<meta property="og:url" content="https://qi-z.cn/2024/11/12/GRF/index.html">
+<meta property="og:title" content="ubuntu18.04配置mujoco">
+<meta property="og:url" content="https://qi-z.cn/2025/03/15/ubuntu18.04%E5%AE%89%E8%A3%85mujoco/index.html">
 <meta property="og:site_name" content="Q&#39;s Blog">
-<meta property="og:description" content="GRF环境配置 源代码仓  https:&#x2F;&#x2F;github.com&#x2F;google-research&#x2F;football  安装依赖 12345sudo apt-get install git cmake build-essential libgl1-mesa-dev libsdl2-dev \libsdl2-image-dev libsdl2-ttf-dev libsdl2-gfx-dev libbo">
+<meta property="og:description" content="ubuntu18.04配置mujoco 流程 安装mujoco  下载mujoco，解压到~&#x2F;.mujoco路径下 下载mjkey.txt，分别存放到~&#x2F;.mujoco&#x2F;mjkey.txt和~&#x2F;.mujoco&#x2F;mujoco200&#x2F;bin&#x2F;mjkey.txt 修改.bashrc文件，添加环境变量 1234567# MUJOCO200 STARTexport MUJOCO_PATH&#x3D;$HOME&#x2F;.mu">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104191115218.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104194836124.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104195030398.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104203225207.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104204540414.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241106145842569.png">
-<meta property="article:published_time" content="2024-11-12T05:46:47.129Z">
-<meta property="article:modified_time" content="2024-11-12T07:00:49.744Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250315113225774.png">
+<meta property="og:image" content="https://github.githubassets.com/images/icons/emoji/unicode/1f605.png?v8">
+<meta property="og:image" content="https://github.githubassets.com/images/icons/emoji/unicode/2757.png?v8">
+<meta property="og:image" content="https://github.githubassets.com/images/icons/emoji/unicode/2757.png?v8">
+<meta property="og:image" content="https://github.githubassets.com/images/icons/emoji/unicode/2757.png?v8">
+<meta property="og:image" content="https://github.githubassets.com/images/icons/emoji/unicode/2757.png?v8">
+<meta property="og:image" content="https://github.githubassets.com/images/icons/emoji/unicode/2757.png?v8">
+<meta property="og:image" content="https://github.githubassets.com/images/icons/emoji/unicode/2757.png?v8">
+<meta property="og:image" content="https://github.githubassets.com/images/icons/emoji/unicode/1f4a5.png?v8">
+<meta property="og:image" content="https://github.githubassets.com/images/icons/emoji/unicode/1f4a5.png?v8">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250315140639067.png">
+<meta property="article:published_time" content="2025-03-15T06:16:14.546Z">
+<meta property="article:modified_time" content="2025-03-15T06:16:00.589Z">
 <meta property="article:author" content="archi">
-<meta property="article:tag" content="MARL">
 <meta property="article:tag" content="env">
+<meta property="article:tag" content="RL">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104191115218.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250315113225774.png">
   
   
-  <title>GRF环境配置 - Q&#39;s Blog</title>
+  <title>ubuntu18.04配置mujoco - Q&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -186,7 +191,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="GRF环境配置">
+            <span class="h2" id="subtitle" title="ubuntu18.04配置mujoco">
               
             </span>
 
@@ -196,8 +201,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2024-11-12 13:46" pubdate>
-        2024年11月12日 下午
+      <time datetime="2025-03-15 14:16" pubdate>
+        2025年3月15日 下午
       </time>
     </span>
   
@@ -207,7 +212,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.3k 字
+      3.2k 字
     </span>
   
 
@@ -216,7 +221,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      20 分钟
+      27 分钟
     </span>
   
 
@@ -257,74 +262,65 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">GRF环境配置</h1>
+            <h1 style="display: none">ubuntu18.04配置mujoco</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2024年11月12日 下午
+                  本文最后更新于：2025年3月15日 下午
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="grf环境配置">GRF环境配置</h1>
-<h2 id="源代码仓">源代码仓</h2>
-<blockquote>
-<p>https://github.com/google-research/football</p>
-</blockquote>
-<h2 id="安装依赖">安装依赖</h2>
-<figure class="highlight q"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs q">sudo apt-<span class="hljs-built_in">get</span> install git cmake build-essential libgl1-mesa-<span class="hljs-built_in">dev</span> libsdl2-<span class="hljs-built_in">dev</span> \<br>libsdl2-image-<span class="hljs-built_in">dev</span> libsdl2-ttf-<span class="hljs-built_in">dev</span> libsdl2-gfx-<span class="hljs-built_in">dev</span> libboost-<span class="hljs-built_in">all</span>-<span class="hljs-built_in">dev</span> \<br>libdirectfb-<span class="hljs-built_in">dev</span> libst-<span class="hljs-built_in">dev</span> mesa-utils xvfb x11vnc python3-pip<br><br>python3 -m pip install --upgrade pip setuptools psutil wheel<br></code></pre></div></td></tr></tbody></table></figure>
-<h2 id="安装gfootball">安装GFootball</h2>
-<figure class="highlight cmake"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cmake">python3 -m pip <span class="hljs-keyword">install</span> gfootball<br></code></pre></div></td></tr></tbody></table></figure>
-<blockquote>
-<p>报错1 ERROR: ERROR: Failed to build installable wheels for some
-pyproject.toml based projects (gfootball)</p>
-<p><img src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104191115218.png" srcset="/img/loading.gif" lazyload></p>
-<p>尝试解决方案1：更新wheel版本,0.44降到0.38.4，无效</p>
-<p>尝试解决方案2：先将GRF的代码仓clone下来，无效</p>
-<p>尝试解决方案3：无效</p>
-<p>查看cmake版本：<code>cmake --version</code>，报错如下图</p>
-<p><img src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104194836124.png" srcset="/img/loading.gif" lazyload></p>
-<p>但使用dpkg能够查到cmake，<code>dpkg -l | grep -E "cmake"</code>，如下图</p>
-<p><img src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104195030398.png" srcset="/img/loading.gif" lazyload></p>
-<p>使用<code>echo $PATH</code>发现cmake没有配置环境变量，修改.bashrc也无效（<code>export PATH="/usr/bin:$PATH"</code>）</p>
-<p>尝试解决方案4：删除cmake，重新安装——有效</p>
-<p>删除cmake，<code>sudo apt remove cmake</code></p>
-<p>重新安装cmake，<code>sudo apt-get install cmake</code></p>
-</blockquote>
-<blockquote>
-<p>报错2 ModuleNotFoundError: No module named 'skbuild'</p>
-<p><img src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104203225207.png" srcset="/img/loading.gif" lazyload></p>
-<p>尝试解决方案1：安装<code>skbuild</code>，<code>pip install scikit-build</code>，似乎有效。。。（反正用新终端再执行命令时，出现新错误了）</p>
-</blockquote>
-<blockquote>
-<p>报错3 Cannot find boost python</p>
-<p><img src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241104204540414.png" srcset="/img/loading.gif" lazyload></p>
-<p>参考issue：https://github.com/google-research/football/issues/310、https://github.com/google-research/football/issues/194</p>
-<p>尝试解决方案1：ubuntu18.04，创建一个python=3.6的虚拟环境。无效</p>
-<p>尝试解决方案2：clone代码仓，使用<code>python3 -m pip install .</code>安装。无效</p>
-<p>尝试解决方案3：修改cmakelist，使用<code>find . -name CMakeLists.txt</code>找到cmakelist，使用<code>find_package(PythonLibs 3.6 REQUIRED)</code>替换<code>find_package(PythonLibs 3 REQUIRED)</code>。无效</p>
-<p>尝试解决方案4：安装3.12版本cmake。参考https://blog.csdn.net/weixin_42035347/article/details/125763949</p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">下载CMake3.12（不需要解压到特定路径）<br>wget https://github.com/Kitware/CMake/releases/download/v3.12.0/cmake-3.12.0.tar.gz<br>或者 wget https://cmake.org/files/v3.12/cmake-3.12.0-Linux-x86_64.tar.gz<br>tar -zxvf cmake-3.12.0.tar.gz<br><span class="hljs-built_in">cd</span> cmake-3.12.0<br><br>编译和安装CMake<br>./bootstrap<br>make -j$(<span class="hljs-built_in">nproc</span>)<br>sudo make install<br></code></pre></div></td></tr></tbody></table></figure>
-<p>尝试解决方案5：参考https://blog.csdn.net/qq_26565435/article/details/129040032</p>
-<p>在<code>find_package</code>语句前添加<code>set(Boost_DEBUG ON)</code>，发现代码找Boost时，找到了anaconda/lib/cmake路径下（原因不明），修改文件名，让编译时找不到anaconda下的cmake</p>
-<p>尝试解决方案6：参考issuehttps://github.com/google-research/football/issues/317，完美解决（python=3.6，跟ubuntu18.04匹配）</p>
-<p><code>conda install py-boost</code></p>
-</blockquote>
-<h2 id="运行示例程序">运行示例程序</h2>
-<p><code>python3 -m gfootball.play_game --action_set=full</code></p>
-<blockquote>
-<p>报错4 signal 11</p>
-<p><img src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20241106145842569.png" srcset="/img/loading.gif" lazyload></p>
-<p>尝试解决方案1：参考issue：https://github.com/google-research/football/issues/154，无效</p>
-<p>尝试解决方案2：参考issue：https://github.com/google-research/football/issues/205，有效</p>
-<p>添加参数<code>--render=False</code></p>
-<p>尝试解决方案3：参考https://blog.csdn.net/FRIGIDWINTER/article/details/129301640，终端无反应，看起来无效</p>
-</blockquote>
-<h2 id="总结">总结</h2>
+              <h1 id="ubuntu18.04配置mujoco">ubuntu18.04配置mujoco</h1>
+<h2 id="流程">流程</h2>
+<h3 id="安装mujoco">安装mujoco</h3>
 <ol type="1">
-<li>conda环境python版本和ubuntu默认python版本一致，例如ubuntu=18.04，使用python=3.6</li>
-<li>conda环境中手动<code>conda install py-boost</code></li>
-<li>在服务器端运行环境时关闭渲染<code>--render=False</code></li>
+<li><p>下载mujoco，解压到<code>~/.mujoco</code>路径下</p></li>
+<li><p>下载<code>mjkey.txt</code>，分别存放到<code>~/.mujoco/mjkey.txt</code>和<code>~/.mujoco/mujoco200/bin/mjkey.txt</code></p></li>
+<li><p>修改<code>.bashrc</code>文件，添加环境变量</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">MUJOCO200 START</span><br>export MUJOCO_PATH=$HOME/.mujoco/mujoco200<br>export MUJOCO_KEY_PATH=$HOME/.mujoco/mjkey.txt<br>export LD_LIBRARY_PATH=$MUJOCO_PATH/bin<br>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/nvidia<br>export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGLEW.so<br><span class="hljs-meta prompt_"># </span><span class="language-bash">MUJOCO200 END</span><br></code></pre></div></td></tr></tbody></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250315113225774.png" srcset="/img/loading.gif" lazyload></p></li>
+</ol>
+<h3 id="安装mujoco-py">安装mujoco-py</h3>
+<ol type="1">
+<li><p>新建虚拟conda环境，<code>python==3.8</code></p></li>
+<li><p>降低<code>Cython</code>版本，<code>pip install Cython==0.29.30</code></p></li>
+<li><p><code>pip install mujoco-py==2.0.2.8</code></p></li>
+<li><p>测试</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">import</span> mujoco_py<br><span class="hljs-keyword">from</span> mujoco_py <span class="hljs-keyword">import</span> utils<br><span class="hljs-keyword">import</span> os<br>mj_path = utils.discover_mujoco()<br>xml_path = os.path.join(mj_path[<span class="hljs-number">0</span>], <span class="hljs-string">'model'</span>, <span class="hljs-string">'humanoid.xml'</span>)<br>model = mujoco_py.load_model_from_path(xml_path)<br>sim = mujoco_py.MjSim(model)<br><br><span class="hljs-built_in">print</span>(sim.data.qpos)<br><br>sim.step()<br><span class="hljs-built_in">print</span>(sim.data.qpos)<br></code></pre></div></td></tr></tbody></table></figure></li>
+</ol>
+<h2 id="报错">报错</h2>
+<ol type="1">
+<li><p>ERROR: Could not open activation key file mjkey.txt</p>
+<p>mjkey.txt存放路径错误.<code>.mujoco/mujoco200/bin</code>路径下需要有一个mjkey.txt，<code>./mujoco</code>下面也要有一个mjkey.txt。</p></li>
+<li><p>Cython.Compiler.Errors.CompileError:
+xxx/anaconda3/envs/DRL/lib/python3.7/site-packages/mujoco_py/cymj.pyx</p>
+<p>Cython版本降到<code>0.29.30</code>。</p></li>
+<li><p>最恶心的问题<span class="github-emoji"><span>😅</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f605.png?v8" srcset="/img/loading.gif" lazyload aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span>——subprocess.CalledProcessError: Command
+'['ldd',
+'xxx/anaconda3/envs/DRL/lib/python3.7/site-packages/mujoco_py/generated/_pyxbld_2.0.2.8_37_linuxcpuextensionbuilder/lib.linux-x86_64-cpython-37/mujoco_py/cymj.cpython-37m-x86_64-linux-gnu.so']'
+returned non-zero exit status 1.</p>
+<blockquote>
+<p><em>尝试定位问题，可跳过</em></p>
+<ul>
+<li>手动执行<code>ldd cymj.cpython-37m-x86_64-linux-gnu.so</code>报错【不是动态可执行文件】。</li>
+<li>猜测<code>cymj.cpython-37m-x86_64-linux-gnu.so</code>文件有问题。</li>
+<li>使用<code>file xxx/anaconda3/envs/DRL/lib/python3.7/site-packages/mujoco_py/generated/_pyxbld_2.0.2.8_37_linuxcpuextensionbuilder/lib.linux-x86_64-cpython-37/mujoco_py/cymj.cpython-37m-x86_64-linux-gnu.so</code>查看文件并没有损坏。</li>
+<li>猜测编译的<code>cymj.cpython-37m-x86_64-linux-gnu.so</code>内容有问题。</li>
+<li>使用<code>sudo update-alternatives --config gcc</code>降低<code>gcc</code>版本，使用<code>pip install mujoco-py==2.0.2.8 --no-cache-dir</code>重新安装<code>mujoco-py</code>，问题并没有解决。</li>
+</ul>
+</blockquote>
+<hr>
+<p>参考：https://wangchujiang.com/linux-command/c/ldd.html</p>
+<p>从上面的文档可以看出，<code>ldd</code>并不是一个原生命令，实际等价于运行<code>/lib/ld-linux.so.2 --list</code>，那直接运行<code>/lib/ld-linux.so.2 --list xxx/anaconda3/envs/DRL/lib/python3.7/site-packages/mujoco_py/generated/_pyxbld_2.0.2.8_37_linuxcpuextensionbuilder/lib.linux-x86_64-cpython-37/mujoco_py/cymj.cpython-37m-x86_64-linux-gnu.so</code></p>
+<p><span class="github-emoji"><span>❗</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/2757.png?v8" srcset="/img/loading.gif" lazyload aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span><span class="github-emoji"><span>❗</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/2757.png?v8" srcset="/img/loading.gif" lazyload aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span><span class="github-emoji"><span>❗</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/2757.png?v8" srcset="/img/loading.gif" lazyload aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span>报错：<code>wrong ELF class: ELFCLASS64</code><span class="github-emoji"><span>❗</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/2757.png?v8" srcset="/img/loading.gif" lazyload aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span><span class="github-emoji"><span>❗</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/2757.png?v8" srcset="/img/loading.gif" lazyload aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span><span class="github-emoji"><span>❗</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/2757.png?v8" srcset="/img/loading.gif" lazyload aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span></p>
+<p>gpt反馈问题原因【使用的动态链接器与共享库的架构不匹配】，即<code>/lib/ld-linux.so.2</code>是32位系统的动态链接器，而检查的共享库<code>cymj.cpython-38-x86_64-linux-gnu.so</code>是64位的。</p>
+<hr>
+<p><span class="github-emoji"><span>💥</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f4a5.png?v8" srcset="/img/loading.gif" lazyload aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span><strong>解决方案</strong><span class="github-emoji"><span>💥</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f4a5.png?v8" srcset="/img/loading.gif" lazyload aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span></p>
+<p>方案1：根据报错信息，找到<code>anaconda3/envs/环境名/lib/python3.8/site-packages/mujoco_py/builder.py</code>文件，按照下图所示修改<code>fix_shared_library</code>函数，再<code>import mujoco_py</code>没问题了</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">fix_shared_library</span>(<span class="hljs-params">so_file, name, library_path</span>):<br>    <span class="hljs-string">""" Used to fixup shared libraries on Linux """</span><br>    subprocess.check_call([<span class="hljs-string">'patchelf'</span>, <span class="hljs-string">'--remove-rpath'</span>, so_file])<br>    <span class="hljs-comment"># ldd_output = subprocess.check_output(['ldd', so_file]).decode('utf-8')</span><br>    ldd_output = subprocess.check_output([<span class="hljs-string">'/lib64/ld-linux-x86-64.so.2'</span>, <span class="hljs-string">'--list'</span>, so_file]).decode(<span class="hljs-string">'utf-8'</span>)<br><br>    <span class="hljs-keyword">if</span> name <span class="hljs-keyword">in</span> ldd_output:<br>        subprocess.check_call([<span class="hljs-string">'patchelf'</span>, <span class="hljs-string">'--remove-needed'</span>, name, so_file])<br>    subprocess.check_call([<span class="hljs-string">'patchelf'</span>, <span class="hljs-string">'--add-needed'</span>, library_path, so_file])<br></code></pre></div></td></tr></tbody></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/archi-z/image_hosting//SIGS/image-20250315140639067.png" srcset="/img/loading.gif" lazyload></p>
+<p>方案2：修改<code>ldd</code>脚本。运行<code>vim /usr/bin/ldd</code>，找到对应位置修改，这个方案可能影响比较大，需要对linux比较熟悉再做尝试。</p></li>
 </ol>
 
             </div>
@@ -335,7 +331,7 @@ pyproject.toml based projects (gfootball)</p>
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/MARL/">MARL</a>
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E7%A8%8B%E6%8A%80%E6%9C%AF/">工程技术</a>
                     
                   </div>
                 
@@ -343,9 +339,9 @@ pyproject.toml based projects (gfootball)</p>
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/MARL/">MARL</a>
-                    
                       <a class="hover-with-bg" href="/tags/env/">env</a>
+                    
+                      <a class="hover-with-bg" href="/tags/RL/">RL</a>
                     
                   </div>
                 
@@ -362,18 +358,12 @@ pyproject.toml based projects (gfootball)</p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/01/09/TRPO/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">TRPO论文笔记</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/11/11/pymarl/">
-                        <span class="hidden-mobile">pymarl源码解读</span>
+                      <a href="/2025/02/22/The_Primacy_Bias_in_Deep_Reinforcement_Learning/">
+                        <span class="hidden-mobile">The Primacy Bias in Deep Reinforcement Learning</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -16,19 +16,21 @@
   <meta name="author" content="archi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="TRPO论文笔记  摘要：一种策略改进过程，保证单调改进。通过对理论进行几次近似，开发了TRPO算法。该算法类似于自然梯度策略（natural policy gradient）方法。尽管近似值与理论有所偏差，但它往往能够实现单调改进，几乎不用调超参。  背景 大多数策略优化算法可以分为三类：1）策略迭代方法（policy iteration methods），即基于值函数的方法；2">
+    <meta name="description" content="TRPO论文笔记  摘要：一种策略改进过程，保证单调改进。通过对理论进行几次近似，开发了TRPO算法。该算法类似于自然梯度策略（natural policy gradient）方法。尽管近似值与理论有所偏差，但它往往能够实现单调改进，几乎不用调超参。  背景 大多数策略优化算法可以分为三类：1）策略迭代方法（policy iteration methods），即基于值函数的方法；2）策略梯度方法（">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TRPO论文笔记">
 <meta property="og:url" content="https://qi-z.cn/2025/01/09/TRPO/index.html">
 <meta property="og:site_name" content="Q&#39;s Blog">
-<meta property="og:description" content="TRPO论文笔记  摘要：一种策略改进过程，保证单调改进。通过对理论进行几次近似，开发了TRPO算法。该算法类似于自然梯度策略（natural policy gradient）方法。尽管近似值与理论有所偏差，但它往往能够实现单调改进，几乎不用调超参。  背景 大多数策略优化算法可以分为三类：1）策略迭代方法（policy iteration methods），即基于值函数的方法；2">
+<meta property="og:description" content="TRPO论文笔记  摘要：一种策略改进过程，保证单调改进。通过对理论进行几次近似，开发了TRPO算法。该算法类似于自然梯度策略（natural policy gradient）方法。尽管近似值与理论有所偏差，但它往往能够实现单调改进，几乎不用调超参。  背景 大多数策略优化算法可以分为三类：1）策略迭代方法（policy iteration methods），即基于值函数的方法；2）策略梯度方法（">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20250104195614428.png">
 <meta property="article:published_time" content="2025-01-09T13:10:07.274Z">
 <meta property="article:modified_time" content="2025-01-09T13:51:05.423Z">
 <meta property="article:author" content="archi">
 <meta property="article:tag" content="MARL">
 <meta property="article:tag" content="论文笔记">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20250104195614428.png">
   
   
   <title>TRPO论文笔记 - Q&#39;s Blog</title>
@@ -72,7 +74,9 @@
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 6.1.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
 
 
 <body>
@@ -274,29 +278,20 @@ programming）和基于梯度的方法无法击败无导数优化方法，这是
 <p>文章证明<strong>最小化某个替代目标函数可以保证策略改进</strong>。通过对理论算法进行一系列近似，文章给出了TRPO算法。文章给出了这个算法的两种变体——single
 path和vine。前者可以应用于model-free场景，后者需要将系统恢复到特定状态（这通常只能在模拟中实现）。</p>
 <h2 id="预备知识">预备知识</h2>
-<p>基于策略<span class="math inline">\(\pi\)</span>的期望收益<span
-class="math inline">\(\eta(\pi)\)</span>和优势函数<span
-class="math inline">\(A_{\pi}(s_{t},a_{t})\)</span>，计算策略<span
-class="math inline">\(\widetilde{\pi}\)</span>的期望收益<span
-class="math inline">\(\eta(\widetilde{\pi})\)</span>，公式如下： <span
-class="math display">\[
+<p>基于策略<span class="math inline">\(\pi\)</span>的期望收益<span class="math inline">\(\eta(\pi)\)</span>和优势函数<span class="math inline">\(A_{\pi}(s_{t},a_{t})\)</span>，计算策略<span class="math inline">\(\widetilde{\pi}\)</span>的期望收益<span class="math inline">\(\eta(\widetilde{\pi})\)</span>，公式如下： <span class="math display">\[
 \eta(\widetilde{\pi})=\eta(\pi)+E_{s_0,a_0,...\sim\color{red}\widetilde{\pi}}[\sum_{t=0}^{\infty}\gamma^{t}A_{\color{red}\pi}(s_{t},a_{t})]
 \tag{1}
 \]</span></p>
 <blockquote>
 <p>证明：</p>
 </blockquote>
-<p>定义策略<span class="math inline">\(\pi\)</span>下状态<span
-class="math inline">\(s\)</span>的<strong>折扣状态访问频率（discounted
-visitation frequencies）</strong>为<span
-class="math inline">\(\rho_{\pi}(s)\)</span>如下： <span
-class="math display">\[
+<p>定义策略<span class="math inline">\(\pi\)</span>下状态<span class="math inline">\(s\)</span>的<strong>折扣状态访问频率（discounted
+visitation frequencies）</strong>为<span class="math inline">\(\rho_{\pi}(s)\)</span>如下： <span class="math display">\[
 \rho_{\pi}(s)=P(s_{0}=s)+\gamma P(s_{1}=s)+\gamma^{2}P(s_{2}=s)+\dots
 \tag{2}
 \]</span></p>
 <blockquote>
-<p>上面的折扣状态访问频率未归一化，归一化形式为<span
-class="math inline">\(\rho_{\pi}(s) = (1 - \gamma) \sum_{t=0}^{\infty}
+<p>上面的折扣状态访问频率未归一化，归一化形式为<span class="math inline">\(\rho_{\pi}(s) = (1 - \gamma) \sum_{t=0}^{\infty}
 \gamma^{t} P(s_{t}=s)\)</span></p>
 </blockquote>
 <p>基于折扣状态访问频率，期望收益计算公式可以改写为基于状态分布的形式，如下：
@@ -315,53 +310,27 @@ A_{\pi}(s,a) \\
 \]</span></p>
 <blockquote>
 <p><span class="math inline">\(\sum_{a} \widetilde{\pi}(a|s)
-A_{\pi}(s,a)\)</span>可以看作对策略<span
-class="math inline">\(\pi\)</span>的优势函数<span
-class="math inline">\(A_{\pi}\)</span>的加权求和，策略改进即调整一组更好的权重。</p>
+A_{\pi}(s,a)\)</span>可以看作对策略<span class="math inline">\(\pi\)</span>的优势函数<span class="math inline">\(A_{\pi}\)</span>的加权求和，策略改进即调整一组更好的权重。</p>
 </blockquote>
-<p>从等式（3）可以看出，如果我们能够保证，从策略<span
-class="math inline">\(\pi\)</span>更新到策略<span
-class="math inline">\(\widetilde{\pi}\)</span>，对于每一个状态<span
-class="math inline">\(s\)</span>，都有非负的期望优势，即<span
-class="math inline">\(\sum_{a} \widetilde{\pi}(a|s) A_{\pi}(s,a) \geq
-0\)</span>，就能实现策略的单调改进。这个结果和使用确定性策略进行策略迭代的过程也具有一致性，策略迭代中策略改进采用<span
-class="math inline">\(\widetilde{\pi}(s)=argmax_{a}A_{\pi}(s,a)\)</span>，如果存在<span
-class="math inline">\((s,a)\)</span>使得<span
-class="math inline">\({A_{\pi}(s,a)} \gt
+<p>从等式（3）可以看出，如果我们能够保证，从策略<span class="math inline">\(\pi\)</span>更新到策略<span class="math inline">\(\widetilde{\pi}\)</span>，对于每一个状态<span class="math inline">\(s\)</span>，都有非负的期望优势，即<span class="math inline">\(\sum_{a} \widetilde{\pi}(a|s) A_{\pi}(s,a) \geq
+0\)</span>，就能实现策略的单调改进。这个结果和使用确定性策略进行策略迭代的过程也具有一致性，策略迭代中策略改进采用<span class="math inline">\(\widetilde{\pi}(s)=argmax_{a}A_{\pi}(s,a)\)</span>，如果存在<span class="math inline">\((s,a)\)</span>使得<span class="math inline">\({A_{\pi}(s,a)} \gt
 0\)</span>，则策略将得到改善，否则，算法收敛到最优策略。</p>
-<p><strong>第一次近似：</strong>等式(3)的计算依赖于<span
-class="math inline">\(\rho_{\widetilde{\pi}}(s)\)</span>，这意味着需要用改进策略<span
-class="math inline">\(\widetilde{\pi}\)</span>来采样（而不是用原策略<span
-class="math inline">\(\pi\)</span>），用所有可能的改进策略<span
-class="math inline">\(\widetilde{\pi}\)</span>采样并计算其期望收益是不现实的，因此论文做出如下近似（即忽略了策略变化对状态访问频率的影响）：
+<p><strong>第一次近似：</strong>等式(3)的计算依赖于<span class="math inline">\(\rho_{\widetilde{\pi}}(s)\)</span>，这意味着需要用改进策略<span class="math inline">\(\widetilde{\pi}\)</span>来采样（而不是用原策略<span class="math inline">\(\pi\)</span>），用所有可能的改进策略<span class="math inline">\(\widetilde{\pi}\)</span>采样并计算其期望收益是不现实的，因此论文做出如下近似（即忽略了策略变化对状态访问频率的影响）：
 <span class="math display">\[
 L_{\pi}(\widetilde{\pi}) = \eta(\pi) + \sum_{s} \rho_{\color{red}
 \pi}(s) \sum_{a} \widetilde{\pi}(a|s) A_{\pi}(s,a)
-\]</span> 假设有参数化策略<span
-class="math inline">\(\pi_{\theta}\)</span>，并且策略<span
-class="math inline">\(\pi_{\theta}\)</span>关于参数<span
-class="math inline">\(\theta\)</span>可微，上述近似函数<span
-class="math inline">\(L_{\pi}\)</span>和原函数<span
-class="math inline">\(\eta\)</span>一阶匹配。表示如下： <span
-class="math display">\[
+\]</span> 假设有参数化策略<span class="math inline">\(\pi_{\theta}\)</span>，并且策略<span class="math inline">\(\pi_{\theta}\)</span>关于参数<span class="math inline">\(\theta\)</span>可微，上述近似函数<span class="math inline">\(L_{\pi}\)</span>和原函数<span class="math inline">\(\eta\)</span>一阶匹配。表示如下： <span class="math display">\[
 \begin{align*}
 L_{\pi_{\theta_{0}}}(\pi_{\theta_{0}}) &amp;= \eta(\pi_{\theta_{0}}) \\
 \nabla_{\theta} L_{\pi_{\theta_{0}}}(\pi_{\theta})|_{\theta=\theta_{0}}
 &amp;= \nabla_{\theta} \eta(\pi_{\theta})|_{\theta=\theta_{0}}
 \tag{4}
 \end{align*}
-\]</span> 上述结论表明，<strong>在策略变化较小的情况下，对<span
-class="math inline">\(L\)</span>的改进也将导致<span
-class="math inline">\(\eta\)</span>的改进</strong>。但该结论没有提供一个具体的步长设置的指导。</p>
+\]</span> 上述结论表明，<strong>在策略变化较小的情况下，对<span class="math inline">\(L\)</span>的改进也将导致<span class="math inline">\(\eta\)</span>的改进</strong>。但该结论没有提供一个具体的步长设置的指导。</p>
 <p>2002年，Kakade &amp;
 Langford提出了一种策略更新方案叫做保守策略迭代（conservative policy
-iteration），并且他们能够给出<span
-class="math inline">\(\eta\)</span>改进的明确下限。假设<span
-class="math inline">\(\pi_{old}\)</span>表示当前策略，<span
-class="math inline">\(\pi^{\prime} = argmax_{\pi^{\prime}}
-L_{\pi_{old}}(\pi^{\prime})\)</span>，改进策略<span
-class="math inline">\(\pi_{new}\)</span>定义如下： <span
-class="math display">\[
+iteration），并且他们能够给出<span class="math inline">\(\eta\)</span>改进的明确下限。假设<span class="math inline">\(\pi_{old}\)</span>表示当前策略，<span class="math inline">\(\pi^{\prime} = argmax_{\pi^{\prime}}
+L_{\pi_{old}}(\pi^{\prime})\)</span>，改进策略<span class="math inline">\(\pi_{new}\)</span>定义如下： <span class="math display">\[
 \pi_{new}(a|s) = (1-\alpha) \pi_{old}(a|s) + \alpha \pi^{\prime}(a|s)
 \tag{5}
 \]</span> 该方法给出<span class="math inline">\(\eta\)</span>下限如下：
@@ -372,19 +341,11 @@ class="math display">\[
 \]</span>
 这个界限仅适用于由公式(5)生成的混合策略。这种策略在实际使用中笨重且受限，实际的策略更新方案最好适用于所有一般随机策略。</p>
 <h2 id="一般随机策略的单调改进保证">一般随机策略的单调改进保证</h2>
-<p>等式(6)表明，如果策略更新能够改进不等式右侧，就能够保证提高真实性能<span
-class="math inline">\(\eta\)</span>。这篇文章的主要理论结果即，<strong>通过将<span
-class="math inline">\(\alpha\)</span>替换为<span
-class="math inline">\(\pi\)</span>和<span
-class="math inline">\(\widetilde{\pi}\)</span>的距离，并且适当调整<span
-class="math inline">\(\epsilon\)</span>，就可以将等式(6)的策略性能下限扩展到一般随机策略</strong>。本文采用全变差距离（total
+<p>等式(6)表明，如果策略更新能够改进不等式右侧，就能够保证提高真实性能<span class="math inline">\(\eta\)</span>。这篇文章的主要理论结果即，<strong>通过将<span class="math inline">\(\alpha\)</span>替换为<span class="math inline">\(\pi\)</span>和<span class="math inline">\(\widetilde{\pi}\)</span>的距离，并且适当调整<span class="math inline">\(\epsilon\)</span>，就可以将等式(6)的策略性能下限扩展到一般随机策略</strong>。本文采用全变差距离（total
 variation divergence）对策略进行距离度量。</p>
 <p><strong>全变差距离：</strong><span class="math inline">\(D_{TV}(p ||
-q) = \frac{1}{2} \sum_{i} |p_{i} - q_{i}|\)</span>，其中<span
-class="math inline">\(p,q\)</span>表示离散随机变量的分布律（结论可以通过用积分代替求和直接扩展到连续状态和动作场景）</p>
-<p>定义策略<span class="math inline">\(\pi\)</span>和策略<span
-class="math inline">\(\widetilde{\pi}\)</span>距离如下： <span
-class="math display">\[
+q) = \frac{1}{2} \sum_{i} |p_{i} - q_{i}|\)</span>，其中<span class="math inline">\(p,q\)</span>表示离散随机变量的分布律（结论可以通过用积分代替求和直接扩展到连续状态和动作场景）</p>
+<p>定义策略<span class="math inline">\(\pi\)</span>和策略<span class="math inline">\(\widetilde{\pi}\)</span>距离如下： <span class="math display">\[
 D_{TV}^{max}(\pi, \widetilde{\pi}) = \max_{s}
 D_{TV}(\pi(\cdot|s)||\widetilde{\pi}(\cdot|s)) \tag{7}
 \]</span> <strong>定理1：</strong>定义<span class="math inline">\(\alpha
@@ -400,8 +361,7 @@ D_{TV}(\pi(\cdot|s)||\widetilde{\pi}(\cdot|s)) \tag{7}
 <blockquote>
 <p>证明：</p>
 </blockquote>
-<p>因为全变差距离和KL散度具有如下关系<span
-class="math inline">\(D_{TV}(p || q)^2 \le D_{KL}(p ||
+<p>因为全变差距离和KL散度具有如下关系<span class="math inline">\(D_{TV}(p || q)^2 \le D_{KL}(p ||
 q)\)</span>，定义<span class="math inline">\(D_{KL}^{max}(\pi,
 \widetilde{\pi})=max_{s}D_{KL}(\pi(\cdot|s)||\widetilde{\pi}(\cdot|s))\)</span>，可以得到如下策略性能下限：
 <span class="math display">\[
@@ -412,8 +372,7 @@ CD_{KL}^{max}(\pi, \widetilde{\pi}) \\
     \tag{9}
 \end{align*}
 \]</span> 定义<span class="math inline">\(M_{i}(\pi) = L_{\pi_{i}}(\pi)
-- CD_{KL}^{max}(\pi_{i},\pi)\)</span>，于是有如下推导： <span
-class="math display">\[
+- CD_{KL}^{max}(\pi_{i},\pi)\)</span>，于是有如下推导： <span class="math display">\[
 \begin{align*}
     \eta(\pi_{i+1}) &amp;\ge M_{i}(\pi_{i+1}) \\
     \eta(\pi_{i}) &amp;= M_{i}(\pi_{i}) \\
@@ -421,41 +380,24 @@ class="math display">\[
 M_{i}(\pi_{i})
     \tag{10}
 \end{align*}
-\]</span> 由此可以得到，<strong>通过在每轮迭代时最大化<span
-class="math inline">\(M_{i}(\pi_{i+1})\)</span>，算法能够保证真实策略性能<span
-class="math inline">\(\eta\)</span>单调提升</strong>。这篇文章基于此提出了一个近似策略迭代方案（TRPO算法是对该方案的近似），如下图：</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20250104195614428.png" srcset="/img/loading.gif" lazyload /></p>
+\]</span> 由此可以得到，<strong>通过在每轮迭代时最大化<span class="math inline">\(M_{i}(\pi_{i+1})\)</span>，算法能够保证真实策略性能<span class="math inline">\(\eta\)</span>单调提升</strong>。这篇文章基于此提出了一个近似策略迭代方案（TRPO算法是对该方案的近似），如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/VON-z/image_hosting//SIGS/image-20250104195614428.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="参数化策略的优化">参数化策略的优化</h2>
-<p>前面考虑问题时没有深入到策略参数层面。现在考虑参数化策略<span
-class="math inline">\(\pi_{\theta}(a|s)\)</span>，并使用<span
-class="math inline">\(\theta\)</span>重写前面的符号，例如<span
-class="math inline">\(\eta(\theta) := \eta(\pi_{\theta})\)</span>,<span
-class="math inline">\(L_{\theta}(\widetilde{\theta}) :=
+<p>前面考虑问题时没有深入到策略参数层面。现在考虑参数化策略<span class="math inline">\(\pi_{\theta}(a|s)\)</span>，并使用<span class="math inline">\(\theta\)</span>重写前面的符号，例如<span class="math inline">\(\eta(\theta) := \eta(\pi_{\theta})\)</span>,<span class="math inline">\(L_{\theta}(\widetilde{\theta}) :=
 L_{\pi_{\theta}}(\pi_{\widetilde{\theta}})\)</span>。</p>
 <p>前面的章节已经表明，<span class="math inline">\(\eta(\theta) \ge
 L_{\theta_{old}}(\theta) - CD_{KL}^{max}(\theta_{old},
 \theta)\)</span>，在<span class="math inline">\(\theta =
-\theta_{old}\)</span>时不等式取等号，为了保证策略性能<span
-class="math inline">\(\eta\)</span>单调改进，优化目标为<span
-class="math inline">\(\max_{\theta} [L_{\theta_{old}}(\theta)
+\theta_{old}\)</span>时不等式取等号，为了保证策略性能<span class="math inline">\(\eta\)</span>单调改进，优化目标为<span class="math inline">\(\max_{\theta} [L_{\theta_{old}}(\theta)
 -CD_{KL}^{max}(\theta_{old}, \theta)]\)</span>。</p>
-<p>实际上，<strong>如果我们使用上述理论推荐的惩罚系数<span
-class="math inline">\(C\)</span>，步长将会非常小。一种方式是针对新旧策略的<span
-class="math inline">\(KL\)</span>散度施加约束，即一个信任区域</strong>：
+<p>实际上，<strong>如果我们使用上述理论推荐的惩罚系数<span class="math inline">\(C\)</span>，步长将会非常小。一种方式是针对新旧策略的<span class="math inline">\(KL\)</span>散度施加约束，即一个信任区域</strong>：
 <span class="math display">\[
 \begin{align*}
     &amp; \max_{\theta} L_{\theta_{old}}(\theta) \\
     &amp; s.t.D_{KL}^{max}(\theta_{old}, \theta) \le \delta
     \tag{11}
 \end{align*}
-\]</span> <strong>第二次近似：</strong>上面约束计算新旧参数的<span
-class="math inline">\(KL\)</span>散度是针对所有状态<span
-class="math inline">\(s\)</span>求<span
-class="math inline">\(max\)</span>，因此虽然上式是由理论推导得到的，但在实际中直接优化这个问题是非常困难的。因此论文使用平均<span
-class="math inline">\(KL\)</span>散度替代<span
-class="math inline">\(max\)</span>操作，即： <span
-class="math display">\[
+\]</span> <strong>第二次近似：</strong>上面约束计算新旧参数的<span class="math inline">\(KL\)</span>散度是针对所有状态<span class="math inline">\(s\)</span>求<span class="math inline">\(max\)</span>，因此虽然上式是由理论推导得到的，但在实际中直接优化这个问题是非常困难的。因此论文使用平均<span class="math inline">\(KL\)</span>散度替代<span class="math inline">\(max\)</span>操作，即： <span class="math display">\[
 \bar{D}_{KL}^{\rho}(\theta_{1},\theta_{2}) := E_{\color{red} s \sim
 \rho_{\pi_{\theta_{1}}}}[D_{KL}(\pi_{\theta_{1}}(\cdot|s) ||
 \pi_{\theta_{2}}(\cdot|s))]
@@ -468,11 +410,7 @@ class="math display">\[
 \end{align*}
 \]</span></p>
 <h2 id="基于样本估计目标和约束">基于样本估计目标和约束</h2>
-<p>现在考虑<strong>使用蒙特卡洛模拟，用采样样本近似目标函数和约束函数</strong>。目标是求解下面的优化问题（对<span
-class="math inline">\(L_{\theta_{old}}\)</span>展开，其中<span
-class="math inline">\(\eta(\theta_{old})\)</span>相对于优化变量<span
-class="math inline">\(\theta\)</span>为常数，直接舍去）： <span
-class="math display">\[
+<p>现在考虑<strong>使用蒙特卡洛模拟，用采样样本近似目标函数和约束函数</strong>。目标是求解下面的优化问题（对<span class="math inline">\(L_{\theta_{old}}\)</span>展开，其中<span class="math inline">\(\eta(\theta_{old})\)</span>相对于优化变量<span class="math inline">\(\theta\)</span>为常数，直接舍去）： <span class="math display">\[
 \begin{align*}
     \max_{\theta} \space &amp; \sum_{s} \rho_{\theta_{old}}(s) \sum_{a}
 \pi_{\theta}(a|s) A_{\theta_{old}}(s,a) \\
@@ -482,17 +420,11 @@ class="math display">\[
 \end{align*}
 \]</span> 对上面的优化问题做3次替换：</p>
 <ol type="1">
-<li>将<span
-class="math inline">\(\sum_{s}\rho_{\theta_{old}}(s)[...]\)</span>替换为<span
-class="math inline">\(E_{s \sim
-\rho_{\theta_{old}}}[...]\)</span>（原文中还有<span
-class="math inline">\(\frac{1}{1 -
+<li>将<span class="math inline">\(\sum_{s}\rho_{\theta_{old}}(s)[...]\)</span>替换为<span class="math inline">\(E_{s \sim
+\rho_{\theta_{old}}}[...]\)</span>（原文中还有<span class="math inline">\(\frac{1}{1 -
 \gamma}\)</span>系数，一方面我没看懂怎么推出来的，另一方面这个系数不影响优化问题本身，因此忽略）</li>
-<li>将<span class="math inline">\(A_{\theta_{old}}\)</span>替换为<span
-class="math inline">\(Q_{\theta_{old}}\)</span></li>
-<li>将关于动作<span class="math inline">\(a\)</span>的求和<span
-class="math inline">\(\sum_a\)</span>替换为一个重要度采样估计量：<span
-class="math inline">\(\sum_{a} \pi_{\theta}(a|s_{n})
+<li>将<span class="math inline">\(A_{\theta_{old}}\)</span>替换为<span class="math inline">\(Q_{\theta_{old}}\)</span></li>
+<li>将关于动作<span class="math inline">\(a\)</span>的求和<span class="math inline">\(\sum_a\)</span>替换为一个重要度采样估计量：<span class="math inline">\(\sum_{a} \pi_{\theta}(a|s_{n})
 A_{\theta_{old}}(s_{n},a) = E_{a \sim
 q}[\frac{\pi_{\theta}(a|s_{n})}{q(a|s_{n})}
 A_{\theta_{old}}(s_{n},a)]\)</span></li>
@@ -509,16 +441,10 @@ q}[\frac{\pi_{\theta}(a|s)}{q(a|s)}Q_{\theta_{old}}(s,a)] \\
 \]</span> 下面介绍两种采样方案——single path和vine</p>
 <h3 id="single-path">Single Path</h3>
 <p>基于<span class="math inline">\(s_{0} \sim
-\rho_{0}\)</span>分布，收集一系列状态序列，模拟<span
-class="math inline">\(\pi_{\theta_{old}}\)</span>策略执行若干时间步，生成轨迹<span
-class="math inline">\(s_{0},a_{0},s_{1},a_{1},...,s_{T-1},a_{T-1},s_{T}\)</span>。这种方案下，<span
-class="math inline">\(q(a|s)=\pi_{\theta_{old}}(a|s)\)</span>。</p>
+\rho_{0}\)</span>分布，收集一系列状态序列，模拟<span class="math inline">\(\pi_{\theta_{old}}\)</span>策略执行若干时间步，生成轨迹<span class="math inline">\(s_{0},a_{0},s_{1},a_{1},...,s_{T-1},a_{T-1},s_{T}\)</span>。这种方案下，<span class="math inline">\(q(a|s)=\pi_{\theta_{old}}(a|s)\)</span>。</p>
 <h3 id="vine">Vine</h3>
 <p>基于<span class="math inline">\(s_{0} \sim
-\rho_{0}\)</span>分布，收集一系列状态序列，模拟<span
-class="math inline">\(\pi_{\theta_{i}}\)</span>策略生成轨迹。然后沿着这些轨迹，选择关于<span
-class="math inline">\(N\)</span>个状态的子集，表示为<span
-class="math inline">\(s_{1},s_{2},...,s_{N}\)</span></p>
+\rho_{0}\)</span>分布，收集一系列状态序列，模拟<span class="math inline">\(\pi_{\theta_{i}}\)</span>策略生成轨迹。然后沿着这些轨迹，选择关于<span class="math inline">\(N\)</span>个状态的子集，表示为<span class="math inline">\(s_{1},s_{2},...,s_{N}\)</span></p>
 <h2 id="qa">Q&amp;A</h2>
 <ol type="1">
 <li><p>什么是自然梯度策略（natural policy gradient）？</p></li>
